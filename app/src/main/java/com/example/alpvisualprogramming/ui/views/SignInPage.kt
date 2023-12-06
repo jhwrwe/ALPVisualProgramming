@@ -65,7 +65,8 @@ fun SignInPageView(){
 
             Row (modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 10.dp)){
+                .padding(horizontal = 10.dp)
+                .padding(bottom=20.dp)){
                 Text(text = "Create Account",color = Color(0xFF3F3F3F), fontWeight = FontWeight.Bold, textAlign = TextAlign.Right,modifier = Modifier.fillMaxWidth())
                 Icon(Icons.Rounded.ArrowForward, contentDescription = "Back")
             }
