@@ -45,11 +45,10 @@ fun SignInPageView(){
                 )
                 .clip(RoundedCornerShape(topEnd = 100.dp))
         ) {
-            Text(text = "Be more productive with '...' and start", color = Color.Gray, fontWeight = FontWeight.SemiBold,fontSize = 15.sp)
-            Text(text = "writing your to-do list", color = Color.Gray, fontWeight = FontWeight.SemiBold,fontSize = 15.sp)
-            Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth().padding(10.dp)) {
-                Text(text = "Sign In")
-                
+            Text(text = "Be more productive with '...' and start", color = Color.Gray, fontWeight = FontWeight.SemiBold,fontSize = 15.sp, modifier = Modifier.padding(horizontal = 20.dp) .padding(vertical = 2.dp))
+            Text(text = "writing your to-do list", color = Color.Gray, fontWeight = FontWeight.SemiBold,fontSize = 15.sp, modifier = Modifier.padding(horizontal = 20.dp) .padding(vertical = 2.dp))
+            Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth().padding(10.dp),colors = ButtonDefaults.buttonColors(Color.Blue)) {
+                Text(text = "Sign In", fontWeight = FontWeight.Bold,fontSize = 15.sp)
             }
         }
     }
