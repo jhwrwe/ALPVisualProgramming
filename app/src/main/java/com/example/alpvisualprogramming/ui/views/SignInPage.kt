@@ -17,6 +17,7 @@ import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -43,10 +44,9 @@ fun SignInPageView(){
             Text(text = "Application name", color = Color.White,fontSize = 40.sp, fontWeight = FontWeight.Bold)
         }
 
-        Column(
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
                 .clip(RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp))
                 .border(2.dp, Color.Gray, RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp))
         ) {
@@ -63,12 +63,28 @@ fun SignInPageView(){
             }
 4
 
-            Row (modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp)){
-                Text(text = "Create Account",color = Color(0xFF3F3F3F), fontWeight = FontWeight.Bold, textAlign = TextAlign.Right,modifier = Modifier.fillMaxWidth())
-                Icon(Icons.Rounded.ArrowForward, contentDescription = "Back")
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp)
+                    .padding(bottom=20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Create Account",
+                    color = Color(0xFF3F3F3F),
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Right,
+                    modifier = Modifier.fillMaxWidth(0.85f)
+                )
+                Icon(
+                    imageVector = Icons.Rounded.ArrowForward,
+                    contentDescription = "Arrow Icon",
+                    tint = Color(0xFF3F3F3F)
+                )
             }
+
         }
     }
 }
