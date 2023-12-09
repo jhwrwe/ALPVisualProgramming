@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-//import androidx.compose.foundation.layout.BoxScopeInstance.align
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,6 +28,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -98,7 +98,7 @@ fun missionView() {
                                 )
                             )
                             .height(height = 235.dp)
-                            .background(Color(0xFF3657C9)),
+                            .background(Color(0xFF3960E6)),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Row(
@@ -335,16 +335,17 @@ fun missionView() {
         Column(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxSize(),
+                .padding(top = 8.dp)
+                .shadow(8.dp)
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
             Row(
                 modifier = Modifier
-                    .height(92.dp)
-                    .padding(top = 12.dp)
-                    .shadow(12.dp)
+                    .height(80.dp)
                     .fillMaxWidth()
+                    .shadow(8.dp)
                     .background(Color(0xFFF3F8FF)),
             ) {
                 Spacer(modifier = Modifier.padding(6.dp))
@@ -388,9 +389,106 @@ fun missionView() {
         }
         // Footer ================================================================================================================
     }
-
     // Container ================================================================================================================
 
+}
+
+@Composable
+fun Missions() {
+    Card (
+        modifier = Modifier
+            .height(150.dp)
+            .fillMaxSize()
+            .padding(start = 8.dp, end = 8.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFF3F8FF)),
+    ){
+        Row (
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ){
+            Column (
+                modifier = Modifier
+                    .weight(2f)
+                    .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+                    .background(Color(0xFFF3F8FF)),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ){
+                Image(
+                    painter = painterResource(id = R.drawable.coin_logo),
+                    contentDescription = "coin_logo",
+                    modifier = Modifier
+                        .size(25.dp)
+                )
+                Text(
+                    text = "+30",
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.SemiBold,
+
+                    )
+            }
+            Column (
+                modifier = Modifier
+                    .weight(5f)
+                    .fillMaxSize()
+                    .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+                    .background(Color(0xFFF3F8FF)),
+                verticalArrangement = Arrangement.Center
+            ){
+                Text(
+                    text = "TASK_NAME",
+                    fontSize = 20.sp,
+                    color = Color(0xFF3F3F3F),
+                    fontWeight = FontWeight.SemiBold,
+                    lineHeight = 24.sp,
+
+                    )
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    text = "blablablablablablablablablabla \nblablablablablablablablablabla",
+                    fontSize = 12.sp,
+                    color = Color(0xFFA0A4A7),
+                    fontWeight = FontWeight.SemiBold,
+
+                    )
+            }
+            Column (
+                modifier = Modifier
+                    .weight(3f)
+                    .fillMaxSize()
+                    .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+                    .background(Color(0xFFF3F8FF)),
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.Center
+            ){
+                Button(
+                    onClick = {},
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3960E6)),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        text = "Claim",
+                        fontSize = 16.sp,
+                        color = Color.White,
+                        lineHeight = 18.sp
+                    )
+                }
+                Text(
+                    text = "1/5",
+                    fontSize = 18.sp,
+                    color = Color(0xFF3F3F3F),
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Right
+
+                )
+
+            }
+        }
+    }
 }
 
 @Composable
@@ -402,17 +500,17 @@ fun Badges(title: String, price: String, picture: String) {
 
     Column(
         modifier = Modifier
-            .padding(top = 1.dp, bottom = 10.dp, start = 4.dp, end = 4.dp)
+            .padding(top = 10.dp, start = 4.dp, end = 4.dp)
             .width(160.dp)
             .height(210.dp)
     ) {
         Card(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
                 .padding(start = 4.dp, end = 4.dp, bottom = 2.dp)
                 .shadow(6.dp, shape = RoundedCornerShape(12.dp))
                 .clip(RoundedCornerShape(12.dp)),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFF3F8FF))
         ) {
             Column(
                 modifier = Modifier
@@ -443,7 +541,7 @@ fun Badges(title: String, price: String, picture: String) {
                         .weight(2f)
                         .fillMaxWidth()
                         .clickable { badgeBoolean = true }
-                        .background(Color(0xFF3657C9)),
+                        .background(Color(0xFF3960E6)),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
@@ -534,11 +632,11 @@ fun Badges(title: String, price: String, picture: String) {
                             onClick = {
                                 badgeBoolean = false
                             },
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3657C9)),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3960E6)),
                             modifier = Modifier
                                 .fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp)
-                            ) {
+                        ) {
                             Text(
                                 text = "Buy",
                                 fontSize = 16.sp,
@@ -569,10 +667,7 @@ fun bottomFooter(title: String, picture: String, modifier: Modifier = Modifier, 
                 .fillMaxWidth()
                 .padding(start = 8.dp, end = 8.dp)
                 .size(35.dp)
-                .clickable {
-                    val toast = Toast.makeText(context, "$picture button", Toast.LENGTH_SHORT)
-                    toast.show()
-                },
+                .clickable {},
             colorFilter = ColorFilter.tint(color)
         )
         Text(
@@ -593,31 +688,10 @@ fun stringToDrawableId(context: Context, resourceName: String): Int {
     return context.resources.getIdentifier(resourceName, "drawable", context.packageName)
 }
 
-@Composable
-fun showAlertDialog(name: String) {
-    // Show an AlertDialog based on the name
-    AlertDialog(
-        onDismissRequest = {},
-        title = {
-            Text(text = name)
-        },
-        text = {
-            Text(text = "You clicked on $name")
-        },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    // Handle confirmation
-                }
-            ) {
-                Text("OK")
-            }
-        }
-    )
-}
+
 
 @Preview(showSystemUi = false, showBackground = true)
 @Composable
 fun Preview() {
-    missionView()
+    Missions()
 }
