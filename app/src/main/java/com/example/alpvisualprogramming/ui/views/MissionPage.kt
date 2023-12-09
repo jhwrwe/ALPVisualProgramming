@@ -1,17 +1,10 @@
 package com.example.alpvisualprogramming.ui.views
 
-<<<<<<< HEAD
-=======
 //import androidx.compose.foundation.layout.BoxScopeInstance.align
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-<<<<<<< HEAD
-import androidx.compose.foundation.border
-=======
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -81,17 +74,10 @@ fun missionView() {
     ) {
         Box(
             modifier = Modifier
-<<<<<<< HEAD
-                .fillMaxSize(),
-            contentAlignment = Alignment.TopCenter
-        ) {
-            // Header + Content ================================================================================================================
-=======
                 .weight(9f)
                 .fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ) {
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
             Box(
                 modifier = Modifier
                     .zIndex(1f)
@@ -114,10 +100,6 @@ fun missionView() {
                             .height(height = 235.dp)
                             .background(Color(0xFF3657C9)),
                         horizontalAlignment = Alignment.CenterHorizontally,
-<<<<<<< HEAD
-//                verticalArrangement = Arrangement.Center,
-=======
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
                     ) {
                         Row(
                             modifier = Modifier
@@ -209,11 +191,7 @@ fun missionView() {
                             columns = GridCells.Fixed(2),
                             modifier = Modifier
                                 .fillMaxWidth()
-<<<<<<< HEAD
-                                .padding(start = 10.dp, end = 10.dp, top = 33.dp, bottom = 80.dp)
-=======
                                 .padding(start = 10.dp, end = 10.dp, top = 33.dp)
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
                         ) {
                             item {
                                 Badges(
@@ -238,26 +216,13 @@ fun missionView() {
                             item {
                                 Badges(title = "Sandglass", price = "5400", picture = "sandglass")
                             }
-<<<<<<< HEAD
-                            item {
-                                Badges(title = "Sandglass", price = "5400", picture = "sandglass")
-                            }
-                            item {
-                                Badges(title = "Sandglass", price = "5400", picture = "sandglass")
-                            }
-=======
 
 
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
                         }
                     }
                     // Content ================================================================================================================
                 }
             }
-<<<<<<< HEAD
-            // Header + Content ================================================================================================================
-=======
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
 
 
             // Switch ================================================================================================================
@@ -273,10 +238,6 @@ fun missionView() {
                         .padding(start = 30.dp, end = 30.dp)
 
                 ) {
-<<<<<<< HEAD
-                    // Mission-Badge Switch ================================================================================================================
-=======
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -290,11 +251,7 @@ fun missionView() {
                                 .fillMaxSize()
                                 .padding(bottom = 5.dp)
 //                                .clip(RoundedCornerShape(8.dp))
-<<<<<<< HEAD
-                                .shadow(7.dp,shape = RoundedCornerShape(8.dp))
-=======
                                 .shadow(12.dp, shape = RoundedCornerShape(8.dp))
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
                         ) {
                             Column(
                                 modifier = Modifier
@@ -368,43 +325,6 @@ fun missionView() {
                             }
                         }
                     }
-<<<<<<< HEAD
-                    // Mission-Badge Switch ================================================================================================================
-                }
-            }
-            // Switch ================================================================================================================
-            Box(
-                modifier = Modifier
-                    .zIndex(2f)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.BottomCenter
-            ){
-                Row (
-                    modifier = Modifier
-                        .background(Color(0xFFF3F8FF)),
-                ){
-                    Spacer(modifier = Modifier.padding(6.dp))
-                    bottomFooter(title = "To Do", picture = "to_do", Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp), Color.Black)
-                    Spacer(modifier = Modifier.padding(6.dp))
-                    bottomFooter(title = "Journal", picture = "journal", Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp), Color.LightGray)
-                    Spacer(modifier = Modifier.padding(6.dp))
-                    bottomFooter(title = "Mission", picture = "mission", Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp), Color.LightGray)
-                    Spacer(modifier = Modifier.padding(6.dp))
-                    bottomFooter(title = "Profile", picture = "profile", Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp), Color.LightGray)
-                    Spacer(modifier = Modifier.padding(6.dp))
-                }
-            }
-
-
-
-        }
-
-//        Row (
-//            modifier = Modifier
-//        ){
-
-//        }
-=======
                 }
             }
             // Switch ================================================================================================================
@@ -467,7 +387,6 @@ fun missionView() {
             }
         }
         // Footer ================================================================================================================
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
     }
 
     // Container ================================================================================================================
@@ -479,76 +398,6 @@ fun Badges(title: String, price: String, picture: String) {
 
     val context = LocalContext.current
     val drawable = stringToDrawableId(context, picture)
-<<<<<<< HEAD
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(210.dp)
-            .padding(start = 8.dp, end = 8.dp, top = 10.dp, bottom = 10.dp)
-//            .shadow(1.dp, shape = RoundedCornerShape(12.dp))
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(RoundedCornerShape(12.dp))
-                .weight(1f)
-                .border(1.dp, Color.LightGray, shape = RoundedCornerShape(12.dp)),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = title,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier
-                    .weight(1.3f)
-                    .padding(top = 7.dp, bottom = 3.dp),
-                textAlign = TextAlign.Center
-            )
-            Image(
-                painter = painterResource(id = drawable),
-                contentDescription = "badge",
-                modifier = Modifier
-                    .weight(6f)
-                    .padding(bottom = 3.dp)
-                    .size(100.dp),
-            )
-            Row(
-                modifier = Modifier
-                    .weight(2f)
-                    .fillMaxWidth()
-                    .background(Color(0xFF3657C9)),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.coin_logo),
-                        contentDescription = "Coin Icon",
-                        modifier = Modifier
-                            .size(20.dp)
-                    )
-                }
-                Spacer(modifier = Modifier.width(5.dp))
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = price,
-                        color = Color.White,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-
-
-            }
-        }
-=======
     var badgeBoolean by remember { mutableStateOf(false) }
 
     Column(
@@ -703,7 +552,6 @@ fun Badges(title: String, price: String, picture: String) {
         }
 
 
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
     }
 }
 
@@ -745,8 +593,6 @@ fun stringToDrawableId(context: Context, resourceName: String): Int {
     return context.resources.getIdentifier(resourceName, "drawable", context.packageName)
 }
 
-<<<<<<< HEAD
-=======
 @Composable
 fun showAlertDialog(name: String) {
     // Show an AlertDialog based on the name
@@ -770,7 +616,6 @@ fun showAlertDialog(name: String) {
     )
 }
 
->>>>>>> 7c1101c9e24c1fea81b3b25ac94aabca127fae0d
 @Preview(showSystemUi = false, showBackground = true)
 @Composable
 fun Preview() {
