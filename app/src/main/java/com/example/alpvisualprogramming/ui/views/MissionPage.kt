@@ -1,8 +1,7 @@
 package com.example.alpvisualprogramming.ui.views
 
-//import androidx.compose.foundation.layout.BoxScopeInstance.align
+import android.annotation.SuppressLint
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,7 +30,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,6 +43,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -56,7 +55,7 @@ import androidx.compose.ui.zIndex
 import com.example.alpvisualprogramming.R
 
 @Composable
-fun missionView() {
+fun MissionView() {
 
     var missionBox: Boolean by rememberSaveable {
         mutableStateOf(true)
@@ -182,9 +181,24 @@ fun missionView() {
 
 
                     // Content ================================================================================================================
-                    if (missionBox == true) {
-                        LazyColumn() {
-
+                    if (missionBox) {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 20.dp, end = 20.dp, top = 33.dp)
+                        ) {
+                            item {
+                                Missions()
+                            }
+                            item {
+                                Missions()
+                            }
+                            item {
+                                Missions()
+                            }
+                            item {
+                                Missions()
+                            }
                         }
                     } else {
                         LazyVerticalGrid(
@@ -266,7 +280,7 @@ fun missionView() {
                                     modifier = Modifier
                                         .fillMaxHeight()
                                         .fillMaxWidth(),
-                                    colors = if (missionBox == true) {
+                                    colors = if (missionBox) {
                                         ButtonDefaults.buttonColors(
                                             containerColor = Color(
                                                 0xFFFAB005
@@ -278,7 +292,7 @@ fun missionView() {
                                 ) {
                                     Text(
                                         text = "Mission",
-                                        color = if (missionBox == true) {
+                                        color = if (missionBox) {
                                             Color.White
                                         } else {
                                             Color.Black
@@ -301,7 +315,7 @@ fun missionView() {
                                     modifier = Modifier
                                         .fillMaxHeight()
                                         .fillMaxWidth(),
-                                    colors = if (badgeBox == true) {
+                                    colors = if (badgeBox) {
                                         ButtonDefaults.buttonColors(
                                             containerColor = Color(
                                                 0xFFFAB005
@@ -313,7 +327,7 @@ fun missionView() {
                                 ) {
                                     Text(
                                         text = "Badge",
-                                        color = if (badgeBox == true) {
+                                        color = if (badgeBox) {
                                             Color.White
                                         } else {
                                             Color.Black
@@ -349,7 +363,7 @@ fun missionView() {
                     .background(Color(0xFFF3F8FF)),
             ) {
                 Spacer(modifier = Modifier.padding(6.dp))
-                bottomFooter(
+                BottomFooter(
                     title = "To Do",
                     picture = "to_do",
                     Modifier
@@ -358,7 +372,7 @@ fun missionView() {
                     Color.Black
                 )
                 Spacer(modifier = Modifier.padding(6.dp))
-                bottomFooter(
+                BottomFooter(
                     title = "Journal",
                     picture = "journal",
                     Modifier
@@ -367,7 +381,7 @@ fun missionView() {
                     Color.LightGray
                 )
                 Spacer(modifier = Modifier.padding(6.dp))
-                bottomFooter(
+                BottomFooter(
                     title = "Mission",
                     picture = "mission",
                     Modifier
@@ -376,7 +390,7 @@ fun missionView() {
                     Color.LightGray
                 )
                 Spacer(modifier = Modifier.padding(6.dp))
-                bottomFooter(
+                BottomFooter(
                     title = "Profile",
                     picture = "profile",
                     Modifier
@@ -395,97 +409,118 @@ fun missionView() {
 
 @Composable
 fun Missions() {
-    Card (
+    Column  (
         modifier = Modifier
-            .height(150.dp)
-            .fillMaxSize()
-            .padding(start = 8.dp, end = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF3F8FF)),
+            .padding(top = 8.dp, bottom = 8.dp)
     ){
-        Row (
+        Card (
             modifier = Modifier
-                .fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+                .height(100.dp)
+                .fillMaxSize()
+                .background(Color(0xFFF3F8FF), RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(12.dp))
+                .shadow(3.dp, RoundedCornerShape(12.dp))
+                .padding(start = 1.5.dp, end = 1.5.dp, top = 1.dp, bottom = 2.5.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFF3F8FF)),
         ){
-            Column (
+            Row (
                 modifier = Modifier
-                    .weight(2f)
-                    .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
-                    .background(Color(0xFFF3F8FF)),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ){
-                Image(
-                    painter = painterResource(id = R.drawable.coin_logo),
-                    contentDescription = "coin_logo",
-                    modifier = Modifier
-                        .size(25.dp)
-                )
-                Text(
-                    text = "+30",
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.SemiBold,
-
-                    )
-            }
-            Column (
-                modifier = Modifier
-                    .weight(5f)
                     .fillMaxSize()
-                    .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
-                    .background(Color(0xFFF3F8FF)),
-                verticalArrangement = Arrangement.Center
+                    .background(Color(0xFFF3F8FF), RoundedCornerShape(12.dp))
+                    .padding(start = 8.dp, end = 8.dp)
+                    .clip(RoundedCornerShape(12.dp)),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ){
-                Text(
-                    text = "TASK_NAME",
-                    fontSize = 20.sp,
-                    color = Color(0xFF3F3F3F),
-                    fontWeight = FontWeight.SemiBold,
-                    lineHeight = 24.sp,
-
-                    )
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = "blablablablablablablablablabla \nblablablablablablablablablabla",
-                    fontSize = 12.sp,
-                    color = Color(0xFFA0A4A7),
-                    fontWeight = FontWeight.SemiBold,
-
-                    )
-            }
-            Column (
-                modifier = Modifier
-                    .weight(3f)
-                    .fillMaxSize()
-                    .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
-                    .background(Color(0xFFF3F8FF)),
-                horizontalAlignment = Alignment.End,
-                verticalArrangement = Arrangement.Center
-            ){
-                Button(
-                    onClick = {},
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3960E6)),
+                Column (
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp)
-                ) {
+                        .weight(2f)
+                        .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+                        .background(Color(0xFFF3F8FF)),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ){
+                    Image(
+                        painter = painterResource(id = R.drawable.coin_logo),
+                        contentDescription = "coin_logo",
+                        modifier = Modifier
+                            .size(28.dp)
+                    )
                     Text(
-                        text = "Claim",
-                        fontSize = 16.sp,
-                        color = Color.White,
-                        lineHeight = 18.sp
+                        text = "+30",
+                        fontSize = 26.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier
+                            .graphicsLayer(scaleX = 1.2f)
+                            .padding(2.dp)
                     )
                 }
-                Text(
-                    text = "1/5",
-                    fontSize = 18.sp,
-                    color = Color(0xFF3F3F3F),
-                    fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Right
+                Column (
+                    modifier = Modifier
+                        .weight(5f)
+                        .fillMaxSize()
+                        .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+                        .background(Color(0xFFF3F8FF)),
+                    verticalArrangement = Arrangement.Center,
+                ){
+                    Text(
+                        text = "TASK_NAME",
+                        fontSize = 20.sp,
+                        color = Color(0xFF3F3F3F),
+                        fontWeight = FontWeight.SemiBold,
+                        lineHeight = 24.sp,
 
-                )
+                        )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "blablablablablablablablablabla \nblablablablablablablablablabla",
+                        fontSize = 12.sp,
+                        color = Color(0xFFA0A4A7),
+                        fontWeight = FontWeight.SemiBold,
+                        lineHeight = 16.sp,
 
+                        )
+                }
+                Column (
+                    modifier = Modifier
+                        .weight(2f)
+                        .fillMaxSize()
+                        .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+                        .background(Color(0xFFF3F8FF)),
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.Center
+                ){
+                    Row (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(28.dp)
+                            .background(Color(0xFF3960E6), RoundedCornerShape(8.dp))
+                            .clickable {
+
+                            },
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "CLAIM",
+                            fontSize = 13.sp,
+                            color = Color.White,
+                            lineHeight = 20.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "1/5",
+                        fontSize = 16.sp,
+                        lineHeight = 18.sp,
+                        color = Color(0xFF3F3F3F),
+                        fontWeight = FontWeight.SemiBold,
+                        textAlign = TextAlign.Center
+
+                    )
+
+                }
             }
         }
     }
@@ -654,7 +689,7 @@ fun Badges(title: String, price: String, picture: String) {
 }
 
 @Composable
-fun bottomFooter(title: String, picture: String, modifier: Modifier = Modifier, color: Color) {
+fun BottomFooter(title: String, picture: String, modifier: Modifier = Modifier, color: Color) {
 
     val context = LocalContext.current
     val drawable = stringToDrawableId(context, picture)
@@ -683,6 +718,7 @@ fun bottomFooter(title: String, picture: String, modifier: Modifier = Modifier, 
     }
 }
 
+@SuppressLint("DiscouragedApi")
 @Composable
 fun stringToDrawableId(context: Context, resourceName: String): Int {
     return context.resources.getIdentifier(resourceName, "drawable", context.packageName)
@@ -693,5 +729,6 @@ fun stringToDrawableId(context: Context, resourceName: String): Int {
 @Preview(showSystemUi = false, showBackground = true)
 @Composable
 fun Preview() {
-    Missions()
+    MissionView()
+//    Missions()
 }
