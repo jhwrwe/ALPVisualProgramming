@@ -1,5 +1,6 @@
 package com.example.alpvisualprogramming.ui.views
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -9,10 +10,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material3.Button
@@ -32,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -39,6 +43,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.alpvisualprogramming.R
 
 @Composable
 fun Input_to_do(){
@@ -53,7 +58,7 @@ fun Input_to_do(){
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0xFF3960E5))
-            .padding(20.dp),
+            .padding(vertical= 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -70,7 +75,7 @@ fun Input_to_do(){
             modifier = Modifier.fillMaxWidth(1F)
         )
     }
-        Column ( modifier = Modifier.padding(20.dp)){
+        Column ( modifier = Modifier.padding(20.dp).padding(top = 20.dp)){
             Text(text = "Title", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold)
             customTextField(
                 value = title,
@@ -85,7 +90,7 @@ fun Input_to_do(){
             )
 
             Text(text = "Category", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
-            customTextField(
+            customTextFielda(
                 value = Category,
                 onValueChanged = { Category = it },
                 text = "Do first",
@@ -152,7 +157,9 @@ fun Input_to_do(){
                 modifier = Modifier
                     .fillMaxWidth()
             )
-            Row (modifier = Modifier.padding(top = 20.dp). fillMaxWidth(),horizontalArrangement = Arrangement.SpaceBetween){
+            Row (modifier = Modifier
+                .padding(top = 20.dp)
+                .fillMaxWidth(),horizontalArrangement = Arrangement.SpaceBetween){
                 Column (Modifier.weight(0.95F),){
                     Button(onClick = { /*TODO*/ }, modifier = Modifier
                         .fillMaxWidth(),colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
@@ -165,7 +172,8 @@ fun Input_to_do(){
                 }
             }
             Button(onClick = { /*TODO*/ }, modifier = Modifier
-                .fillMaxWidth().padding(top = 50.dp),colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
+                .fillMaxWidth()
+                .padding(top = 90.dp),colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
                 shape = RoundedCornerShape(8.dp)) {
                 Text(text = "Create", fontWeight = FontWeight.Bold,fontSize = 15.sp)
             }
@@ -197,6 +205,45 @@ fun customTextField(
         )
     )
 }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun customTextFielda(
+    value: String,
+    onValueChanged: (String) -> Unit,
+    text: String,
+    keyboardOptions: KeyboardOptions,
+    modifier: Modifier = Modifier,
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChanged,
+        label = { Text(text = text) },
+        keyboardOptions = keyboardOptions,
+        modifier = modifier,
+        shape = RoundedCornerShape(25),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = Color.Gray,
+            unfocusedBorderColor = Color.Gray,
+            textColor = Color.Black
+
+        ),
+                trailingIcon ={
+                    Icon(
+                        imageVector =  Icons.Default.KeyboardArrowDown,
+                        contentDescription = "Hide password"
+                    )
+                }, leadingIcon = {
+            Image(
+                painter = painterResource(id = R.drawable.frame_5),
+                contentDescription = "yeah",
+                modifier = Modifier
+                    .size(20.dp),
+            )
+        },
+    )
+}
+
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
