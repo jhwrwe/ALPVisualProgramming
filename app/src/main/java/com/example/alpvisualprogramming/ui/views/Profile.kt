@@ -44,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -88,6 +89,7 @@ fun Profile() {
                     .fillMaxWidth()
                     .fillMaxHeight(0.6F)
                     .padding(top = 60.dp)
+                    .shadow(elevation = 17.dp, shape = RoundedCornerShape(20.dp, 20.dp, 20.dp, 20.dp))
                     ,
                 horizontalAlignment = Alignment.CenterHorizontally
 
