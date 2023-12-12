@@ -61,7 +61,7 @@ fun SignInPageView(){
                 .padding(10.dp),colors = ButtonDefaults.buttonColors(Color(0xFF3960E5))) {
                 Text(text = "Sign In", fontWeight = FontWeight.Bold,fontSize = 15.sp)
             }
-4
+
 
             Row (
                 modifier = Modifier
