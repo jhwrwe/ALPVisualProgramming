@@ -323,7 +323,7 @@ fun Profile() {
                         imageVector = Icons.Rounded.KeyboardArrowRight,
                         contentDescription = "Arrow Icon",
                         tint = Color.Gray,
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(20.dp)
 
                     )
                 }
@@ -368,7 +368,7 @@ fun Profile() {
                     imageVector = Icons.Rounded.KeyboardArrowRight,
                     contentDescription = "Arrow Icon",
                     tint = Color.Gray,
-                    modifier = Modifier.size(30.dp)
+                    modifier = Modifier.size(60.dp)
                 )
             }
         }
@@ -412,7 +412,7 @@ fun Profile() {
                     imageVector = Icons.Rounded.KeyboardArrowRight,
                     contentDescription = "Arrow Icon",
                     tint = Color.Gray,
-                    modifier = Modifier.size(30.dp)
+                    modifier = Modifier.size(50.dp)
                 )
             }
         }
