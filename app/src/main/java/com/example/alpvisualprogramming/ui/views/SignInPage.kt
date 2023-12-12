@@ -3,12 +3,14 @@ package com.example.alpvisualprogramming.ui.views
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,11 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 
 @Composable
 fun SignInPageView(){
@@ -40,26 +45,32 @@ fun SignInPageView(){
         .fillMaxSize()
         .background(Color(0xFF3960E5)),
         verticalArrangement = Arrangement.SpaceBetween){
-        Column (verticalArrangement = Arrangement.Center, modifier = Modifier.padding(top=200.dp)){
+        Column (verticalArrangement = Arrangement.Center, modifier = Modifier
+            .padding(top = 200.dp)
+            .zIndex(2f)){
             Text(text = "Welcome to,",color = Color.White, fontSize = 40.sp, fontWeight = FontWeight.Bold)
             Text(text = "Application name", color = Color.White,fontSize = 40.sp, fontWeight = FontWeight.Bold)
         }
-
         Card(
             modifier = Modifier
+                .zIndex(2f)
                 .fillMaxWidth()
+                .height(200.dp)
                 .clip(RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp))
                 .border(2.dp, Color.Gray, RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp))
         ) {
             Text(text = "Be more productive with '...' and start", color = Color(0xFF3F3F3F), fontWeight = FontWeight.SemiBold,fontSize = 15.sp, modifier = Modifier
                 .padding(horizontal = 20.dp)
-                .padding(vertical = 2.dp))
+                .padding(vertical = 2.dp)
+                .padding(top = 30.dp))
             Text(text = "writing your to-do list", color = Color(0xFF3F3F3F), fontWeight = FontWeight.SemiBold,fontSize = 15.sp, modifier = Modifier
                 .padding(horizontal = 20.dp)
-                .padding(vertical = 2.dp))
+                .padding(vertical = 2.dp)
+                .padding(bottom = 10.dp))
             Button(onClick = { /*TODO*/ }, modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),colors = ButtonDefaults.buttonColors(Color(0xFF3960E5))) {
+                .padding(10.dp)
+                ,colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),shape = RoundedCornerShape(8.dp)) {
                 Text(text = "Sign In", fontWeight = FontWeight.Bold,fontSize = 15.sp)
             }
 
@@ -68,7 +79,7 @@ fun SignInPageView(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
-                    .padding(bottom=20.dp),
+                    .padding(bottom = 20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -77,6 +88,7 @@ fun SignInPageView(){
                     color = Color(0xFF3F3F3F),
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Right,
+                    textDecoration= TextDecoration.Underline,
                     modifier = Modifier.fillMaxWidth(0.85f)
                 )
                 Icon(
@@ -87,6 +99,7 @@ fun SignInPageView(){
             }
 
         }
+
     }
 }
 @Preview(showBackground = true, showSystemUi = true)
