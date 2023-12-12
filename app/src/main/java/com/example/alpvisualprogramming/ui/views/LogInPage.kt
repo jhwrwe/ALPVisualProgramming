@@ -14,9 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.text.style.TextAlign
-
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -82,81 +79,12 @@ fun LogInPageView(){
 
         Row {
             Text(
-                text = "Username",
-                fontSize = 15.sp,
-                color = Color.White,
-                modifier = Modifier
-                    .absolutePadding(top = 40.dp, left = 16.dp)
-                )
-        }
-        Box(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .absolutePadding(top = 3.dp)
-                .background(Color(0xFF3960E5), shape = RoundedCornerShape(10.dp))
-                .border(
-                    width = 1.dp,
-                    color = Color.White,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .fillMaxWidth()
-                .height(40.dp)
-        ){
-        }
-        Row {
-            Text(
-                text = "Full Name",
-                fontSize = 15.sp,
-                color = Color.White,
-                modifier = Modifier
-                    .absolutePadding(top = 10.dp, left = 16.dp)
-            )
-        }
-        Box(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .absolutePadding(top = 3.dp)
-                .background(Color(0xFF3960E5), shape = RoundedCornerShape(10.dp))
-                .border(
-                    width = 1.dp,
-                    color = Color.White,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .fillMaxWidth()
-                .height(40.dp)
-        ){
-        }
-        Row {
-            Text(
-                text = "Phone Number",
-                fontSize = 15.sp,
-                color = Color.White,
-                modifier = Modifier
-                    .absolutePadding(top = 10.dp, left = 16.dp)
-            )
-        }
-        Box(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .absolutePadding(top = 3.dp)
-                .background(Color(0xFF3960E5), shape = RoundedCornerShape(10.dp))
-                .border(
-                    width = 1.dp,
-                    color = Color.White,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .fillMaxWidth()
-                .height(40.dp)
-        ){
-        }
-        Row {
-            Text(
                 text = "Email",
                 fontSize = 15.sp,
                 color = Color.White,
                 modifier = Modifier
-                    .absolutePadding(top = 10.dp, left = 16.dp)
-            )
+                    .absolutePadding(top = 186.dp, left = 16.dp)
+                )
         }
         Box(
             modifier = Modifier
@@ -196,6 +124,7 @@ fun LogInPageView(){
         ){
         }
 
+
         Row {
         }
         Box(
@@ -212,22 +141,35 @@ fun LogInPageView(){
                 .height(40.dp)
         ){
             Text(
-                text = "Sign Up",
+                text = "Sign In",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 20.sp,
                 modifier = Modifier
-                    .absolutePadding(left = 145.dp, top = 6.dp)
+                    .absolutePadding(left = 147.dp, top = 6.dp)
             )
         }
 
         Row(
         ){
             Text(
+                text = "Forgot Password?",
+                color = Color.White,
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .absolutePadding(left = 260.dp, top = 10.dp)
+
+            )
+        }
+
+        Row(
+        )
+        {
+            Text(
                 text = "Already have an account?",
                 color = Color.White,
                 fontSize = 14.sp,
                 modifier = Modifier
-                    .absolutePadding(left = 120.dp, top = 30.dp)
+                    .absolutePadding(left = 120.dp, top = 74    .dp)
             )
         }
 
