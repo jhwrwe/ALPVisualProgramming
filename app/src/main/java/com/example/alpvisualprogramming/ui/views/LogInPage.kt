@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,7 +57,7 @@ fun LogInPageView(){
                 Row(
                 ){
                     Text(
-                        text = "Create   ",
+                        text = "Welcome",
                         fontSize = 22.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
@@ -68,7 +69,7 @@ fun LogInPageView(){
                 Row(
                 ){
                     Text(
-                        text = "Account",
+                        text = "Back!",
                         fontSize = 22.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
@@ -83,7 +84,7 @@ fun LogInPageView(){
                 fontSize = 15.sp,
                 color = Color.White,
                 modifier = Modifier
-                    .absolutePadding(top = 186.dp, left = 16.dp)
+                    .absolutePadding(top = 115.dp, left = 16.dp)
                 )
         }
         Box(
@@ -124,13 +125,34 @@ fun LogInPageView(){
         ){
         }
 
+        Row(
+        ){
+            Box(
+                modifier = Modifier
+                    .absolutePadding(top = 18.dp, left = 25.dp)
+                    .background(Color.White, shape = RoundedCornerShape(3.dp))
+                    .border(
+                        width = 1.dp,
+                        color = Color.White,
+                        shape = RoundedCornerShape(3.dp)
+                    )
+                    .height(17.dp)
+                    .width(17.dp)
+            )
+            Text(
+                text = "Remember me",
+                color = Color.White,
+                modifier = Modifier
+                    .padding(18.dp)
+            )
+        }
 
         Row {
         }
         Box(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
-                .absolutePadding(top = 30.dp)
+                .absolutePadding(top = 45.dp)
                 .background(Color.White, shape = RoundedCornerShape(10.dp))
                 .border(
                     width = 1.dp,
