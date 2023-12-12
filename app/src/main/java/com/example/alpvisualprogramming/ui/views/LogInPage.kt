@@ -165,18 +165,18 @@ fun LogInPageView(){
         )
         {
             Text(
-                text = "Already have an account?",
+                text = "Don't have an account?",
                 color = Color.White,
                 fontSize = 14.sp,
                 modifier = Modifier
-                    .absolutePadding(left = 120.dp, top = 74    .dp)
+                    .absolutePadding(left = 130.dp, top = 74    .dp)
             )
         }
 
         Row(
         ){
             Text(
-                text = "Sign In",
+                text = "Sign Up",
                 color = Color.White,
                 fontSize = 14.sp,
                 modifier = Modifier
