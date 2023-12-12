@@ -60,7 +60,7 @@ import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun Profile() {
-    Column ( modifier = Modifier.fillMaxSize()){
+    Column ( modifier = Modifier.fillMaxSize(1F)){
         Box(
             modifier = Modifier
                 .zIndex(2f)
@@ -119,7 +119,7 @@ fun Profile() {
                             Text(
                                 text = "Richie Reuben",
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 20.sp,
+                                fontSize = 22.sp,
                                 color = Color(0xFF3F3F3F)
                             )
                             Text(
@@ -133,7 +133,7 @@ fun Profile() {
                         Text(
                             text = "My Achievement",
                             fontWeight = FontWeight.SemiBold,
-                            fontSize = 18.sp,
+                            fontSize = 15.sp,
                             color = Color(0xFF3F3F3F),
                             modifier = Modifier.padding(top = 10.dp)
                         )
@@ -143,9 +143,13 @@ fun Profile() {
                                 .fillMaxWidth()
                                 .padding(10.dp)
                                 .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
-                                .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+                                .border(
+                                    0.dp,
+                                    Color.Gray,
+                                    RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
+                                )
                                 .background(color = Color(0xFFF2F7FE))
-                                .padding(bottom=10.dp)
+                                .padding(bottom = 10.dp)
                                     ,horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
@@ -180,11 +184,16 @@ fun Profile() {
                                     }
                                 }
                                 Spacer(modifier = Modifier.width(15.dp))
-                                Column(
+                                Column(modifier = Modifier.padding(top=10.dp),
                                     horizontalAlignment = Alignment.CenterHorizontally,
                                     verticalArrangement = Arrangement.Center
                                 ) {
-                                    Text(text = "|", fontSize = 50.sp, color = Color.Gray)
+                                    Divider(
+                                        modifier = Modifier
+                                            .height(60.dp)
+                                            .width(1.dp),
+                                        color = Color.Gray
+                                    )
                                 }
                                 Spacer(modifier = Modifier.width(15.dp))
                                 Column(
@@ -221,7 +230,7 @@ fun Profile() {
                         Text(
                             text = "My badges",
                             fontWeight = FontWeight.SemiBold,
-                            fontSize = 18.sp,
+                            fontSize = 15.sp,
                             color = Color(0xFF3F3F3F),
                             modifier = Modifier.padding(top = 10.dp)
                         )
@@ -230,7 +239,11 @@ fun Profile() {
                                 .fillMaxWidth()
                                 .padding(10.dp)
                                 .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
-                                .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+                                .border(
+                                    0.dp,
+                                    Color.Gray,
+                                    RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
+                                )
                                 .background(color = Color(0xFFF2F7FE)),            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             LazyRow(
@@ -267,6 +280,8 @@ fun Profile() {
             }
 
         }
+        Column (modifier = Modifier.fillMaxWidth()
+            .fillMaxHeight(1.5F)){
             Text(text = "General",fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
                 color = Color(0xFF3F3F3F),
@@ -275,24 +290,24 @@ fun Profile() {
                     .padding(start = 40.dp))
             Row (modifier = Modifier
                 .fillMaxWidth()
-                .padding(5.dp)
+                .fillMaxHeight(0.24F)
+                .padding(7.dp)
                 .padding(start = 40.dp)
                 .padding(end = 20.dp)
                 .padding(top = 5.dp)
                 .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
                 .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
                 .background(color = Color(0xFFF2F7FE)), horizontalArrangement = Arrangement.SpaceBetween){
-                Column (horizontalAlignment = Alignment.CenterHorizontally,
+                Column (modifier = Modifier.fillMaxHeight().padding(start=10.dp),horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center){
                     Image(
                         painter = painterResource(id = R.drawable.bronze_medal),
                         contentDescription = "badge",
                         modifier = Modifier
-                            .padding(bottom = 3.dp)
                             .size(40.dp),
                     )
                 }
-                Column (
+                Column (modifier = Modifier.fillMaxHeight(),
                     verticalArrangement = Arrangement.Center){
                     Text(text = "Profile Settings", fontWeight = FontWeight.SemiBold,
                         fontSize = 18.sp,
@@ -302,7 +317,7 @@ fun Profile() {
                         color = Color.Gray,
                     )
                 }
-                Column (modifier=Modifier.padding(top=10.dp),horizontalAlignment = Alignment.CenterHorizontally,
+                Column (modifier = Modifier.fillMaxHeight(),horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center){
                     Icon(
                         imageVector = Icons.Rounded.KeyboardArrowRight,
@@ -317,12 +332,15 @@ fun Profile() {
             .fillMaxWidth()
             .padding(5.dp)
             .padding(start = 40.dp)
+            .fillMaxHeight(0.24F)
             .padding(end = 20.dp)
             .padding(top = 5.dp)
             .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
             .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
             .background(color = Color(0xFFF2F7FE))){
-            Column (modifier = Modifier.padding(end=40.dp), horizontalAlignment = Alignment.CenterHorizontally,
+            Column (modifier = Modifier
+                .fillMaxHeight()
+                .padding(end = 40.dp).padding(start=10.dp), horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 Image(
                     painter = painterResource(id = R.drawable.bronze_medal),
@@ -332,7 +350,9 @@ fun Profile() {
                         .size(40.dp),
                 )
             }
-            Column (modifier = Modifier.padding(end=90.dp),
+            Column (modifier = Modifier
+                .fillMaxHeight()
+                .padding(end = 90.dp),
                 verticalArrangement = Arrangement.Center){
                 Text(text = "Language", fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
@@ -342,7 +362,7 @@ fun Profile() {
                     color = Color.Gray,
                 )
             }
-            Column (modifier=Modifier.padding(top=10.dp),horizontalAlignment = Alignment.CenterHorizontally,
+            Column (modifier = Modifier.fillMaxHeight(),horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 Icon(
                     imageVector = Icons.Rounded.KeyboardArrowRight,
@@ -355,13 +375,16 @@ fun Profile() {
         Row (modifier = Modifier
             .fillMaxWidth()
             .padding(5.dp)
+            .fillMaxHeight(0.34F)
             .padding(start = 40.dp)
             .padding(end = 20.dp)
             .padding(top = 5.dp)
             .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
             .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
             .background(color = Color(0xFFF2F7FE))){
-            Column (modifier = Modifier.padding(end=40.dp), horizontalAlignment = Alignment.CenterHorizontally,
+            Column (modifier = Modifier
+                .fillMaxHeight()
+                .padding(end = 40.dp).padding(start=10.dp), horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 Image(
                     painter = painterResource(id = R.drawable.bronze_medal),
@@ -371,7 +394,9 @@ fun Profile() {
                         .size(40.dp),
                 )
             }
-            Column (modifier = Modifier.padding(end=90.dp),
+            Column (modifier = Modifier
+                .fillMaxHeight()
+                .padding(end = 90.dp),
                 verticalArrangement = Arrangement.Center){
                 Text(text = "Logout", fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
@@ -381,7 +406,7 @@ fun Profile() {
                     color = Color.Gray,
                 )
             }
-            Column (modifier=Modifier.padding(top=10.dp),horizontalAlignment = Alignment.CenterHorizontally,
+            Column (modifier = Modifier.fillMaxHeight(),horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 Icon(
                     imageVector = Icons.Rounded.KeyboardArrowRight,
@@ -394,8 +419,9 @@ fun Profile() {
 
 
         }
+    }
 
-        Spacer(modifier = Modifier.height(4.dp))
+
     }
 
 @Composable
@@ -448,7 +474,7 @@ fun badgess(picture: String){
         modifier = Modifier
             .padding(bottom = 3.dp)
             .padding(end = 10.dp)
-            .size(50.dp),
+            .size(60.dp),
     )
 }
 
