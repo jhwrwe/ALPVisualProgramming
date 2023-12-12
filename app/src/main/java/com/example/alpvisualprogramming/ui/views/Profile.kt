@@ -69,7 +69,7 @@ fun Profile() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.3F)
+                    .fillMaxHeight(0.31F)
                     .zIndex(1f)
                     .background(color = Color(0xFF3960E5)),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -77,7 +77,7 @@ fun Profile() {
                 Text(
                     text = "Profile",
                     color = Color.White,
-                    fontSize = 20.sp,
+                    fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(20.dp)
                 )
@@ -86,159 +86,182 @@ fun Profile() {
                 modifier = Modifier
                     .zIndex(2f)
                     .fillMaxWidth()
-                    .fillMaxHeight(0.5F)
+                    .fillMaxHeight(0.6F)
                     .padding(top = 60.dp)
-                    .clip(shape = RoundedCornerShape(0.dp)),
+                    ,
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
-
                 Card(
                     modifier = Modifier
                         .fillMaxWidth(0.9F)
                         .fillMaxHeight()
+                        .clip(RoundedCornerShape(20.dp, 20.dp, 20.dp, 20.dp))
+                        .border(0.dp, Color.Gray, RoundedCornerShape(20.dp, 20.dp, 20.dp, 20.dp))
                         .background(Color.White)
-                        .padding(20.dp),
+                        .padding(20.dp)
+                        ,
                     colors = CardDefaults.cardColors(Color.White),
+
                 ) {
-                    Column(
-                        Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
+                    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
+                        Column(
+                            Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
 //                   Image(painter = , contentDescription = )
-                    }
-                    Column(
-                        Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
+                        }
+                        Column(
+                            Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = "Richie Reuben",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 20.sp,
+                                color = Color(0xFF3F3F3F)
+                            )
+                            Text(
+                                text = "richirebuenh@gmail.com",
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color.Gray,
+                                fontSize = 15.sp,
+                                modifier = Modifier.padding(top = 10.dp)
+                            )
+                        }
                         Text(
-                            text = "Richie Reuben",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp,
-                            color = Color(0xFF3F3F3F)
-                        )
-                        Text(
-                            text = "richirebuenh@gmail.com",
+                            text = "My Achievement",
                             fontWeight = FontWeight.SemiBold,
-                            color = Color.Gray,
-                            fontSize = 15.sp,
+                            fontSize = 18.sp,
+                            color = Color(0xFF3F3F3F),
                             modifier = Modifier.padding(top = 10.dp)
                         )
-                    }
-                    Text(
-                        text = "My Achievement",
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 18.sp,
-                        color = Color(0xFF3F3F3F),
-                        modifier = Modifier.padding(top = 10.dp)
-                    )
-                    Column(
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(10.dp)
-                            .background(color = Color(0xFFF2F7FE))
-                            .clip(RoundedCornerShape(30.dp, 30.dp, 30.dp, 30.dp))
-                            ,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Row(modifier = Modifier.padding(10.dp)) {
-                            Column(verticalArrangement = Arrangement.Center) {
-                                Text(
-                                    text = "1340",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 40.sp,
-                                    color = Color(0xFFFAB005),
-                                    textAlign = TextAlign.Center
-                                )
-                                Row(
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Image(
-                                        painter = painterResource(id = R.drawable.coin_logo),
-                                        contentDescription = "coin_logo",
-                                        modifier = Modifier
-                                            .size(20.dp)
-                                    )
-                                    Spacer(modifier = Modifier.width(2.dp))
+
+                        Column(
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(10.dp)
+                                .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+                                .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+                                .background(color = Color(0xFFF2F7FE))
+                                .padding(bottom=10.dp)
+                                    ,horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Row(modifier = Modifier.padding(3.dp)) {
+                                Column(   horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center) {
                                     Text(
-                                        text = "Coins",
-                                        fontWeight = FontWeight.SemiBold,
-                                        fontSize = 18.sp,
-                                        color = Color(0xFF3F3F3F),
+                                        text = "1.340",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 40.sp,
+                                        color = Color(0xFFFAB005),
                                         textAlign = TextAlign.Center
                                     )
+                                    Row(
+                                        horizontalArrangement = Arrangement.Center,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.coin_logo),
+                                            contentDescription = "coin_logo",
+                                            modifier = Modifier
+                                                .size(20.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(2.dp))
+                                        Text(
+                                            text = "Coins",
+                                            fontWeight = FontWeight.SemiBold,
+                                            fontSize = 18.sp,
+                                            color = Color(0xFF3F3F3F),
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
                                 }
-                            }
-                            Spacer(modifier = Modifier.width(30.dp))
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Text(
-                                    text = "200",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 40.sp,
-                                    color = Color.Green
-                                )
-                                Row(
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.CenterVertically
+                                Spacer(modifier = Modifier.width(15.dp))
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
                                 ) {
-                                    Image(
-                                        painter = painterResource(id = R.drawable.coin_logo),
-                                        contentDescription = "coin_logo",
-                                        modifier = Modifier
-                                            .size(20.dp)
-                                    )
-                                    Spacer(modifier = Modifier.width(2.dp))
+                                    Text(text = "|", fontSize = 50.sp, color = Color.Gray)
+                                }
+                                Spacer(modifier = Modifier.width(15.dp))
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
+                                ) {
                                     Text(
-                                        text = "Missions",
-                                        fontWeight = FontWeight.SemiBold,
-                                        fontSize = 18.sp,
-                                        color = Color(0xFF3F3F3F),
+                                        text = "200",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 40.sp,
+                                        color = Color.Green
+                                    )
+                                    Row(
+                                        horizontalArrangement = Arrangement.Center,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.coin_logo),
+                                            contentDescription = "coin_logo",
+                                            modifier = Modifier
+                                                .size(20.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(2.dp))
+                                        Text(
+                                            text = "Missions",
+                                            fontWeight = FontWeight.SemiBold,
+                                            fontSize = 18.sp,
+                                            color = Color(0xFF3F3F3F),
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        Text(
+                            text = "My badges",
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 18.sp,
+                            color = Color(0xFF3F3F3F),
+                            modifier = Modifier.padding(top = 10.dp)
+                        )
+                        Column(
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(10.dp)
+                                .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+                                .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+                                .background(color = Color(0xFFF2F7FE)),            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            LazyRow(
+                                modifier = Modifier
+                                    .padding(top = 10.dp)
+                                    .padding(bottom = 10.dp)
+                            ) {
+                                item {
+                                    badgess(
+                                        picture = "bronze_medal"
+                                    )
+                                }
+                                item {
+                                    badgess(
+                                        picture = "silver_medal"
+                                    )
+                                }
+                                item {
+                                    badgess(
+                                        picture = "gold_medal"
+                                    )
+                                }
+                                item {
+                                    badgess(
+                                        picture = "sandglass"
                                     )
                                 }
                             }
                         }
-                    }
-                    Text(
-                        text = "My badges",
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 18.sp,
-                        color = Color(0xFF3F3F3F),
-                        modifier = Modifier.padding(top = 10.dp)
-                    )
-                    Column(
-                        Modifier.fillMaxWidth().background(color = Color(0xFFF2F7FE)),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        LazyRow(modifier = Modifier.padding(top = 10.dp)) {
-                            item {
-                                badgess(
-                                    picture = "bronze_medal"
-                                )
-                            }
-                            item {
-                                badgess(
-                                    picture = "silver_medal"
-                                )
-                            }
-                            item {
-                                badgess(
-                                    picture = "gold_medal"
-                                )
-                            }
-                            item {
-                                badgess(
-                                    picture = "sandglass"
-                                )
-                            }
-                        }
-                    }
 
+                    }
                 }
 
             }
@@ -247,9 +270,18 @@ fun Profile() {
             Text(text = "General",fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
                 color = Color(0xFF3F3F3F),
-                modifier = Modifier.padding(top = 10.dp).padding(start=40.dp))
+                modifier = Modifier
+                    .padding(top = 10.dp)
+                    .padding(start = 40.dp))
             Row (modifier = Modifier
-                .fillMaxWidth().padding(5.dp).padding(start=40.dp).padding(end=20.dp).padding(top=20.dp).background(color = Color(0xFFF2F7FE)), horizontalArrangement = Arrangement.SpaceBetween){
+                .fillMaxWidth()
+                .padding(5.dp)
+                .padding(start = 40.dp)
+                .padding(end = 20.dp)
+                .padding(top = 5.dp)
+                .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+                .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+                .background(color = Color(0xFFF2F7FE)), horizontalArrangement = Arrangement.SpaceBetween){
                 Column (horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center){
                     Image(
@@ -282,7 +314,14 @@ fun Profile() {
                 }
             }
         Row (modifier = Modifier
-            .fillMaxWidth().padding(5.dp).padding(start=40.dp).padding(end=20.dp).padding(top=20.dp).background(color = Color(0xFFF2F7FE))){
+            .fillMaxWidth()
+            .padding(5.dp)
+            .padding(start = 40.dp)
+            .padding(end = 20.dp)
+            .padding(top = 5.dp)
+            .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+            .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+            .background(color = Color(0xFFF2F7FE))){
             Column (modifier = Modifier.padding(end=40.dp), horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 Image(
@@ -314,7 +353,14 @@ fun Profile() {
             }
         }
         Row (modifier = Modifier
-            .fillMaxWidth().padding(5.dp).padding(start=40.dp).padding(end=20.dp).padding(top=20.dp).background(color = Color(0xFFF2F7FE))){
+            .fillMaxWidth()
+            .padding(5.dp)
+            .padding(start = 40.dp)
+            .padding(end = 20.dp)
+            .padding(top = 5.dp)
+            .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+            .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+            .background(color = Color(0xFFF2F7FE))){
             Column (modifier = Modifier.padding(end=40.dp), horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 Image(
@@ -357,7 +403,8 @@ fun General(texta:String, textb:String,picture:String){
     val context = LocalContext.current
     val drawable = stringToDrawableId(context, picture)
     Row (modifier = Modifier
-        .fillMaxWidth().padding(5.dp), horizontalArrangement = Arrangement.SpaceBetween){
+        .fillMaxWidth()
+        .padding(5.dp), horizontalArrangement = Arrangement.SpaceBetween){
         Column (modifier = Modifier.fillMaxHeight(0.3F),horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center){
             Image(

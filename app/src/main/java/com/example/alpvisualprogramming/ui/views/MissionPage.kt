@@ -96,7 +96,8 @@ fun MissionView() {
                                     bottomEnd = 12.dp
                                 )
                             )
-                            .height(height = 235.dp)
+//                            .height(height = 235.dp)
+                            .fillMaxHeight(0.31F)
                             .background(Color(0xFF3960E6)),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
