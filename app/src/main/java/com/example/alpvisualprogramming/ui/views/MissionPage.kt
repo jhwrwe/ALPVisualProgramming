@@ -374,11 +374,7 @@ fun Missions() {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color(0xFFF3F8FF), RoundedCornerShape(12.dp))
-<<<<<<< HEAD
-                    .padding(start = 6.5.dp, end = 6.5.dp)
-=======
                     .padding(start = 14.5.dp, end = 14.5.dp)
->>>>>>> f1f0cadcbf51a135cc2edb6bc2670ef614e736a1
                     .clip(RoundedCornerShape(12.dp)),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
