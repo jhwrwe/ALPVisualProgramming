@@ -47,9 +47,9 @@ fun SignInPageView(){
         verticalArrangement = Arrangement.SpaceBetween){
         Column (verticalArrangement = Arrangement.Center, modifier = Modifier
             .padding(top = 200.dp)
-            .zIndex(2f)){
-            Text(text = "Welcome to,",color = Color.White, fontSize = 40.sp, fontWeight = FontWeight.Bold)
-            Text(text = "Application name", color = Color.White,fontSize = 40.sp, fontWeight = FontWeight.Bold)
+            .zIndex(2f).padding(start=20.dp)){
+            Text(text = "Welcome to,",color = Color.White, fontSize = 35.sp, fontWeight = FontWeight.Bold)
+            Text(text = "Application name", color = Color.White,fontSize = 35.sp, fontWeight = FontWeight.Bold)
         }
         Card(
             modifier = Modifier
@@ -69,7 +69,8 @@ fun SignInPageView(){
                 .padding(bottom = 10.dp))
             Button(onClick = { /*TODO*/ }, modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp)
+                .padding(vertical = 10.dp)
+                .padding(horizontal = 16.dp)
                 ,colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),shape = RoundedCornerShape(8.dp)) {
                 Text(text = "Sign In", fontWeight = FontWeight.Bold,fontSize = 15.sp)
             }
@@ -79,7 +80,7 @@ fun SignInPageView(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
-                    .padding(bottom = 20.dp),
+                    .padding(bottom = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
