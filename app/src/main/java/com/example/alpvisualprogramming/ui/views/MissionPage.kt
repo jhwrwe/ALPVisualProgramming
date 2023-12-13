@@ -366,15 +366,15 @@ fun Missions() {
                 .fillMaxSize()
                 .background(Color(0xFFF3F8FF), RoundedCornerShape(12.dp))
                 .clip(RoundedCornerShape(12.dp))
-                .shadow(3.dp, RoundedCornerShape(12.dp))
-                .padding(start = 1.5.dp, end = 1.5.dp, top = 1.dp, bottom = 2.5.dp),
+                .shadow(1.dp, RoundedCornerShape(12.dp))
+                .padding(start = 1.dp, end = 1.dp, top = 1.dp, bottom = 2.5.dp),
             colors = CardDefaults.cardColors(containerColor = Color(0xFFF3F8FF)),
         ){
             Row (
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color(0xFFF3F8FF), RoundedCornerShape(12.dp))
-                    .padding(start = 14.5.dp, end = 14.5.dp)
+                    .padding(start = 8.dp, end = 8.dp)
                     .clip(RoundedCornerShape(12.dp)),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
