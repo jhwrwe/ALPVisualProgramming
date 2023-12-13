@@ -186,7 +186,7 @@ fun MissionView() {
                         LazyColumn(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 20.dp, end = 20.dp, top = 33.dp)
+                                .padding(start = 16.dp, end = 16.dp, top = 33.dp)
                         ) {
                             item {
                                 Missions()
@@ -374,7 +374,11 @@ fun Missions() {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color(0xFFF3F8FF), RoundedCornerShape(12.dp))
+<<<<<<< HEAD
                     .padding(start = 6.5.dp, end = 6.5.dp)
+=======
+                    .padding(start = 14.5.dp, end = 14.5.dp)
+>>>>>>> f1f0cadcbf51a135cc2edb6bc2670ef614e736a1
                     .clip(RoundedCornerShape(12.dp)),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
@@ -635,35 +639,7 @@ fun Badges(title: String, price: String, picture: String) {
     }
 }
 
-@Composable
-fun BottomFooter(title: String, picture: String, modifier: Modifier = Modifier, color: Color) {
 
-    val context = LocalContext.current
-    val drawable = stringToDrawableId(context, picture)
-
-    Column(modifier = modifier) {
-        Image(
-            painter = painterResource(id = drawable),
-            contentDescription = "image",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 8.dp, end = 8.dp)
-                .size(35.dp)
-                .clickable {},
-            colorFilter = ColorFilter.tint(color)
-        )
-        Text(
-            text = title,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 2.dp),
-            textAlign = TextAlign.Center,
-            color = color,
-            fontSize = 13.sp
-        )
-    }
-}
 
 @SuppressLint("DiscouragedApi")
 @Composable
