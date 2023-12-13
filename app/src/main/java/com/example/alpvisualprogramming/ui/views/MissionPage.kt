@@ -186,7 +186,7 @@ fun MissionView() {
                         LazyColumn(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 20.dp, end = 20.dp, top = 33.dp)
+                                .padding(start = 16.dp, end = 16.dp, top = 33.dp)
                         ) {
                             item {
                                 Missions()
@@ -206,7 +206,7 @@ fun MissionView() {
                             columns = GridCells.Fixed(2),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 10.dp, end = 10.dp, top = 33.dp)
+                                .padding(start = 8.dp, end = 8.dp, top = 33.dp)
                         ) {
                             item {
                                 Badges(
@@ -347,61 +347,7 @@ fun MissionView() {
 
 
         // Footer ================================================================================================================
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(top = 8.dp)
-                .shadow(8.dp)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            Row(
-                modifier = Modifier
-                    .height(80.dp)
-                    .fillMaxWidth()
-                    .shadow(8.dp)
-                    .background(Color(0xFFF3F8FF)),
-            ) {
-                Spacer(modifier = Modifier.padding(6.dp))
-                BottomFooter(
-                    title = "To Do",
-                    picture = "to_do",
-                    Modifier
-                        .weight(1f)
-                        .padding(top = 12.dp, bottom = 12.dp),
-                    Color.Black
-                )
-                Spacer(modifier = Modifier.padding(6.dp))
-                BottomFooter(
-                    title = "Journal",
-                    picture = "journal",
-                    Modifier
-                        .weight(1f)
-                        .padding(top = 12.dp, bottom = 12.dp),
-                    Color.LightGray
-                )
-                Spacer(modifier = Modifier.padding(6.dp))
-                BottomFooter(
-                    title = "Mission",
-                    picture = "mission",
-                    Modifier
-                        .weight(1f)
-                        .padding(top = 12.dp, bottom = 12.dp),
-                    Color.LightGray
-                )
-                Spacer(modifier = Modifier.padding(6.dp))
-                BottomFooter(
-                    title = "Profile",
-                    picture = "profile",
-                    Modifier
-                        .weight(1f)
-                        .padding(top = 12.dp, bottom = 12.dp),
-                    Color.LightGray
-                )
-                Spacer(modifier = Modifier.padding(6.dp))
-            }
-        }
+        Footer()
         // Footer ================================================================================================================
     }
     // Container ================================================================================================================
@@ -420,8 +366,8 @@ fun Missions() {
                 .fillMaxSize()
                 .background(Color(0xFFF3F8FF), RoundedCornerShape(12.dp))
                 .clip(RoundedCornerShape(12.dp))
-                .shadow(3.dp, RoundedCornerShape(12.dp))
-                .padding(start = 1.5.dp, end = 1.5.dp, top = 1.dp, bottom = 2.5.dp),
+                .shadow(1.dp, RoundedCornerShape(12.dp))
+                .padding(start = 1.dp, end = 1.dp, top = 1.dp, bottom = 2.5.dp),
             colors = CardDefaults.cardColors(containerColor = Color(0xFFF3F8FF)),
         ){
             Row (
@@ -689,35 +635,7 @@ fun Badges(title: String, price: String, picture: String) {
     }
 }
 
-@Composable
-fun BottomFooter(title: String, picture: String, modifier: Modifier = Modifier, color: Color) {
 
-    val context = LocalContext.current
-    val drawable = stringToDrawableId(context, picture)
-
-    Column(modifier = modifier) {
-        Image(
-            painter = painterResource(id = drawable),
-            contentDescription = "image",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 8.dp, end = 8.dp)
-                .size(35.dp)
-                .clickable {},
-            colorFilter = ColorFilter.tint(color)
-        )
-        Text(
-            text = title,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 2.dp),
-            textAlign = TextAlign.Center,
-            color = color,
-            fontSize = 13.sp
-        )
-    }
-}
 
 @SuppressLint("DiscouragedApi")
 @Composable
