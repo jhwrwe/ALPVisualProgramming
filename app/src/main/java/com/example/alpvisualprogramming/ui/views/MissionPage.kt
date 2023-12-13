@@ -206,7 +206,7 @@ fun MissionView() {
                             columns = GridCells.Fixed(2),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 10.dp, end = 10.dp, top = 33.dp)
+                                .padding(start = 8.dp, end = 8.dp, top = 33.dp)
                         ) {
                             item {
                                 Badges(
@@ -347,61 +347,7 @@ fun MissionView() {
 
 
         // Footer ================================================================================================================
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(top = 8.dp)
-                .shadow(8.dp)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            Row(
-                modifier = Modifier
-                    .height(80.dp)
-                    .fillMaxWidth()
-                    .shadow(8.dp)
-                    .background(Color(0xFFF3F8FF)),
-            ) {
-                Spacer(modifier = Modifier.padding(6.dp))
-                BottomFooter(
-                    title = "To Do",
-                    picture = "to_do",
-                    Modifier
-                        .weight(1f)
-                        .padding(top = 12.dp, bottom = 12.dp),
-                    Color.Black
-                )
-                Spacer(modifier = Modifier.padding(6.dp))
-                BottomFooter(
-                    title = "Journal",
-                    picture = "journal",
-                    Modifier
-                        .weight(1f)
-                        .padding(top = 12.dp, bottom = 12.dp),
-                    Color.LightGray
-                )
-                Spacer(modifier = Modifier.padding(6.dp))
-                BottomFooter(
-                    title = "Mission",
-                    picture = "mission",
-                    Modifier
-                        .weight(1f)
-                        .padding(top = 12.dp, bottom = 12.dp),
-                    Color.LightGray
-                )
-                Spacer(modifier = Modifier.padding(6.dp))
-                BottomFooter(
-                    title = "Profile",
-                    picture = "profile",
-                    Modifier
-                        .weight(1f)
-                        .padding(top = 12.dp, bottom = 12.dp),
-                    Color.LightGray
-                )
-                Spacer(modifier = Modifier.padding(6.dp))
-            }
-        }
+        Footer()
         // Footer ================================================================================================================
     }
     // Container ================================================================================================================
@@ -428,7 +374,7 @@ fun Missions() {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color(0xFFF3F8FF), RoundedCornerShape(12.dp))
-                    .padding(start = 8.dp, end = 8.dp)
+                    .padding(start = 6.5.dp, end = 6.5.dp)
                     .clip(RoundedCornerShape(12.dp)),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
