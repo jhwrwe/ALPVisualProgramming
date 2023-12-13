@@ -84,7 +84,7 @@ fun LogInPageView(){
                 fontSize = 15.sp,
                 color = Color.White,
                 modifier = Modifier
-                    .absolutePadding(top = 115.dp, left = 16.dp)
+                    .absolutePadding(top = 75.dp, left = 16.dp)
                 )
         }
         Box(
@@ -107,7 +107,7 @@ fun LogInPageView(){
                 fontSize = 15.sp,
                 color = Color.White,
                 modifier = Modifier
-                    .absolutePadding(top = 10.dp, left = 16.dp)
+                    .absolutePadding(top = 25.dp, left = 16.dp)
             )
         }
         Box(
