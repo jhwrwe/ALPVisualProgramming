@@ -1,5 +1,6 @@
 package com.example.alpvisualprogramming.ui.views
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,9 +12,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -25,8 +37,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 fun SignUpPageView(){
+
+  
     Column(
+
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF3960E5))
@@ -60,7 +76,7 @@ fun SignUpPageView(){
                         fontSize = 22.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
-                            .absolutePadding(left = 16.dp)
+                            .absolutePadding(left = 20.dp)
                             .absolutePadding(top = 20.dp)
                     )
                 }
@@ -72,7 +88,7 @@ fun SignUpPageView(){
                         fontSize = 22.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
-                            .absolutePadding(left = 16.dp))
+                            .absolutePadding(left = 20.dp))
                 }
             }
         }
@@ -193,28 +209,19 @@ fun SignUpPageView(){
         ){
         }
 
-        Row {
-        }
-        Box(
+        Button(onClick = { /*TODO*/ },
             modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .absolutePadding(top = 30.dp)
-                .background(Color.White, shape = RoundedCornerShape(10.dp))
-                .border(
-                    width = 1.dp,
-                    color = Color.White,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .fillMaxWidth()
-                .height(40.dp)
-        ){
+                .width(358.dp)
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 30.dp),
+            colors = ButtonDefaults.buttonColors(Color.White),
+            shape = RoundedCornerShape(8.dp))
+        {
             Text(
-                text = "Sign Up",
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 20.sp,
-                modifier = Modifier
-                    .absolutePadding(left = 145.dp, top = 6.dp)
-            )
+                text = "Sign In",
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp)
         }
 
         Row(
@@ -240,6 +247,32 @@ fun SignUpPageView(){
         }
     }
 }
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CustomTextField(
+    value: String,
+    onValueChanged: (String) -> Unit,
+    text: String,
+    keyboardOptions: KeyboardOptions,
+    modifier: Modifier = Modifier
+){
+OutlinedTextField(
+    value = value,
+    onValueChange = onValueChanged,
+    label ={Text(text = text)},
+    keyboardOptions = keyboardOptions,
+    modifier = modifier,
+    shape = RoundedCornerShape(8.dp),
+    colors = TextFieldDefaults.outlinedTextFieldColors(
+        textColor = Color.White,
+        focusedBorderColor = Color.White,
+        unfocusedBorderColor = Color.White
+    )
+)
+}
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
