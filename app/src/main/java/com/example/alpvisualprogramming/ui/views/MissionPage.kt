@@ -53,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.example.alpvisualprogramming.R
+import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 
 @Composable
 fun MissionView() {
@@ -103,14 +104,15 @@ fun MissionView() {
                     ) {
                         Row(
                             modifier = Modifier
-                                .padding(top = 20.dp)
+                                .padding(top = 15.dp)
                                 .fillMaxWidth(),
                             horizontalArrangement = Arrangement.Center,
                         ) {
                             Text(
                                 text = "Daily Mission",
+                                fontFamily = poppinsFamily,
                                 color = Color.White,
-                                fontSize = 20.sp,
+                                fontSize = 14.sp,
                                 fontWeight = FontWeight.SemiBold,
                             )
                         }
@@ -118,12 +120,13 @@ fun MissionView() {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 15.dp),
+                                .padding(top = 10.dp),
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Text(
                                 text = "12345",
+                                fontFamily = poppinsFamily,
                                 color = Color.White,
                                 fontSize = 40.sp,
                                 fontWeight = FontWeight.Bold,
@@ -132,7 +135,7 @@ fun MissionView() {
 
                         Row(
                             modifier = Modifier
-                                .padding(top = 10.dp)
+//                                .padding(top = 5.dp)
                                 .fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center
@@ -155,8 +158,11 @@ fun MissionView() {
                             ) {
                                 Text(
                                     text = "Coins",
+                                    fontFamily = poppinsFamily,
                                     color = Color.White,
+                                    fontWeight = FontWeight.Medium,
                                     fontSize = 20.sp,
+                                    textAlign = TextAlign.Center,
                                 )
                             }
 
@@ -170,9 +176,10 @@ fun MissionView() {
                         ) {
                             Text(
                                 text = "Do your tasks and get more coins!",
+                                fontFamily = poppinsFamily,
                                 color = Color.White,
                                 fontSize = 15.sp,
-                                fontWeight = FontWeight.SemiBold,
+                                fontWeight = FontWeight.Bold,
                             )
                         }
 
@@ -293,6 +300,7 @@ fun MissionView() {
                                 ) {
                                     Text(
                                         text = "Mission",
+                                        fontFamily = poppinsFamily,
                                         color = if (missionBox) {
                                             Color.White
                                         } else {
@@ -328,6 +336,7 @@ fun MissionView() {
                                 ) {
                                     Text(
                                         text = "Badge",
+                                        fontFamily = poppinsFamily,
                                         color = if (badgeBox) {
                                             Color.White
                                         } else {
@@ -374,7 +383,7 @@ fun Missions() {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color(0xFFF3F8FF), RoundedCornerShape(12.dp))
-                    .padding(start = 8.dp, end = 8.dp)
+                    .padding(start = 10.dp, end = 10.dp)
                     .clip(RoundedCornerShape(12.dp)),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
@@ -395,6 +404,7 @@ fun Missions() {
                     )
                     Text(
                         text = "+30",
+//                        fontFamily = poppinsFamily,
                         fontSize = 26.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
@@ -412,19 +422,21 @@ fun Missions() {
                 ){
                     Text(
                         text = "TASK_NAME",
-                        fontSize = 20.sp,
+                        fontFamily = poppinsFamily,
+                        fontSize = 14.sp,
                         color = Color(0xFF3F3F3F),
-                        fontWeight = FontWeight.SemiBold,
-                        lineHeight = 24.sp,
+                        fontWeight = FontWeight.Medium,
+//                        lineHeight = 14.sp,
 
                         )
-                    Spacer(modifier = Modifier.height(4.dp))
+//                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "blablablablablablablablablabla \nblablablablablablablablablabla",
+                        text = "blablablablablablablab \nblablablablablablablab",
+                        fontFamily = poppinsFamily,
                         fontSize = 12.sp,
                         color = Color(0xFFA0A4A7),
-                        fontWeight = FontWeight.SemiBold,
-                        lineHeight = 16.sp,
+//                        fontWeight = FontWeight.Bold,
+//                        lineHeight = 11.sp,
 
                         )
                 }
@@ -450,19 +462,21 @@ fun Missions() {
                     ) {
                         Text(
                             text = "CLAIM",
+                            fontFamily = poppinsFamily,
                             fontSize = 13.sp,
                             color = Color.White,
                             lineHeight = 20.sp,
-                            fontWeight = FontWeight.SemiBold
+                            fontWeight = FontWeight.Bold
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = "1/5",
+                        fontFamily = poppinsFamily,
                         fontSize = 16.sp,
                         lineHeight = 18.sp,
                         color = Color(0xFF3F3F3F),
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = FontWeight.Medium,
                         textAlign = TextAlign.Center
 
                     )
@@ -503,6 +517,7 @@ fun Badges(title: String, price: String, picture: String) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
+                    fontFamily = poppinsFamily,
                     text = title,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier
@@ -544,6 +559,7 @@ fun Badges(title: String, price: String, picture: String) {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
+                            fontFamily = poppinsFamily,
                             text = price,
                             color = Color.White,
                             fontSize = 18.sp,
@@ -573,8 +589,9 @@ fun Badges(title: String, price: String, picture: String) {
                                 Spacer(modifier = Modifier.height(28.dp))
                                 Text(
                                     text = "Are you sure you want to buy : \n'$title' badge?",
+                                    fontFamily = poppinsFamily,
                                     fontSize = 16.sp,
-                                    fontWeight = FontWeight.SemiBold,
+                                    fontWeight = FontWeight.Bold,
                                     lineHeight = 18.sp
                                 )
                             }
@@ -621,6 +638,7 @@ fun Badges(title: String, price: String, picture: String) {
                         ) {
                             Text(
                                 text = "Buy",
+                                fontFamily = poppinsFamily,
                                 fontSize = 16.sp,
                                 color = Color.White,
                                 lineHeight = 18.sp
