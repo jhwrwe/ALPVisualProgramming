@@ -132,7 +132,7 @@ fun LogInPageView(){
         Column {
             CustomTextField1(value = password,
                 onValueChanged = { password = it },
-                text = "Create a password",
+                text = "Enter your password",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
