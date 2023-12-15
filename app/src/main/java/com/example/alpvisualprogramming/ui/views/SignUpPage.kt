@@ -137,8 +137,8 @@ fun SignUpPageView(){
             )
         }
         Column {
-            CustomTextField(value = username,
-                onValueChanged = { username = it },
+            CustomTextField(value = fullname,
+                onValueChanged = { fullname = it },
                 text = "Enter your full name",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
@@ -161,8 +161,8 @@ fun SignUpPageView(){
             )
         }
         Column {
-            CustomTextField(value = username,
-                onValueChanged = { username = it },
+            CustomTextField(value = phonenumber,
+                onValueChanged = { phonenumber = it },
                 text = "Enter your phone number",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
@@ -185,8 +185,8 @@ fun SignUpPageView(){
             )
         }
         Column {
-            CustomTextField(value = username,
-                onValueChanged = { username = it },
+            CustomTextField(value = email,
+                onValueChanged = { email = it },
                 text = "Enter your email",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
@@ -209,8 +209,8 @@ fun SignUpPageView(){
             )
         }
         Column {
-            CustomTextField(value = username,
-                onValueChanged = { username = it },
+            CustomTextField(value = password,
+                onValueChanged = { password = it },
                 text = "Create a password",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
