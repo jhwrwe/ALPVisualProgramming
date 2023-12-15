@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 
 @Composable
 fun Footer() {
@@ -101,13 +102,14 @@ fun BottomFooter(title: String, picture: String, modifier: Modifier = Modifier, 
         )
         Text(
             text = title,
+            fontFamily = poppinsFamily,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 2.dp),
             textAlign = TextAlign.Center,
             color = color,
-            fontSize = 13.sp
+            fontSize = 13.sp,
         )
     }
 }
