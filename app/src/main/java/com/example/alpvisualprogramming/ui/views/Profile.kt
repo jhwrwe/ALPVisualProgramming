@@ -293,24 +293,29 @@ fun Profile() {
                     .padding(start = 20.dp))
             Row (modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.26F)
-                .padding(7.dp)
-                .padding(start =5.dp)
+                .padding(5.dp)
+                .padding(start = 5.dp)
+                .fillMaxHeight(0.22F)
                 .padding(end = 20.dp)
                 .padding(top = 5.dp)
                 .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
                 .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
-                .background(color = Color(0xFFF2F7FE)), horizontalArrangement = Arrangement.SpaceBetween){
-                Column (modifier = Modifier.fillMaxHeight().padding(start=10.dp),horizontalAlignment = Alignment.CenterHorizontally,
+                .background(color = Color(0xFFF2F7FE))){
+                Column (modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(end = 20.dp).padding(start=10.dp), horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center){
                     Image(
                         painter = painterResource(id = R.drawable.bronze_medal),
                         contentDescription = "badge",
                         modifier = Modifier
+
                             .size(40.dp),
                     )
                 }
-                Column (modifier = Modifier.fillMaxHeight(),
+                Column (modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(end = 76.dp),
                     verticalArrangement = Arrangement.Center){
                     Text(text = "Profile Settings", fontWeight = FontWeight.SemiBold,
                         fontSize = 18.sp,
@@ -327,7 +332,6 @@ fun Profile() {
                         contentDescription = "Arrow Icon",
                         tint = Color.Gray,
                         modifier = Modifier.size(20.dp)
-
                     )
                 }
             }
@@ -343,7 +347,7 @@ fun Profile() {
             .background(color = Color(0xFFF2F7FE))){
             Column (modifier = Modifier
                 .fillMaxHeight()
-                .padding(end = 60.dp).padding(start=10.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(end = 20.dp).padding(start=10.dp), horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 Image(
                     painter = painterResource(id = R.drawable.bronze_medal),
@@ -355,7 +359,7 @@ fun Profile() {
             }
             Column (modifier = Modifier
                 .fillMaxHeight()
-                .padding(end = 105.dp),
+                .padding(end = 120.dp),
                 verticalArrangement = Arrangement.Center){
                 Text(text = "Language", fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
@@ -387,7 +391,7 @@ fun Profile() {
             .background(color = Color(0xFFF2F7FE))){
             Column (modifier = Modifier
                 .fillMaxHeight()
-                .padding(end = 60.dp).padding(start=10.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(end = 20.dp).padding(start=10.dp), horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 Image(
                     painter = painterResource(id = R.drawable.bronze_medal),
@@ -399,7 +403,7 @@ fun Profile() {
             }
             Column (modifier = Modifier
                 .fillMaxHeight()
-                .padding(end = 105.dp),
+                .padding(end = 120.dp),
                 verticalArrangement = Arrangement.Center){
                 Text(text = "Logout", fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,

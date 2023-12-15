@@ -21,6 +21,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -57,7 +58,8 @@ fun SignInPageView(){
                 .fillMaxWidth()
                 .height(200.dp)
                 .clip(RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp))
-                .border(2.dp, Color.Gray, RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp))
+                .border(2.dp, Color.Gray, RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp)),
+            colors = CardDefaults.cardColors(Color.White)
         ) {
             Text(text = "Be more productive with '...' and start", color = Color(0xFF3F3F3F), fontWeight = FontWeight.SemiBold,fontSize = 15.sp, modifier = Modifier
                 .padding(horizontal = 20.dp)
