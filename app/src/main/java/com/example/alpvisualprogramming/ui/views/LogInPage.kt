@@ -140,10 +140,9 @@ fun LogInPageView(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.125F)
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 16.dp),
             )
         }
-
         Row(
         ){
             Box(
