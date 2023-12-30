@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import com.example.alpvisualprogramming.R
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -230,17 +231,27 @@ fun CustomTextField1(
     OutlinedTextField(
         value = value,
         onValueChange = onValueChanged,
-        label ={Text(text = text, color = Color.White)},
+        label = {
+            Text(
+                text = text,
+                color = Color.White,
+                modifier = Modifier.padding(start = 3.dp),
+                style = TextStyle(
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Normal
+                )
+            )
+        },
         keyboardOptions = keyboardOptions,
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(52.dp),
         shape = RoundedCornerShape(8.dp),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = Color.White,
             focusedBorderColor = Color.White,
-            unfocusedBorderColor = Color.White,
-
-            )
-
+            unfocusedBorderColor = Color.White
+        )
     )
 }
 

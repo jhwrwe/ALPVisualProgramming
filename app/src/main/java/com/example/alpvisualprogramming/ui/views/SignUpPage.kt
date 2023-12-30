@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import com.example.alpvisualprogramming.R
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -122,7 +123,6 @@ fun SignUpPageView(){
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.085F)
                     .padding(horizontal = 16.dp)
             )
         }
@@ -146,7 +146,6 @@ fun SignUpPageView(){
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.1F)
                     .padding(horizontal = 16.dp)
             )
         }
@@ -170,7 +169,6 @@ fun SignUpPageView(){
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.12F)
                     .padding(horizontal = 16.dp)
             )
         }
@@ -194,7 +192,6 @@ fun SignUpPageView(){
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.15F)
                     .padding(horizontal = 16.dp)
             )
         }
@@ -218,7 +215,6 @@ fun SignUpPageView(){
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.2F)
                     .padding(horizontal = 16.dp)
             )
         }
@@ -272,21 +268,31 @@ fun CustomTextField(
     keyboardOptions: KeyboardOptions,
     modifier: Modifier = Modifier
 ){
-OutlinedTextField(
-    value = value,
-    onValueChange = onValueChanged,
-    label ={Text(text = text, color = Color.White)},
-    keyboardOptions = keyboardOptions,
-    modifier = modifier,
-    shape = RoundedCornerShape(8.dp),
-    colors = TextFieldDefaults.outlinedTextFieldColors(
-        textColor = Color.White,
-        focusedBorderColor = Color.White,
-        unfocusedBorderColor = Color.White,
-
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChanged,
+        label = {
+            Text(
+                text = text,
+                color = Color.White,
+                modifier = Modifier.padding(start = 3.dp),
+                style = TextStyle(
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Normal
+                )
+            )
+        },
+        keyboardOptions = keyboardOptions,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(52.dp),
+        shape = RoundedCornerShape(8.dp),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            textColor = Color.White,
+            focusedBorderColor = Color.White,
+            unfocusedBorderColor = Color.White
+        )
     )
-
-)
 }
 
 
