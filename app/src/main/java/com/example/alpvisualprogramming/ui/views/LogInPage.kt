@@ -101,6 +101,7 @@ fun LogInPageView(){
             Text(
                 text = "Email",
                 fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 modifier = Modifier
                     .absolutePadding(top = 75.dp, left = 16.dp)
@@ -125,6 +126,7 @@ fun LogInPageView(){
             Text(
                 text = "Password",
                 fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 modifier = Modifier
                     .absolutePadding(top = 25.dp, left = 16.dp)
