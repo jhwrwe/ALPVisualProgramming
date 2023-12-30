@@ -108,6 +108,7 @@ fun SignUpPageView(){
             Text(
                 text = "Username",
                 fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 modifier = Modifier
                     .absolutePadding(top = 30.dp, left = 16.dp)
@@ -131,6 +132,7 @@ fun SignUpPageView(){
             Text(
                 text = "Full Name",
                 fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 modifier = Modifier
                     .absolutePadding(top = 10.dp, left = 16.dp)
@@ -154,6 +156,7 @@ fun SignUpPageView(){
             Text(
                 text = "Phone Number",
                 fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 modifier = Modifier
                     .absolutePadding(top = 10.dp, left = 16.dp)
@@ -177,6 +180,7 @@ fun SignUpPageView(){
             Text(
                 text = "Email",
                 fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 modifier = Modifier
                     .absolutePadding(top = 10.dp, left = 16.dp)
@@ -200,6 +204,7 @@ fun SignUpPageView(){
             Text(
                 text = "Password",
                 fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 modifier = Modifier
                     .absolutePadding(top = 10.dp, left = 16.dp)
