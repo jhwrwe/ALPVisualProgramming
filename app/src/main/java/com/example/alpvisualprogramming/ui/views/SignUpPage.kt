@@ -241,7 +241,7 @@ fun SignUpPageView(){
                 color = Color.White,
                 fontSize = 14.sp,
                 modifier = Modifier
-                    .absolutePadding(left = 120.dp, top = 30.dp)
+                    .absolutePadding(left = 120.dp, top = 20.dp)
             )
         }
 
@@ -285,7 +285,7 @@ fun CustomTextField(
         keyboardOptions = keyboardOptions,
         modifier = modifier
             .fillMaxWidth()
-            .height(52.dp),
+            .height(50.dp),
         shape = RoundedCornerShape(8.dp),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = Color.White,
