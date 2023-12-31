@@ -1,4 +1,4 @@
-package com.example.alpvisualprogramming.ui.model
+package com.example.alpvisualprogramming.model
 
 import java.time.LocalDate
 import java.time.LocalTime

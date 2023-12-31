@@ -1,4 +1,4 @@
-package com.example.alpvisualprogramming.ui.model
+package com.example.alpvisualprogramming.model
 
 data class Badge(
     var badge_id: Int = 0,

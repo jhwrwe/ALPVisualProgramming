@@ -1,4 +1,4 @@
-package com.example.alpvisualprogramming.ui.model
+package com.example.alpvisualprogramming.model
 
 data class Mission(
     var mission_id: Int = 0,
