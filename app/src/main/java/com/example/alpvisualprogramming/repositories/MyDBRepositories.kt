@@ -5,8 +5,8 @@ import com.example.alpvisualprogramming.services.MyDBService
 import java.net.HttpURLConnection
 
 class MyDBRepositories (private val myDBService: MyDBService){
-    suspend fun login(email:String, password:String):String{
-        val user = User(email = email, password = password)
+    suspend fun login(username:String, password:String):String{
+        val user = User(username = username, password = password)
         val result = myDBService.login(user)
 
         if(result.status.toInt()== HttpURLConnection.HTTP_OK){
