@@ -185,31 +185,6 @@ fun CardWithCheckbox() {
                             color = Color(0xFF8B8E91)
                         )
                     }
-                    Box(
-                        modifier = Modifier
-                            .width(50.dp)
-                            .padding(start = 12.dp),
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_access_time_filled_24),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(25.dp)
-                        )
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_account_circle_24),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(25.dp)
-                                .offset(10.dp)
-                        )
-                    }
-                    Text(
-                        text = "+ 2",
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 12.sp,
-                        color = Color(0xFF8B8E91)
-                    )
                 }
             }
             Image(

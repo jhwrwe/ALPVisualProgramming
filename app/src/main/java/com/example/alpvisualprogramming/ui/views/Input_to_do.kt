@@ -21,6 +21,8 @@ import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -58,7 +60,7 @@ fun Input_to_do(){
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0xFF3960E5))
-            .padding(vertical= 10.dp),
+            .padding(vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -75,7 +77,9 @@ fun Input_to_do(){
             modifier = Modifier.fillMaxWidth(1F)
         )
     }
-        Column ( modifier = Modifier.padding(20.dp).padding(top = 20.dp)){
+        Column ( modifier = Modifier
+            .padding(20.dp)
+            .padding(top = 20.dp)){
             Text(text = "Title", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold)
             customTextField(
                 value = title,
@@ -204,6 +208,11 @@ fun customTextField(
             textColor = Color.Black
         )
     )
+    DropdownMenuItem(text = { Text(text = "ini dropdown") }, onClick = { /*TODO*/ })
+    DropdownMenu(expanded = true, onDismissRequest = { /*TODO*/ }) {
+        DropdownMenuItem(text = { Text(text = "pil 1") }, onClick = { /*TODO*/ })
+        DropdownMenuItem(text = { Text(text = "pil 2") }, onClick = { /*TODO*/ })
+    }
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

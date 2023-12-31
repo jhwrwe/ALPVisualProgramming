@@ -224,7 +224,7 @@ fun IconTextNumberCard(imageResId: Int, text: String, number: Int) {
             .height(55.dp)
             .padding(bottom = 10.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFE4EFFF)
+            containerColor = Color(0xFFF3F8FF)
         )
     ) {
         Row(
