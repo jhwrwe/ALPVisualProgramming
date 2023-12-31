@@ -6,5 +6,5 @@ data class Mission(
     var quantity: Int = 0,
     var coins: Int = 0,
     var urgency_status: Int = 0,
-//    var user_id : Int = 0,
+    var user_id : Int = 0,
 )
