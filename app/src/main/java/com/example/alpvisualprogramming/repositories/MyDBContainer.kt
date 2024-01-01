@@ -15,13 +15,14 @@ class AuthInterceptor(private val bearerToken: String) : Interceptor {
         return chain.proceed(request)
     }
 }
-class MyDBContainer (){
-    companion object  {
+class MyDBContainer() {
+
+    companion object{
         val BASE_IMG = ""
-        var ACCESS_TOKEN =""
+        var ACCESS_TOKEN = ""
     }
 
-    private val BASE_URL = "https://192.168.102.156/VP_Week8_2023/VisProg_VsCodea/week8_vp/public/api"
+    private val BASE_URL = "http://192.168.1.10:8000/api/"
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(AuthInterceptor(ACCESS_TOKEN))
@@ -32,10 +33,12 @@ class MyDBContainer (){
         .baseUrl(BASE_URL)
         .client(client)
         .build()
-    private val retrofitservice : MyDBService by lazy {
+
+    private val retrofitService: MyDBService by lazy{
         retrofit.create(MyDBService::class.java)
     }
-    val myDBRepositories:MyDBRepositories by lazy {
-        MyDBRepositories(retrofitservice)
+
+    val myDBRepositories: MyDBRepositories by lazy{
+        MyDBRepositories(retrofitService)
     }
 }
