@@ -1,6 +1,8 @@
 package com.example.alpvisualprogramming.services
 
 import com.example.alpvisualprogramming.model.APIResponse
+import com.example.alpvisualprogramming.model.Badge
+import com.example.alpvisualprogramming.model.BadgeUser
 import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.model.Todolist
 import com.example.alpvisualprogramming.model.User
@@ -26,27 +28,27 @@ interface MyDBService{
     suspend fun deleteuser():APIResponse
 
     @PATCH("update_user")
-    suspend fun update_bio():APIResponse
+    suspend fun update_bio(@Body user: User):APIResponse
 
     //badge
     @POST("create_badge")
-    suspend fun createBadge():APIResponse
+    suspend fun createBadge(@Body badge: Badge):APIResponse
 
     @DELETE("delete_badge")
-    suspend fun deleteBadge():APIResponse
+    suspend fun deleteBadge(@Body badge: Badge):APIResponse
 
     @GET("see_All_Badges")
-    suspend fun seeallbadge(): APIResponse
+    suspend fun seeallbadge(@Body badge: Badge): APIResponse
 
     //badge yang dipunyai oleh user
     @POST("create_badge_user/{id}")
-    suspend fun create_Badge_user(@Path("id") id: Int): APIResponse
+    suspend fun create_Badge_user(@Body badgeUser: BadgeUser, @Path("id") id: Int): APIResponse
 
     @DELETE("delete_badge_user")
-    suspend fun deletebadgeuser(@Path("id")id:Int):APIResponse
+    suspend fun deletebadgeuser():APIResponse
 
     @PUT("coins_minus/{id}")
-    suspend fun decreasingcoins(@Path("id")id:Int):APIResponse
+    suspend fun decreasingcoins(@Body badgeUser: BadgeUser,@Path("id")id:Int):APIResponse
 
     @GET("see_all_badge")
     suspend fun seeingallthebadge():APIResponse
