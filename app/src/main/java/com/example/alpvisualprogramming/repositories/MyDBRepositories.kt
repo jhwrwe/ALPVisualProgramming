@@ -1,8 +1,10 @@
 package com.example.alpvisualprogramming.repositories
 
+import android.util.Log
 import com.example.alpvisualprogramming.model.Badge
 import com.example.alpvisualprogramming.model.BadgeUser
 import com.example.alpvisualprogramming.model.Mission
+import com.example.alpvisualprogramming.model.Todolist
 import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.services.MyDBService
 import java.net.HttpURLConnection
@@ -91,4 +93,32 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
         return result.message
     }
+
+
+    //todolist
+    suspend fun getTodolistByUrgency(urgencyStatus: Int): List<Todolist>{
+        try {
+            val listTodolists = myDBService.getTodolistByUrgency(urgencyStatus).data as? List<Todolist>
+            val data = mutableListOf<Todolist>()
+            if(listTodolists != null){
+                for (todolist in listTodolists){
+                    val todo = Todolist(
+                        todolist.title,
+                        todolist.date,
+                        todolist.time,
+                        todolist.urgency_status,
+                        todolist.description,
+                        todolist.progress_status,
+                        todolist.location,
+                    )
+                    data.add(todo)
+                }
+            }
+            return data
+        }catch (e: Exception){
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
+    }
+
 }
