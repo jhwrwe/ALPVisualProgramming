@@ -26,13 +26,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.alpvisualprogramming.ui.ViewNav
+import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 
 @Composable
-fun Footer() {
+fun Footer(navController: NavController) {
 
-    val navController = rememberNavController()
 
     Column(
         modifier = Modifier
@@ -116,16 +115,15 @@ fun BottomFooter(
                 .size(35.dp)
                 .clickable {
                     if (title == "To Do") {
-                        navController.navigate(ViewNav.ToDoListRoute)
+                        navController.navigate(NavGraph.ToDoListRoute)
                     } else if (title == "Journal") {
-                        navController.navigate(ViewNav.JournalPageRoute)
+                        navController.navigate(NavGraph.JournalPageRoute)
                     } else if (title == "Mission") {
-                        navController.navigate(ViewNav.MissionPageRoute)
+                        navController.navigate(NavGraph.MissionPageRoute)
                     } else if (title == "Profile") {
-                        navController.navigate(ViewNav.ProfileRoute)
-                    } else {
-
+                        navController.navigate(NavGraph.ProfileRoute)
                     }
+//                           navController.navigate(NavGraph.ProfileRoute)
                 },
             colorFilter = ColorFilter.tint(color)
         )
