@@ -2,6 +2,7 @@ package com.example.alpvisualprogramming.repositories
 
 import com.example.alpvisualprogramming.model.Badge
 import com.example.alpvisualprogramming.model.BadgeUser
+import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.services.MyDBService
 import java.net.HttpURLConnection
@@ -58,6 +59,24 @@ class MyDBRepositories (private val myDBService: MyDBService){
         val result = myDBService.seeingallthebadge()
         return result.message
     }
+
+    suspend fun create_mission(mission: Mission):String{
+        val result = myDBService.createMission(mission)
+        return result.message
+    }
+    suspend fun seeAllMission():Any{
+         val result = myDBService.getAllMission()
+        return result;
+    }
+    suspend fun claimMissionCoin(id:Int):String{
+        val result = myDBService.claimMissionCoin(id)
+        return result.message
+    }
+    suspend fun deleteMission(id:Int):String{
+        val result = myDBService.deleteMission(id)
+        return result.message
+    }
+
 
 
 
