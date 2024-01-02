@@ -14,6 +14,10 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
         return result.message
     }
+    suspend fun deleteuser():String{
+        val result = myDBService.deleteuser()
+        return result.message
+    }
     suspend fun logout():String{
         val result = myDBService.logout()
         return result.message

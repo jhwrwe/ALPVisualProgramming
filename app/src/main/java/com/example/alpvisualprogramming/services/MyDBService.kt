@@ -9,9 +9,11 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface MyDBService{
+    //User
     @POST("login")
     suspend fun login(@Body user: User): APIResponse
 
@@ -19,6 +21,35 @@ interface MyDBService{
     suspend fun  logout():APIResponse
     @POST("create_user")
     suspend fun register(@Body user: User):APIResponse
+
+    @DELETE("delete_user")
+    suspend fun deleteuser():APIResponse
+
+    @PATCH("update_user")
+    suspend fun update_bio():APIResponse
+
+    //badge
+    @POST("create_badge")
+    suspend fun createBadge():APIResponse
+
+    @DELETE("delete_badge")
+    suspend fun deleteBadge():APIResponse
+
+    @GET("see_All_Badges")
+    suspend fun seeallbadge(): APIResponse
+
+    //badge yang dipunyai oleh user
+    @POST("create_badge_user/{id}")
+    suspend fun create_Badge_user(@Path("id") id: Int): APIResponse
+
+    @DELETE("delete_badge_user")
+    suspend fun deletebadgeuser(@Path("id")id:Int):APIResponse
+
+    @PUT("coins_minus/{id}")
+    suspend fun decreasingcoins(@Path("id")id:Int):APIResponse
+
+    @GET("see_all_badge")
+    suspend fun seeingallthebadge():APIResponse
 
     //todolist
     @GET("todolist/{urgency}")
