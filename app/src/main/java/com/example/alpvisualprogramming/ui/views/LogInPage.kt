@@ -39,9 +39,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun LogInPageView(){
+fun LogInPageView(navController: NavController){
 
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
@@ -260,6 +262,7 @@ fun CustomTextField1(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LogInPagePreview(){
-    LogInPageView()
+    val navController = rememberNavController()
+    LogInPageView(navController)
 }
 

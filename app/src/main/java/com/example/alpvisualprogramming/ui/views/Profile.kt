@@ -56,11 +56,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
-fun Profile() {
+fun Profile(navController: NavController) {
     Column ( modifier = Modifier.fillMaxSize(1F)){
         Box(
             modifier = Modifier
@@ -89,7 +91,10 @@ fun Profile() {
                     .fillMaxWidth()
                     .fillMaxHeight(0.6F)
                     .padding(top = 60.dp)
-                    .shadow(elevation = 17.dp, shape = RoundedCornerShape(20.dp, 20.dp, 20.dp, 20.dp))
+                    .shadow(
+                        elevation = 17.dp,
+                        shape = RoundedCornerShape(20.dp, 20.dp, 20.dp, 20.dp)
+                    )
                     ,
                 horizontalAlignment = Alignment.CenterHorizontally
 
@@ -283,7 +288,8 @@ fun Profile() {
             }
 
         }
-        Column (modifier = Modifier.fillMaxWidth()
+        Column (modifier = Modifier
+            .fillMaxWidth()
             .fillMaxHeight(1.5F)){
             Text(text = "General",fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
@@ -303,7 +309,8 @@ fun Profile() {
                 .background(color = Color(0xFFF2F7FE))){
                 Column (modifier = Modifier
                     .fillMaxHeight()
-                    .padding(end = 20.dp).padding(start=10.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                    .padding(end = 20.dp)
+                    .padding(start = 10.dp), horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center){
                     Image(
                         painter = painterResource(id = R.drawable.bronze_medal),
@@ -347,7 +354,8 @@ fun Profile() {
             .background(color = Color(0xFFF2F7FE))){
             Column (modifier = Modifier
                 .fillMaxHeight()
-                .padding(end = 20.dp).padding(start=10.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(end = 20.dp)
+                .padding(start = 10.dp), horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 Image(
                     painter = painterResource(id = R.drawable.bronze_medal),
@@ -391,7 +399,8 @@ fun Profile() {
             .background(color = Color(0xFFF2F7FE))){
             Column (modifier = Modifier
                 .fillMaxHeight()
-                .padding(end = 20.dp).padding(start=10.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(end = 20.dp)
+                .padding(start = 10.dp), horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 Image(
                     painter = painterResource(id = R.drawable.bronze_medal),
@@ -495,5 +504,6 @@ fun badgess(picture: String){
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Profile_preview() {
-    Profile();
+    val navController = rememberNavController()
+    Profile(navController);
 }

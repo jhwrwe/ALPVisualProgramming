@@ -39,16 +39,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun SignInPageView(){
+fun SignInPageView(navController: NavController){
     Column (modifier = Modifier
         .fillMaxSize()
         .background(Color(0xFF3960E5)),
         verticalArrangement = Arrangement.SpaceBetween){
         Column (verticalArrangement = Arrangement.Center, modifier = Modifier
             .padding(top = 200.dp)
-            .zIndex(2f).padding(start=20.dp)){
+            .zIndex(2f)
+            .padding(start = 20.dp)){
             Text(text = "Welcome to,",color = Color.White, fontSize = 35.sp, fontWeight = FontWeight.Bold)
             Text(text = "Application name", color = Color.White,fontSize = 35.sp, fontWeight = FontWeight.Bold)
         }
@@ -108,5 +111,6 @@ fun SignInPageView(){
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SignInPagePreview(){
-    SignInPageView()
+    val navController= rememberNavController()
+    SignInPageView(navController)
 }

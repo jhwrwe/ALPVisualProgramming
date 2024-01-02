@@ -41,10 +41,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun SignUpPageView(){
+fun SignUpPageView(navController: NavController){
 
     var username by rememberSaveable { mutableStateOf("") }
     var fullname by rememberSaveable { mutableStateOf("") }
@@ -304,6 +306,7 @@ fun CustomTextField(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SignUpPagePreview(){
-    SignUpPageView()
+    val navController = rememberNavController()
+    SignUpPageView(navController)
 }
 

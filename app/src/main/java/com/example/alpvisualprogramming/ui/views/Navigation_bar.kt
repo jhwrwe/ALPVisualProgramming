@@ -24,10 +24,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.alpvisualprogramming.ui.ViewNav
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 
 @Composable
 fun Footer() {
+
+    val navController = rememberNavController()
+
     Column(
         modifier = Modifier
             .padding(top = 8.dp)
@@ -50,7 +56,8 @@ fun Footer() {
                 Modifier
                     .weight(1f)
                     .padding(top = 12.dp, bottom = 12.dp),
-                Color.Black
+                Color.Black,
+                navController = navController
             )
             Spacer(modifier = Modifier.padding(6.dp))
             BottomFooter(
@@ -59,7 +66,8 @@ fun Footer() {
                 Modifier
                     .weight(1f)
                     .padding(top = 12.dp, bottom = 12.dp),
-                Color.LightGray
+                Color.LightGray,
+                navController = navController
             )
             Spacer(modifier = Modifier.padding(6.dp))
             BottomFooter(
@@ -68,7 +76,8 @@ fun Footer() {
                 Modifier
                     .weight(1f)
                     .padding(top = 12.dp, bottom = 12.dp),
-                Color.LightGray
+                Color.LightGray,
+                navController = navController
             )
             Spacer(modifier = Modifier.padding(6.dp))
             BottomFooter(
@@ -77,14 +86,22 @@ fun Footer() {
                 Modifier
                     .weight(1f)
                     .padding(top = 12.dp, bottom = 12.dp),
-                Color.LightGray
+                Color.LightGray,
+                navController = navController
             )
             Spacer(modifier = Modifier.padding(6.dp))
         }
     }
 }
+
 @Composable
-fun BottomFooter(title: String, picture: String, modifier: Modifier = Modifier, color: Color) {
+fun BottomFooter(
+    title: String,
+    picture: String,
+    modifier: Modifier = Modifier,
+    color: Color,
+    navController: NavController
+) {
 
     val context = LocalContext.current
     val drawable = stringToDrawableId(context, picture)
@@ -97,7 +114,19 @@ fun BottomFooter(title: String, picture: String, modifier: Modifier = Modifier, 
                 .fillMaxWidth()
                 .padding(start = 8.dp, end = 8.dp)
                 .size(35.dp)
-                .clickable {},
+                .clickable {
+                    if (title == "To Do") {
+                        navController.navigate(ViewNav.ToDoListRoute)
+                    } else if (title == "Journal") {
+                        navController.navigate(ViewNav.JournalPageRoute)
+                    } else if (title == "Mission") {
+                        navController.navigate(ViewNav.MissionPageRoute)
+                    } else if (title == "Profile") {
+                        navController.navigate(ViewNav.ProfileRoute)
+                    } else {
+
+                    }
+                },
             colorFilter = ColorFilter.tint(color)
         )
         Text(

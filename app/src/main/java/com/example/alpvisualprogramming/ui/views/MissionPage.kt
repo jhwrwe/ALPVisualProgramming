@@ -31,6 +31,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,7 +42,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
@@ -52,11 +52,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
+import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 
 @Composable
-fun MissionView() {
+fun MissionView(missionViewModel: MissionVM, navController: NavController) {
+
+    val missions by missionViewModel.missions.collectAsState()
 
     var missionBox: Boolean by rememberSaveable {
         mutableStateOf(true)
@@ -365,11 +370,11 @@ fun MissionView() {
 
 @Composable
 fun Missions() {
-    Column  (
+    Column(
         modifier = Modifier
             .padding(top = 8.dp, bottom = 8.dp)
-    ){
-        Card (
+    ) {
+        Card(
             modifier = Modifier
                 .height(100.dp)
                 .fillMaxSize()
@@ -378,8 +383,8 @@ fun Missions() {
                 .shadow(1.dp, RoundedCornerShape(12.dp))
                 .padding(start = 1.dp, end = 1.dp, top = 1.dp, bottom = 2.5.dp),
             colors = CardDefaults.cardColors(containerColor = Color(0xFFF3F8FF)),
-        ){
-            Row (
+        ) {
+            Row(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color(0xFFF3F8FF), RoundedCornerShape(12.dp))
@@ -387,15 +392,15 @@ fun Missions() {
                     .clip(RoundedCornerShape(12.dp)),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
-            ){
-                Column (
+            ) {
+                Column(
                     modifier = Modifier
                         .weight(2f)
                         .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
                         .background(Color(0xFFF3F8FF)),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
-                ){
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.coin_logo),
                         contentDescription = "coin_logo",
@@ -412,14 +417,14 @@ fun Missions() {
                             .padding(2.dp)
                     )
                 }
-                Column (
+                Column(
                     modifier = Modifier
                         .weight(5f)
                         .fillMaxSize()
                         .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
                         .background(Color(0xFFF3F8FF)),
                     verticalArrangement = Arrangement.Center,
-                ){
+                ) {
                     Text(
                         text = "TASK_NAME",
                         fontFamily = poppinsFamily,
@@ -428,7 +433,7 @@ fun Missions() {
                         fontWeight = FontWeight.Medium,
 //                        lineHeight = 14.sp,
 
-                        )
+                    )
 //                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "blablablablablablablab \nblablablablablablablab",
@@ -438,9 +443,9 @@ fun Missions() {
 //                        fontWeight = FontWeight.Bold,
 //                        lineHeight = 11.sp,
 
-                        )
+                    )
                 }
-                Column (
+                Column(
                     modifier = Modifier
                         .weight(2f)
                         .fillMaxSize()
@@ -448,8 +453,8 @@ fun Missions() {
                         .background(Color(0xFFF3F8FF)),
                     horizontalAlignment = Alignment.End,
                     verticalArrangement = Arrangement.Center
-                ){
-                    Row (
+                ) {
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(28.dp)
@@ -654,7 +659,6 @@ fun Badges(title: String, price: String, picture: String) {
 }
 
 
-
 @SuppressLint("DiscouragedApi")
 @Composable
 fun stringToDrawableId(context: Context, resourceName: String): Int {
@@ -662,10 +666,9 @@ fun stringToDrawableId(context: Context, resourceName: String): Int {
 }
 
 
-
 @Preview(showSystemUi = false, showBackground = true)
 @Composable
 fun Preview() {
-    MissionView()
-//    Missions()
+    val navController = rememberNavController()
+    MissionView(MissionVM(), navController)
 }
