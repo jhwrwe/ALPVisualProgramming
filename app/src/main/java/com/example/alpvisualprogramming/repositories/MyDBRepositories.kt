@@ -95,6 +95,14 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
     }
 
+    //mission
+    suspend fun createMission(mission: Mission):String{
+        val result = myDBService.createMission(mission)
+        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
+            return result.data as String
+        }
+        return result.message
+    }
     suspend fun getAllMission(): List<Mission>{
         try {
             val AllMission = myDBService.getAllMission().data as? List<Mission>
@@ -122,11 +130,13 @@ class MyDBRepositories (private val myDBService: MyDBService){
         val result = myDBService.claimMissionCoin(id)
         return result.message
     }
+
     suspend fun deleteMission(id:Int):String{
         val result = myDBService.deleteMission(id)
         return result.message
     }
 
+    //user
     suspend fun logout():String{
         val result = myDBService.logout()
         return result.message
@@ -166,4 +176,155 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
     }
 
+    suspend fun getTodolistDetail(id: Int): Todolist{
+        val todolist = myDBService.getTodolistDetail(id).data as Todolist
+        val data = Todolist(
+            todolist.title,
+            todolist.date,
+            todolist.time,
+            todolist.urgency_status,
+            todolist.description,
+            todolist.progress_status,
+            todolist.location,
+        )
+        return data
+    }
+
+    suspend fun getLateTodolist(): List<Todolist>{
+        try {
+            val listTodolists = myDBService.getLateTodolists().data as? List<Todolist>
+            val data = mutableListOf<Todolist>()
+            if(listTodolists != null){
+                for (todolist in listTodolists){
+                    val todo = Todolist(
+                        todolist.title,
+                        todolist.date,
+                        todolist.time,
+                        todolist.urgency_status,
+                        todolist.description,
+                        todolist.progress_status,
+                        todolist.location,
+                    )
+                    data.add(todo)
+                }
+            }
+            return data
+        }catch (e: Exception){
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
+    }
+
+    suspend fun getTodayTodolist(): List<Todolist>{
+        try {
+            val listTodolists = myDBService.getTodayTodolists().data as? List<Todolist>
+            val data = mutableListOf<Todolist>()
+            if(listTodolists != null){
+                for (todolist in listTodolists){
+                    val todo = Todolist(
+                        todolist.title,
+                        todolist.date,
+                        todolist.time,
+                        todolist.urgency_status,
+                        todolist.description,
+                        todolist.progress_status,
+                        todolist.location,
+                    )
+                    data.add(todo)
+                }
+            }
+            return data
+        }catch (e: Exception){
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
+    }
+
+    suspend fun getTomorrowTodolist(): List<Todolist>{
+        try {
+            val listTodolists = myDBService.getTomorrowTodolists().data as? List<Todolist>
+            val data = mutableListOf<Todolist>()
+            if(listTodolists != null){
+                for (todolist in listTodolists){
+                    val todo = Todolist(
+                        todolist.title,
+                        todolist.date,
+                        todolist.time,
+                        todolist.urgency_status,
+                        todolist.description,
+                        todolist.progress_status,
+                        todolist.location,
+                    )
+                    data.add(todo)
+                }
+            }
+            return data
+        }catch (e: Exception){
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
+    }
+
+    suspend fun getSomedayTodolist(): List<Todolist>{
+        try {
+            val listTodolists = myDBService.getSomedayTodolists().data as? List<Todolist>
+            val data = mutableListOf<Todolist>()
+            if(listTodolists != null){
+                for (todolist in listTodolists){
+                    val todo = Todolist(
+                        todolist.title,
+                        todolist.date,
+                        todolist.time,
+                        todolist.urgency_status,
+                        todolist.description,
+                        todolist.progress_status,
+                        todolist.location,
+                    )
+                    data.add(todo)
+                }
+            }
+            return data
+        }catch (e: Exception){
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
+    }
+
+    suspend fun getDoneTodolist(): List<Todolist>{
+        try {
+            val listTodolists = myDBService.getDoneTodolists().data as? List<Todolist>
+            val data = mutableListOf<Todolist>()
+            if(listTodolists != null){
+                for (todolist in listTodolists){
+                    val todo = Todolist(
+                        todolist.title,
+                        todolist.date,
+                        todolist.time,
+                        todolist.urgency_status,
+                        todolist.description,
+                        todolist.progress_status,
+                        todolist.location,
+                    )
+                    data.add(todo)
+                }
+            }
+            return data
+        }catch (e: Exception){
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
+    }
+
+    suspend fun createTodolist(todolist: Todolist):String{
+        val result = myDBService.createTodolist(todolist)
+        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
+            return result.data as String
+        }
+        return result.message
+    }
+
+    suspend fun deleteTodolist(id:Int):String{
+        val result = myDBService.deleteTodolist(id)
+        return result.message
+    }
 }
