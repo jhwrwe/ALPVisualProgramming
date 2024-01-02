@@ -38,7 +38,7 @@ interface MyDBService{
     suspend fun deleteBadge(@Body badge: Badge):APIResponse
 
     @GET("see_All_Badges")
-    suspend fun seeallbadge(@Body badge: Badge): APIResponse
+    suspend fun getAllBadge(): APIResponse
 
     //badge yang dipunyai oleh user
     @POST("create_badge_user/{id}")
@@ -51,7 +51,7 @@ interface MyDBService{
     suspend fun decreasingcoins(@Body badgeUser: BadgeUser,@Path("id")id:Int):APIResponse
 
     @GET("see_all_badge")
-    suspend fun seeingallthebadge():APIResponse
+    suspend fun getAllBadgeUserHas():APIResponse
 
     //todolist
     @GET("todolist/{urgency}")

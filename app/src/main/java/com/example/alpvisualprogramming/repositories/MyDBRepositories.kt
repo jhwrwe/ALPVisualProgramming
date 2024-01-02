@@ -45,10 +45,6 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
         return result.message
     }
-    suspend fun AllBadge(badge:Badge):String{
-        val result = myDBService.seeallbadge(badge)
-        return result.message
-    }
     suspend fun user_badge(badgeUser: BadgeUser, id:Int):String{
         val result = myDBService.create_Badge_user(badgeUser, id)
         return result.message
@@ -57,18 +53,70 @@ class MyDBRepositories (private val myDBService: MyDBService){
         val result = myDBService.decreasingcoins(badgeUser, id)
         return result.message
     }
-    suspend fun getAllBadge():String{
-        val result = myDBService.seeingallthebadge()
-        return result.message
+    suspend fun getAllBadge(): List<Badge>{
+        try {
+            val AllBadge = myDBService.getAllBadge().data as? List<Badge>
+            val data = mutableListOf<Badge>()
+            if(AllBadge != null){
+                for (badges in AllBadge){
+                    val badgeaa = Badge(
+                        badges.image,
+                       badges.name,
+                        badges.price
+                    )
+                    data.add(badgeaa)
+                }
+            }
+            return data
+        }catch (e: Exception){
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
     }
 
-    suspend fun create_mission(mission: Mission):String{
-        val result = myDBService.createMission(mission)
-        return result.message
+    suspend fun getAllUserBadge(): List<Badge>{
+        try {
+            val AllBadge = myDBService.getAllBadgeUserHas().data as? List<Badge>
+            val data = mutableListOf<Badge>()
+            if(AllBadge != null){
+                for (badges in AllBadge){
+                    val badgeaa = Badge(
+                        badges.image,
+                        badges.name,
+                        badges.price
+                    )
+                    data.add(badgeaa)
+                }
+            }
+            return data
+        }catch (e: Exception){
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
     }
-    suspend fun seeAllMission():Any{
-         val result = myDBService.getAllMission()
-        return result;
+
+    suspend fun getAllMission(): List<Mission>{
+        try {
+            val AllMission = myDBService.getAllMission().data as? List<Mission>
+            val data = mutableListOf<Mission>()
+            if(AllMission != null){
+                for (Mission in AllMission){
+                    val mission = Mission(
+                        Mission.title,
+                        Mission.description,
+                        Mission.quantity,
+                        Mission.coins,
+                        Mission.urgency_status,
+                        Mission.user_id,
+                    )
+                    data.add(mission)
+                }
+            }
+            return data
+        }catch (e: Exception){
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
     }
     suspend fun claimMissionCoin(id:Int):String{
         val result = myDBService.claimMissionCoin(id)
@@ -78,9 +126,6 @@ class MyDBRepositories (private val myDBService: MyDBService){
         val result = myDBService.deleteMission(id)
         return result.message
     }
-
-
-
 
     suspend fun logout():String{
         val result = myDBService.logout()
