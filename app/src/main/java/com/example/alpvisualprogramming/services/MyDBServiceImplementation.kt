@@ -113,6 +113,10 @@ class MyDBServiceImplementation(private val retrofit: Retrofit) : MyDBService {
         return myDBService.getAllBadgeUserHas()
     }
 
+    override suspend fun createTodolist(todolist: Todolist): APIResponse {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun decreasingcoins(badgeUser: BadgeUser, id: Int): APIResponse {
         return myDBService.decreasingcoins(badgeUser, id)
     }
