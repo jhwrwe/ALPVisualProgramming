@@ -1,6 +1,7 @@
 package com.example.alpvisualprogramming.model
 
 data class Mission(
+    var id : Int = 0,
     var title: String = "",
     var description: String = "",
     var quantity: Int = 0,
