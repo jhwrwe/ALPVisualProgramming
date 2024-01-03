@@ -26,23 +26,23 @@ class MyDBRepositories (private val myDBService: MyDBService){
 
     suspend fun update_bio(user: User):String{
         val result = myDBService.update_bio(user)
-        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
-            return result.data as String
-        }
+//        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
+//            return result.data as String
+//        }
         return result.message
     }
     suspend fun create_badge(badge: Badge):String{
         val result = myDBService.createBadge(badge)
-        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
-            return result.data as String
-        }
+//        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
+//            return result.data as String
+//        }
         return result.message
     }
     suspend fun deleteBadge(badge: Badge):String{
         val result = myDBService.deleteBadge(badge)
-        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
-            return result.data as String
-        }
+//        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
+//            return result.data as String
+//        }
         return result.message
     }
     suspend fun user_badge(badgeUser: BadgeUser, id:Int):String{
@@ -61,7 +61,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
                 for (badges in AllBadge){
                     val badgeaa = Badge(
                         badges.image,
-                       badges.name,
+                        badges.name,
                         badges.price
                     )
                     data.add(badgeaa)
@@ -98,9 +98,9 @@ class MyDBRepositories (private val myDBService: MyDBService){
     //mission
     suspend fun createMission(mission: Mission):String{
         val result = myDBService.createMission(mission)
-        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
-            return result.data as String
-        }
+//        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
+//            return result.data as String
+//        }
         return result.message
     }
     suspend fun getAllMission(): List<Mission>{
@@ -143,9 +143,9 @@ class MyDBRepositories (private val myDBService: MyDBService){
     }
     suspend fun register(user: User):String{
         val result = myDBService.register(user)
-        if(result.status.toInt()== HttpURLConnection.HTTP_OK){
-            return result.data as String
-        }
+//        if(result.status.toInt()== HttpURLConnection.HTTP_OK){
+//            return result.data as String
+//        }
         return result.message
     }
 
@@ -317,14 +317,19 @@ class MyDBRepositories (private val myDBService: MyDBService){
 
     suspend fun createTodolist(todolist: Todolist):String{
         val result = myDBService.createTodolist(todolist)
-        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
-            return result.data as String
-        }
+//        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
+//            return result.data as String
+//        }
         return result.message
     }
 
     suspend fun deleteTodolist(id:Int):String{
         val result = myDBService.deleteTodolist(id)
+        return result.message
+    }
+
+    suspend fun todolistDone(id:Int):String{
+        val result = myDBService.todolistDone(id)
         return result.message
     }
 }
