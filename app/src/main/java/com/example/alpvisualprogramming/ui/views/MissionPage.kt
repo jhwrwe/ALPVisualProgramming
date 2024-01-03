@@ -56,10 +56,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
-import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
+import com.example.alpvisualprogramming.ui.viewmodel.MissionPageVM
 
 @Composable
-fun MissionView(missionViewModel: MissionVM, navController: NavController) {
+fun MissionView(missionViewModel: MissionPageVM, navController: NavController) {
 
     val missions by missionViewModel.missions.collectAsState()
 
