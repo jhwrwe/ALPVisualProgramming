@@ -54,6 +54,8 @@ interface MyDBService{
     suspend fun getAllBadgeUserHas():APIResponse
 
     //todolist
+    @POST("todolist")
+    suspend fun createTodolist(@Body todolist: Todolist):APIResponse
     @GET("todolist/{urgency}")
     suspend fun getTodolistByUrgency(@Path("urgency") urgency_status: Int): APIResponse
 
