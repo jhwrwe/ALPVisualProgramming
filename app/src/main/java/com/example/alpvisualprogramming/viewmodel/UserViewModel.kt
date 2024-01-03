@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 import com.example.alpvisualprogramming.Data.DataStoreManager
 import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.repositories.MyDBContainer
@@ -19,7 +20,7 @@ class UserViewModel : ViewModel(){
            }else if(token.equals("User not found",true)){
                Toast.makeText(context, token, Toast.LENGTH_LONG).show()
            }else {
-               navController.navigate(ListScreen.ListApp.name){
+               navController.navigate(NavGraph.ListApp.name){
                    popUpTo(ListScreen.Login.name){inclusive=true}
                }
                dataStore.saveToken(token)

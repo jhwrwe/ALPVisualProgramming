@@ -19,6 +19,31 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
         return result.message
     }
+    suspend fun getdatauser(): List<User>{
+
+        try {
+            val user = myDBService.getdatauser().data as? List<User>
+            val data = mutableListOf<User>()
+            if(user != null){
+                for (users in user){
+                    val userr = User(
+                        users.fullname,
+                        users.phone_number,
+                        users.username,
+                        users.coins,
+                        users.role_id,
+                        users.profile_photo_path,
+                        users.password,
+                    )
+                    data.add(userr)
+                }
+            }
+            return data
+        }catch (e: Exception){
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
+    }
     suspend fun deleteuser():String{
         val result = myDBService.deleteuser()
         return result.message
