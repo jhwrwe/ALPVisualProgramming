@@ -31,67 +31,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-//            ALPVisualProgrammingTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    Greeting("Android")
-//                }
-//            }
-//            val navController = rememberNavController()
-
             ApplicationNavigation()
-
-//            NavHost(
-//                navController = navController,
-//                startDestination = NavGraph.MissionPageRoute
-//            ) {
-//                composable(NavGraph.LoginPageRoute) {
-//                    LogInPageView(navController)
-//                }
-//                composable(NavGraph.HomePageRoute) {
-//                    MainPageView(navController)
-//                }
-//                composable(NavGraph.InputToDoRoute) {
-//                    Input_to_do(navController)
-//                }
-//                composable(NavGraph.JournalPageRoute) {
-//                    JournalPageView(navController)
-//                }
-//                composable(NavGraph.MissionPageRoute) {
-//                    MissionView(MissionVM(), navController)
-//                }
-//                composable(NavGraph.ProfileRoute) {
-//                    Profile(navController)
-//                }
-//                composable(NavGraph.SignInPageRoute) {
-//                    SignInPageView(navController)
-//                }
-//                composable(NavGraph.SignUpPage) {
-//                    SignUpPageView(navController)
-//                }
-//                composable(NavGraph.ToDoListRoute) {
-//                    TodoListView(navController)
-//                }
-//            }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ALPVisualProgrammingTheme {
-        Greeting("Android")
     }
 }

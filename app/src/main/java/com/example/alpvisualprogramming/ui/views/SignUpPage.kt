@@ -3,12 +3,10 @@ package com.example.alpvisualprogramming.ui.views
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absolutePadding
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import com.example.alpvisualprogramming.R
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -45,14 +41,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.alpvisualprogramming.Data.DataStoreManager
+import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.repositories.MyDBContainer
+import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun SignUpPageView(userVM: UserVM,navController: NavController){
-    val context = LocalContext.current;
+fun SignUpPageView(userVM: UserVM, navController: NavController) {
+    val context = LocalContext.current
     var username by rememberSaveable { mutableStateOf("") }
     var fullname by rememberSaveable { mutableStateOf("") }
     var phonenumber by rememberSaveable { mutableStateOf("") }
@@ -77,19 +74,18 @@ fun SignUpPageView(userVM: UserVM,navController: NavController){
                     .clip(RoundedCornerShape(0.dp, 0.dp, 0.dp, 55.dp))
                     .background(Color.White)
                     .height(160.dp)
-            ){
-                Row (
+            ) {
+                Row(
                     modifier = Modifier
                         .absolutePadding(top = 30.dp, left = 16.dp)
-                ){
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.back_arrow),
                         contentDescription = "back"
                     )
                 }
 
-                Row(
-                ){
+                Row {
                     Text(
                         text = "Create   ",
                         fontSize = 22.sp,
@@ -100,14 +96,14 @@ fun SignUpPageView(userVM: UserVM,navController: NavController){
                     )
                 }
 
-                Row(
-                ){
+                Row {
                     Text(
                         text = "Account",
                         fontSize = 22.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
-                            .absolutePadding(left = 20.dp))
+                            .absolutePadding(left = 20.dp)
+                    )
                 }
             }
         }
@@ -123,7 +119,8 @@ fun SignUpPageView(userVM: UserVM,navController: NavController){
             )
         }
         Column {
-            CustomTextField(value = username,
+            CustomTextField(
+                value = username,
                 onValueChanged = { username = it },
                 text = "Create a username",
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -147,7 +144,8 @@ fun SignUpPageView(userVM: UserVM,navController: NavController){
             )
         }
         Column {
-            CustomTextField(value = fullname,
+            CustomTextField(
+                value = fullname,
                 onValueChanged = { fullname = it },
                 text = "Enter your full name",
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -171,7 +169,8 @@ fun SignUpPageView(userVM: UserVM,navController: NavController){
             )
         }
         Column {
-            CustomTextField(value = phonenumber,
+            CustomTextField(
+                value = phonenumber,
                 onValueChanged = { phonenumber = it },
                 text = "Enter your phone number",
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -195,7 +194,8 @@ fun SignUpPageView(userVM: UserVM,navController: NavController){
             )
         }
         Column {
-            CustomTextField(value = email,
+            CustomTextField(
+                value = email,
                 onValueChanged = { email = it },
                 text = "Enter your email",
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -219,7 +219,8 @@ fun SignUpPageView(userVM: UserVM,navController: NavController){
             )
         }
         Column {
-            CustomTextField(value = password,
+            CustomTextField(
+                value = password,
                 onValueChanged = { password = it },
                 text = "Create a password",
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -232,25 +233,37 @@ fun SignUpPageView(userVM: UserVM,navController: NavController){
             )
         }
 
-        Button(onClick = {
-                         userVM.ButtonRegister(username, fullname, phonenumber, email,profile_photo_path, password ,context, navController)
-        },
+        Button(
+            onClick = {
+                userVM.ButtonRegister(
+                    username,
+                    fullname,
+                    phonenumber,
+                    email,
+                    profile_photo_path,
+                    password,
+                    context,
+                    navController
+                )
+            },
+            enabled = username.isNotEmpty() && fullname.isNotEmpty() && phonenumber.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty(),
             modifier = Modifier
                 .width(358.dp)
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 30.dp),
             colors = ButtonDefaults.buttonColors(Color.White),
-            shape = RoundedCornerShape(8.dp))
+            shape = RoundedCornerShape(8.dp)
+        )
         {
             Text(
                 text = "Sign Up",
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp)
+                fontSize = 18.sp,
+            )
         }
 
-        Row(
-        ){
+        Row {
             Text(
                 text = "Already have an account?",
                 color = Color.White,
@@ -260,14 +273,16 @@ fun SignUpPageView(userVM: UserVM,navController: NavController){
             )
         }
 
-        Row(
-        ){
+        Row {
             Text(
                 text = "Sign In",
                 color = Color.White,
                 fontSize = 14.sp,
                 modifier = Modifier
                     .absolutePadding(left = 175.dp, top = 28.dp)
+                    .clickable {
+                        navController.navigate(NavGraph.SignInPageRoute)
+                    }
             )
         }
     }
@@ -282,7 +297,7 @@ fun CustomTextField(
     text: String,
     keyboardOptions: KeyboardOptions,
     modifier: Modifier = Modifier
-){
+) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChanged,
@@ -313,13 +328,13 @@ fun CustomTextField(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun SignUpPagePreview(){
+fun SignUpPagePreview() {
     val navController = rememberNavController()
-    if(MyDBContainer.ACCESS_TOKEN.isEmpty()){
-        val userVM: UserVM= viewModel()
+    if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
+        val userVM: UserVM = viewModel()
         SignUpPageView(
-            userVM= userVM,
-            navController= navController,
+            userVM = userVM,
+            navController = navController,
         )
     }
 }

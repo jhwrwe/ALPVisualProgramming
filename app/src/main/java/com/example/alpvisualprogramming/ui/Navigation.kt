@@ -39,7 +39,12 @@ fun ApplicationNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = NavGraph.MissionPageRoute
+        startDestination =
+            if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
+                NavGraph.LoginPageRoute
+            } else {
+                NavGraph.HomePageRoute
+            }
     ) {
         composable(NavGraph.LoginPageRoute) {
             if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
@@ -67,7 +72,7 @@ fun ApplicationNavigation() {
             SignInPageView(navController)
         }
         composable(NavGraph.SignUpPage) {
-                SignUpPageView(UserVM(), navController)
+            SignUpPageView(UserVM(), navController)
         }
         composable(NavGraph.ToDoListRoute) {
             TodoListView(navController)
