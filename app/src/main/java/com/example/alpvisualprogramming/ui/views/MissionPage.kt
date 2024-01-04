@@ -56,14 +56,18 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
+import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Composable
-fun MissionView(missionViewModel: MissionVM, navController: NavController) {
+fun MissionView(
+    missionViewModel: MissionVM,
+    badgeViewModel: BadgeVM,
+    navController: NavController
+) {
 
     val missions by missionViewModel.missions.collectAsState()
+    val badges by badgeViewModel.badges.collectAsState()
 
     var missionBox: Boolean by rememberSaveable {
         mutableStateOf(true)
@@ -221,31 +225,15 @@ fun MissionView(missionViewModel: MissionVM, navController: NavController) {
                                 .fillMaxWidth()
                                 .padding(start = 8.dp, end = 8.dp, top = 33.dp)
                         ) {
-                            item {
+                            items(badges.size) { item ->
                                 Badges(
-                                    title = "Bronze Medal",
-                                    price = "1200",
-                                    picture = "bronze_medal"
+                                    id = badges[item].id,
+                                    title = badges[item].name,
+                                    price = badges[item].price,
+                                    picture = badges[item].image,
+                                    badgeVM = badgeViewModel,
                                 )
                             }
-                            item {
-                                Badges(
-                                    title = "Silver Medal",
-                                    price = "2400",
-                                    picture = "silver_medal"
-                                )
-                            }
-                            item {
-                                Badges(title = "Gold Medal", price = "3600", picture = "gold_medal")
-                            }
-                            item {
-                                Badges(title = "Sandglass", price = "5400", picture = "sandglass")
-                            }
-                            item {
-                                Badges(title = "Sandglass", price = "5400", picture = "sandglass")
-                            }
-
-
                         }
                     }
                     // Content ================================================================================================================
@@ -370,7 +358,14 @@ fun MissionView(missionViewModel: MissionVM, navController: NavController) {
 }
 
 @Composable
-fun Missions(title: String, description: String, quantity: Int, coins: Int, id: Int, VM: MissionVM) {
+fun Missions(
+    title: String,
+    description: String,
+    quantity: Int,
+    coins: Int,
+    id: Int,
+    VM: MissionVM
+) {
     Column(
         modifier = Modifier
             .padding(top = 8.dp, bottom = 8.dp)
@@ -461,7 +456,7 @@ fun Missions(title: String, description: String, quantity: Int, coins: Int, id: 
                             .height(28.dp)
                             .background(Color(0xFF3960E6), RoundedCornerShape(8.dp))
                             .clickable {
-                                       VM.claimMissionCoins(id)
+                                VM.claimMissionCoins(id)
                             },
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
@@ -494,11 +489,13 @@ fun Missions(title: String, description: String, quantity: Int, coins: Int, id: 
 }
 
 @Composable
-fun Badges(title: String, price: String, picture: String) {
+fun Badges(id: Int, title: String, price: Int, picture: String, badgeVM: BadgeVM) {
 
     val context = LocalContext.current
     val drawable = stringToDrawableId(context, picture)
     var badgeBoolean by remember { mutableStateOf(false) }
+
+    val localContext = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -566,7 +563,7 @@ fun Badges(title: String, price: String, picture: String) {
                     ) {
                         Text(
                             fontFamily = poppinsFamily,
-                            text = price,
+                            text = "$price",
                             color = Color.White,
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold
@@ -636,6 +633,7 @@ fun Badges(title: String, price: String, picture: String) {
                         Button(
                             onClick = {
                                 badgeBoolean = false
+                                badgeVM.CreateBadgeUser(id, context)
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3960E6)),
                             modifier = Modifier
@@ -671,5 +669,5 @@ fun stringToDrawableId(context: Context, resourceName: String): Int {
 @Composable
 fun Preview() {
     val navController = rememberNavController()
-    MissionView(MissionVM(), navController)
+    MissionView(MissionVM(), BadgeVM(), navController)
 }

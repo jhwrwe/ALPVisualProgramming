@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 import com.example.alpvisualprogramming.ui.views.Input_to_do
 import com.example.alpvisualprogramming.ui.views.JournalPageView
@@ -48,7 +49,7 @@ fun ApplicationNavigation() {
             JournalPageView(navController)
         }
         composable(NavGraph.MissionPageRoute) {
-            MissionView(MissionVM(), navController)
+            MissionView(MissionVM(), BadgeVM(), navController)
         }
         composable(NavGraph.ProfileRoute) {
             Profile(navController)
