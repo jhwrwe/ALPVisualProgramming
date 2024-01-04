@@ -135,6 +135,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
             if(AllMission != null){
                 for (Mission in AllMission){
                     val mission = Mission(
+                        Mission.id,
                         Mission.title,
                         Mission.description,
                         Mission.quantity,

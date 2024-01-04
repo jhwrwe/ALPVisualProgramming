@@ -56,10 +56,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
-import com.example.alpvisualprogramming.ui.viewmodel.MissionPageVM
+import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
-fun MissionView(missionViewModel: MissionPageVM, navController: NavController) {
+fun MissionView(missionViewModel: MissionVM, navController: NavController) {
 
     val missions by missionViewModel.missions.collectAsState()
 
@@ -200,19 +202,18 @@ fun MissionView(missionViewModel: MissionPageVM, navController: NavController) {
                                 .fillMaxWidth()
                                 .padding(start = 16.dp, end = 16.dp, top = 33.dp)
                         ) {
-                            item {
-                                Missions()
-                            }
-                            item {
-                                Missions()
-                            }
-                            item {
-                                Missions()
-                            }
-                            item {
-                                Missions()
+                            items(missions.size) { item ->
+                                Missions(
+                                    title = missions[item].title,
+                                    quantity = missions[item].quantity,
+                                    coins = missions[item].coins,
+                                    description = missions[item].description,
+                                    id = missions[item].id,
+                                    VM = missionViewModel,
+                                )
                             }
                         }
+
                     } else {
                         LazyVerticalGrid(
                             columns = GridCells.Fixed(2),
@@ -369,7 +370,7 @@ fun MissionView(missionViewModel: MissionPageVM, navController: NavController) {
 }
 
 @Composable
-fun Missions() {
+fun Missions(title: String, description: String, quantity: Int, coins: Int, id: Int, VM: MissionVM) {
     Column(
         modifier = Modifier
             .padding(top = 8.dp, bottom = 8.dp)
@@ -408,7 +409,7 @@ fun Missions() {
                             .size(28.dp)
                     )
                     Text(
-                        text = "+30",
+                        text = "$coins",
 //                        fontFamily = poppinsFamily,
                         fontSize = 26.sp,
                         fontWeight = FontWeight.SemiBold,
@@ -426,7 +427,7 @@ fun Missions() {
                     verticalArrangement = Arrangement.Center,
                 ) {
                     Text(
-                        text = "TASK_NAME",
+                        text = "$title",
                         fontFamily = poppinsFamily,
                         fontSize = 14.sp,
                         color = Color(0xFF3F3F3F),
@@ -436,7 +437,7 @@ fun Missions() {
                     )
 //                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "blablablablablablablab \nblablablablablablablab",
+                        text = "$description",
                         fontFamily = poppinsFamily,
                         fontSize = 12.sp,
                         color = Color(0xFFA0A4A7),
@@ -460,7 +461,7 @@ fun Missions() {
                             .height(28.dp)
                             .background(Color(0xFF3960E6), RoundedCornerShape(8.dp))
                             .clickable {
-
+                                       VM.claimMissionCoins(id)
                             },
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
@@ -471,12 +472,12 @@ fun Missions() {
                             fontSize = 13.sp,
                             color = Color.White,
                             lineHeight = 20.sp,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "1/5",
+                        text = "$quantity",
                         fontFamily = poppinsFamily,
                         fontSize = 16.sp,
                         lineHeight = 18.sp,

@@ -14,7 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.ui.ApplicationNavigation
 import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.theme.ALPVisualProgrammingTheme
-import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
+
 import com.example.alpvisualprogramming.ui.views.Input_to_do
 import com.example.alpvisualprogramming.ui.views.JournalPageView
 import com.example.alpvisualprogramming.ui.views.LogInPageView
