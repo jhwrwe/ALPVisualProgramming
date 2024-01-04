@@ -45,13 +45,13 @@ interface MyDBService{
 
     //badge yang dipunyai oleh user
     @POST("create_badge_user/{id}")
-    suspend fun create_Badge_user(@Body badgeUser: BadgeUser, @Path("id") id: Int): APIResponse
+    suspend fun create_Badge_user(@Path("id") id: Int): APIResponse
 
     @DELETE("delete_badge_user")
     suspend fun deletebadgeuser():APIResponse
 
     @PUT("coins_minus/{id}")
-    suspend fun decreasingcoins(@Body badgeUser: BadgeUser,@Path("id")id:Int):APIResponse
+    suspend fun decreasingcoins(@Path("id")id:Int):APIResponse
 
     @GET("see_all_badge")
     suspend fun getAllBadgeUserHas():APIResponse

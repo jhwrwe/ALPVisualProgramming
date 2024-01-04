@@ -43,20 +43,19 @@ class BadgeVM : ViewModel() {
         return badges
     }
 
-    fun CreateBadgeUser(user_id: Int, badge_id: Int, context: Context) {
+    fun CreateBadgeUser(badge_id: Int, context: Context) {
         viewModelScope.launch {
-            val badgeUser = BadgeUser(badge_id, user_id)
-            val finnish = MyDBContainer().myDBRepositories.user_badge(badgeUser, badge_id)
+            val finnish = MyDBContainer().myDBRepositories.user_badge(badge_id)
 //            if (finnish.equals("Success",true)){
             Toast.makeText(context, finnish, Toast.LENGTH_SHORT).show()
 //            }
+            DecreaseCoins(badge_id, context)
         }
     }
 
-    fun DecreaseCoins(user_id: Int, badge_id: Int, context: Context) {
+    fun DecreaseCoins(badge_id: Int, context: Context) {
         viewModelScope.launch {
-            val badgeUser = BadgeUser(badge_id, user_id)
-            val finnish = MyDBContainer().myDBRepositories.coins_minus(badgeUser, badge_id)
+            val finnish = MyDBContainer().myDBRepositories.coins_minus(badge_id)
 //            if (finnish.equals("Success",true)){
             Toast.makeText(context, finnish, Toast.LENGTH_SHORT).show()
 //            }

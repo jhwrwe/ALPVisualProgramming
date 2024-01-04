@@ -1,10 +1,15 @@
 package com.example.alpvisualprogramming.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.alpvisualprogramming.Data.DataStoreManager
+import com.example.alpvisualprogramming.repositories.MyDBContainer
+import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
+import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 import com.example.alpvisualprogramming.ui.views.Input_to_do
 import com.example.alpvisualprogramming.ui.views.JournalPageView
 import com.example.alpvisualprogramming.ui.views.LogInPageView
@@ -30,13 +35,18 @@ object NavGraph {
 @Composable
 fun ApplicationNavigation() {
     val navController = rememberNavController()
+    val dataStore = DataStoreManager(LocalContext.current)
 
     NavHost(
         navController = navController,
         startDestination = NavGraph.MissionPageRoute
     ) {
         composable(NavGraph.LoginPageRoute) {
-//            LogInPageView(navController)
+            if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
+                LogInPageView(UserVM(), navController, dataStore)
+            } else {
+                navController.navigate(NavGraph.HomePageRoute)
+            }
         }
         composable(NavGraph.HomePageRoute) {
             MainPageView(navController)
@@ -48,7 +58,7 @@ fun ApplicationNavigation() {
             JournalPageView(navController)
         }
         composable(NavGraph.MissionPageRoute) {
-            MissionView(MissionVM(), navController)
+            MissionView(MissionVM(), BadgeVM(), navController)
         }
         composable(NavGraph.ProfileRoute) {
             Profile(navController)
@@ -57,7 +67,7 @@ fun ApplicationNavigation() {
             SignInPageView(navController)
         }
         composable(NavGraph.SignUpPage) {
-//            SignUpPageView(navController)
+                SignUpPageView(UserVM(), navController)
         }
         composable(NavGraph.ToDoListRoute) {
             TodoListView(navController)

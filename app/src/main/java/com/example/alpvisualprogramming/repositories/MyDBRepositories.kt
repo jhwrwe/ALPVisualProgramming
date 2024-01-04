@@ -70,12 +70,12 @@ class MyDBRepositories (private val myDBService: MyDBService){
 //        }
         return result.message
     }
-    suspend fun user_badge(badgeUser: BadgeUser, id:Int):String{
-        val result = myDBService.create_Badge_user(badgeUser, id)
+    suspend fun user_badge(id:Int):String{
+        val result = myDBService.create_Badge_user(id)
         return result.message
     }
-    suspend fun coins_minus(badgeUser: BadgeUser, id:Int):String{
-        val result = myDBService.decreasingcoins(badgeUser, id)
+    suspend fun coins_minus(id:Int):String{
+        val result = myDBService.decreasingcoins(id)
         return result.message
     }
     suspend fun getAllBadge(): List<Badge>{
@@ -85,6 +85,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
             if(AllBadge != null){
                 for (badges in AllBadge){
                     val badgeaa = Badge(
+                        badges.id,
                         badges.image,
                         badges.name,
                         badges.price
@@ -106,6 +107,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
             if(AllBadge != null){
                 for (badges in AllBadge){
                     val badgeaa = Badge(
+                        badges.id,
                         badges.image,
                         badges.name,
                         badges.price
