@@ -36,7 +36,7 @@ fun ApplicationNavigation() {
         startDestination = NavGraph.MissionPageRoute
     ) {
         composable(NavGraph.LoginPageRoute) {
-            LogInPageView(navController)
+//            LogInPageView(navController)
         }
         composable(NavGraph.HomePageRoute) {
             MainPageView(navController)
@@ -57,7 +57,7 @@ fun ApplicationNavigation() {
             SignInPageView(navController)
         }
         composable(NavGraph.SignUpPage) {
-            SignUpPageView(navController)
+//            SignUpPageView(navController)
         }
         composable(NavGraph.ToDoListRoute) {
             TodoListView(navController)
