@@ -2,23 +2,24 @@ package com.example.alpvisualprogramming.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.alpvisualprogramming.model.Mission
+import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.repositories.MyDBRepositories
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class MissionPageVM(private val myDBRepositories: MyDBRepositories) : ViewModel() {
+class MissionPageVM() : ViewModel() {
 
     private val _missions = MutableStateFlow<List<Mission>>(emptyList())
     val missions: StateFlow<List<Mission>> = _missions.asStateFlow()
 
     suspend fun getAllMissions(): List<Mission>? {
-        val missionsList: List<Mission>? = myDBRepositories.getAllMission()
+        val missionsList: List<Mission>? = MyDBContainer().myDBRepositories.getAllMission()
         return missionsList
     }
 
     suspend fun claimMissionCoins(id: Int) :String {
-        val message = myDBRepositories.claimMissionCoin(id)
+        val message =  MyDBContainer().myDBRepositories.claimMissionCoin(id)
         return message.toString()
     }
 
