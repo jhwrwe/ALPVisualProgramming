@@ -9,6 +9,7 @@ import com.example.alpvisualprogramming.Data.DataStoreManager
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
+import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
 import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 import com.example.alpvisualprogramming.ui.views.Input_to_do
 import com.example.alpvisualprogramming.ui.views.JournalPageView
@@ -57,7 +58,7 @@ fun ApplicationNavigation() {
             MainPageView(navController)
         }
         composable(NavGraph.InputToDoRoute) {
-            Input_to_do(navController)
+            Input_to_do(navController, TodolistVM())
         }
         composable(NavGraph.JournalPageRoute) {
             JournalPageView(navController)
@@ -75,7 +76,7 @@ fun ApplicationNavigation() {
             SignUpPageView(UserVM(), navController)
         }
         composable(NavGraph.ToDoListRoute) {
-            TodoListView(navController)
+            TodoListView(navController, TodolistVM())
         }
     }
 }

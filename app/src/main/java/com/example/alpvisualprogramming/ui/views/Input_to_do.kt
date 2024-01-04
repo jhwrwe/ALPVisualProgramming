@@ -1,5 +1,7 @@
 package com.example.alpvisualprogramming.ui.views
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -29,6 +31,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -37,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -48,15 +52,28 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
+import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
+import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
+import java.sql.Time
+import java.time.LocalTime
+import java.util.Date
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun Input_to_do(navController: NavController){
+fun Input_to_do(
+    navController: NavController,
+    todolistViewModel: TodolistVM,
+
+    ){
+    val context = LocalContext.current
+
     Column( modifier = Modifier.fillMaxSize()){
         var title by rememberSaveable { mutableStateOf("") }
-        var date by rememberSaveable { mutableStateOf("") }
-        var time by rememberSaveable { mutableStateOf("") }
-        var Location by rememberSaveable { mutableStateOf("") }
-        var Category by rememberSaveable { mutableStateOf("") }
+        var date by rememberSaveable { mutableStateOf(Date()) }
+        var time by rememberSaveable { mutableStateOf(LocalTime.now()) }
+        var location by rememberSaveable { mutableStateOf("") }
+        var urgency by rememberSaveable { mutableStateOf(0) }
+        var description by rememberSaveable { mutableStateOf("") }
 
     Row (
         modifier = Modifier
@@ -95,10 +112,16 @@ fun Input_to_do(navController: NavController){
                     .fillMaxWidth()
             )
 
-            Text(text = "Category", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
+            Text(text = "Urgency", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
             customTextFielda(
-                value = Category,
-                onValueChanged = { Category = it },
+                value = urgency.toString(), // Konversi Int ke String saat mengatur nilai
+                onValueChanged = {
+                    try {
+                        urgency = it.toInt() // Ubah String ke Int saat menerima nilai
+                    } catch (e: NumberFormatException) {
+                        // Handle jika input tidak valid
+                    }
+                },
                 text = "Do first",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
@@ -110,39 +133,39 @@ fun Input_to_do(navController: NavController){
             Row (Modifier.fillMaxWidth()   , horizontalArrangement = Arrangement.SpaceBetween){
                 Column (Modifier.weight(0.95F)) {
                     Text(text = "Date", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
-                    customTextField(
-                        value = date,
-                        onValueChanged = { date = it },
-                        text = "Des 12, 2023",
-                        keyboardOptions = KeyboardOptions.Default.copy(
-                            keyboardType = KeyboardType.Text,
-                            imeAction = ImeAction.Next
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    )
+//                    customTextField(
+//                        value = date,
+//                        onValueChanged = { date = it },
+//                        text = "Des 12, 2023",
+//                        keyboardOptions = KeyboardOptions.Default.copy(
+//                            keyboardType = KeyboardType.Text,
+//                            imeAction = ImeAction.Next
+//                        ),
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                    )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Column (Modifier.weight(0.95F)) {
                     Text(text = "Time", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
-                    customTextField(
-                        value = time,
-                        onValueChanged = { time = it },
-                        text = "12:00",
-                        keyboardOptions = KeyboardOptions.Default.copy(
-                            keyboardType = KeyboardType.Text,
-                            imeAction = ImeAction.Next
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    )
+//                    customTextField(
+//                        value = time,
+//                        onValueChanged = { time = it },
+//                        text = "12:00",
+//                        keyboardOptions = KeyboardOptions.Default.copy(
+//                            keyboardType = KeyboardType.Text,
+//                            imeAction = ImeAction.Next
+//                        ),
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                    )
                 }
 
             }
             Text(text = "Location", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
             customTextField(
-                value = Location,
-                onValueChanged = { Location = it },
+                value = location,
+                onValueChanged = { location = it },
                 text = "Juanda airport",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
@@ -153,8 +176,8 @@ fun Input_to_do(navController: NavController){
             )
             Text(text = "Description", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
             customTextField(
-                value = Location,
-                onValueChanged = { Location = it },
+                value = description,
+                onValueChanged = { description = it },
                 text = "badadad",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
@@ -177,7 +200,18 @@ fun Input_to_do(navController: NavController){
 
                 }
             }
-            Button(onClick = { /*TODO*/ }, modifier = Modifier
+            Button(onClick = {
+//                todolistViewModel.ButtonSubmitTodolist(
+//                    title,
+//                    date,
+//                    time,
+//                    urgency,
+//                    description,
+//                    location,
+//                    context,
+//                    navController
+//                )
+            }, modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 90.dp),colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
                 shape = RoundedCornerShape(8.dp)) {
@@ -256,9 +290,10 @@ fun customTextFielda(
 
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Input_to_dopreview() {
     val navController = rememberNavController()
-    Input_to_do(navController);
+    Input_to_do(navController, TodolistVM());
 }

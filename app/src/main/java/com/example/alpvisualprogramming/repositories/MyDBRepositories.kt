@@ -186,6 +186,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
             if(listTodolists != null){
                 for (todolist in listTodolists){
                     val todo = Todolist(
+                        todolist.id,
                         todolist.title,
                         todolist.date,
                         todolist.time,
@@ -207,6 +208,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
     suspend fun getTodolistDetail(id: Int): Todolist{
         val todolist = myDBService.getTodolistDetail(id).data as Todolist
         val data = Todolist(
+            todolist.id,
             todolist.title,
             todolist.date,
             todolist.time,
@@ -225,6 +227,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
             if(listTodolists != null){
                 for (todolist in listTodolists){
                     val todo = Todolist(
+                        todolist.id,
                         todolist.title,
                         todolist.date,
                         todolist.time,
@@ -250,6 +253,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
             if(listTodolists != null){
                 for (todolist in listTodolists){
                     val todo = Todolist(
+                        todolist.id,
                         todolist.title,
                         todolist.date,
                         todolist.time,
@@ -275,6 +279,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
             if(listTodolists != null){
                 for (todolist in listTodolists){
                     val todo = Todolist(
+                        todolist.id,
                         todolist.title,
                         todolist.date,
                         todolist.time,
@@ -300,6 +305,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
             if(listTodolists != null){
                 for (todolist in listTodolists){
                     val todo = Todolist(
+                        todolist.id,
                         todolist.title,
                         todolist.date,
                         todolist.time,
@@ -325,6 +331,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
             if(listTodolists != null){
                 for (todolist in listTodolists){
                     val todo = Todolist(
+                        todolist.id,
                         todolist.title,
                         todolist.date,
                         todolist.time,
