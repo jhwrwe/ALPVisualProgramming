@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import com.example.alpvisualprogramming.R
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -39,14 +40,22 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.alpvisualprogramming.Data.DataStoreManager
+import com.example.alpvisualprogramming.repositories.MyDBContainer
+import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
 @Composable
-fun LogInPageView(navController: NavController){
+fun LogInPageView(loginViewModel: UserVM,
+                  navController: NavController,
+                  dataStore: DataStoreManager
+){
 
-    var email by rememberSaveable { mutableStateOf("") }
+    var username by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    val context = LocalContext.current;
 
     Column(
     modifier = Modifier
@@ -101,7 +110,7 @@ fun LogInPageView(navController: NavController){
 
         Row {
             Text(
-                text = "Email",
+                text = "username",
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White,
@@ -110,9 +119,9 @@ fun LogInPageView(navController: NavController){
                 )
         }
         Column {
-            CustomTextField1(value = email,
-                onValueChanged = { email = it },
-                text = "Enter your email",
+            CustomTextField1(value = username,
+                onValueChanged = { username = it },
+                text = "Enter your username",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
@@ -170,7 +179,9 @@ fun LogInPageView(navController: NavController){
             )
         }
 
-        Button(onClick = { /*TODO*/ },
+        Button(onClick = {
+            loginViewModel.ButtonLogin(username,password,context,navController, dataStore)
+                         },
             modifier = Modifier
                 .width(358.dp)
                 .align(Alignment.CenterHorizontally)
@@ -263,6 +274,14 @@ fun CustomTextField1(
 @Composable
 fun LogInPagePreview(){
     val navController = rememberNavController()
-    LogInPageView(navController)
+    val dataStore = DataStoreManager(LocalContext.current)
+    if(MyDBContainer.ACCESS_TOKEN.isEmpty()){
+        val loginViewModel: UserVM= viewModel()
+        LogInPageView(
+            loginViewModel= loginViewModel,
+            navController= navController,
+            dataStore= dataStore
+        )
+    }
 }
 

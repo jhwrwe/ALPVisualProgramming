@@ -31,8 +31,6 @@ import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 
 @Composable
 fun Footer(navController: NavController) {
-
-
     Column(
         modifier = Modifier
             .padding(top = 8.dp)

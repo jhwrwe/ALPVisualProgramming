@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import com.example.alpvisualprogramming.R
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -41,18 +42,23 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.alpvisualprogramming.Data.DataStoreManager
+import com.example.alpvisualprogramming.repositories.MyDBContainer
+import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun SignUpPageView(navController: NavController){
-
+fun SignUpPageView(userVM: UserVM,navController: NavController){
+    val context = LocalContext.current;
     var username by rememberSaveable { mutableStateOf("") }
     var fullname by rememberSaveable { mutableStateOf("") }
     var phonenumber by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    var profile_photo_path by rememberSaveable { mutableStateOf("") }
 
     Column(
 
@@ -226,7 +232,9 @@ fun SignUpPageView(navController: NavController){
             )
         }
 
-        Button(onClick = { /*TODO*/ },
+        Button(onClick = {
+                         userVM.ButtonRegister(username, fullname, phonenumber, email,profile_photo_path, password ,context, navController)
+        },
             modifier = Modifier
                 .width(358.dp)
                 .align(Alignment.CenterHorizontally)
@@ -307,6 +315,12 @@ fun CustomTextField(
 @Composable
 fun SignUpPagePreview(){
     val navController = rememberNavController()
-    SignUpPageView(navController)
+    if(MyDBContainer.ACCESS_TOKEN.isEmpty()){
+        val userVM: UserVM= viewModel()
+        SignUpPageView(
+            userVM= userVM,
+            navController= navController,
+        )
+    }
 }
 
