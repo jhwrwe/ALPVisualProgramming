@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import com.example.alpvisualprogramming.R
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -44,23 +43,25 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.Data.DataStoreManager
+import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
 @Composable
-fun LogInPageView(loginViewModel: UserVM,
-                  navController: NavController,
-                  dataStore: DataStoreManager
-){
+fun LogInPageView(
+    loginViewModel: UserVM,
+    navController: NavController,
+    dataStore: DataStoreManager
+) {
 
     var username by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     val context = LocalContext.current;
 
     Column(
-    modifier = Modifier
-        .fillMaxSize()
-        .background(Color(0xFF3960E5))
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF3960E5))
     ) {
 
         Row(
@@ -73,11 +74,11 @@ fun LogInPageView(loginViewModel: UserVM,
                     .clip(RoundedCornerShape(0.dp, 0.dp, 0.dp, 55.dp))
                     .background(Color.White)
                     .height(160.dp)
-            ){
-                Row (
+            ) {
+                Row(
                     modifier = Modifier
                         .absolutePadding(top = 30.dp, left = 16.dp)
-                ){
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.back_arrow),
                         contentDescription = "back"
@@ -85,7 +86,7 @@ fun LogInPageView(loginViewModel: UserVM,
                 }
 
                 Row(
-                ){
+                ) {
                     Text(
                         text = "Welcome",
                         fontSize = 22.sp,
@@ -97,13 +98,14 @@ fun LogInPageView(loginViewModel: UserVM,
                 }
 
                 Row(
-                ){
+                ) {
                     Text(
                         text = "Back!",
                         fontSize = 22.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
-                            .absolutePadding(left = 20.dp))
+                            .absolutePadding(left = 20.dp)
+                    )
                 }
             }
         }
@@ -116,10 +118,11 @@ fun LogInPageView(loginViewModel: UserVM,
                 color = Color.White,
                 modifier = Modifier
                     .absolutePadding(top = 75.dp, left = 16.dp)
-                )
+            )
         }
         Column {
-            CustomTextField1(value = username,
+            CustomTextField1(
+                value = username,
                 onValueChanged = { username = it },
                 text = "Enter your username",
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -144,7 +147,8 @@ fun LogInPageView(loginViewModel: UserVM,
             )
         }
         Column {
-            CustomTextField1(value = password,
+            CustomTextField1(
+                value = password,
                 onValueChanged = { password = it },
                 text = "Enter your password",
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -158,7 +162,7 @@ fun LogInPageView(loginViewModel: UserVM,
             )
         }
         Row(
-        ){
+        ) {
             Box(
                 modifier = Modifier
                     .absolutePadding(top = 18.dp, left = 25.dp)
@@ -179,25 +183,28 @@ fun LogInPageView(loginViewModel: UserVM,
             )
         }
 
-        Button(onClick = {
-            loginViewModel.ButtonLogin(username,password,context,navController, dataStore)
-                         },
+        Button(
+            onClick = {
+                loginViewModel.ButtonLogin(username, password, context, navController, dataStore)
+            },
             modifier = Modifier
                 .width(358.dp)
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 30.dp),
             colors = ButtonDefaults.buttonColors(Color.White),
-            shape = RoundedCornerShape(8.dp))
+            shape = RoundedCornerShape(8.dp)
+        )
         {
             Text(
                 text = "Sign In",
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp)
+                fontSize = 18.sp
+            )
         }
 
         Row(
-        ){
+        ) {
             Text(
                 text = "Forgot Password?",
                 color = Color.White,
@@ -216,12 +223,12 @@ fun LogInPageView(loginViewModel: UserVM,
                 color = Color.White,
                 fontSize = 14.sp,
                 modifier = Modifier
-                    .absolutePadding(left = 130.dp, top = 74    .dp)
+                    .absolutePadding(left = 130.dp, top = 74.dp)
             )
         }
 
         Row(
-        ){
+        ) {
             Text(
                 text = "Sign Up",
                 color = Color.White,
@@ -242,7 +249,7 @@ fun CustomTextField1(
     text: String,
     keyboardOptions: KeyboardOptions,
     modifier: Modifier = Modifier
-){
+) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChanged,
@@ -272,15 +279,15 @@ fun CustomTextField1(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun LogInPagePreview(){
+fun LogInPagePreview() {
     val navController = rememberNavController()
     val dataStore = DataStoreManager(LocalContext.current)
-    if(MyDBContainer.ACCESS_TOKEN.isEmpty()){
-        val loginViewModel: UserVM= viewModel()
+    if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
+        val loginViewModel: UserVM = viewModel()
         LogInPageView(
-            loginViewModel= loginViewModel,
-            navController= navController,
-            dataStore= dataStore
+            loginViewModel = loginViewModel,
+            navController = navController,
+            dataStore = dataStore
         )
     }
 }
