@@ -6,14 +6,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.alpvisualprogramming.Data.DataStoreManager
+import com.example.alpvisualprogramming.model.Mission
+import com.example.alpvisualprogramming.model.Todolist
 import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.NavGraph
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 
 
 class UserVM : ViewModel(){
+    private val _usera = MutableStateFlow<List<User>>(emptyList())
+    val usera: StateFlow<List<User>> = _usera.asStateFlow()
     fun ButtonLogin (username:String, password:String, context: Context, navController: NavController, dataStore: DataStoreManager){
         viewModelScope.launch {
             val token = MyDBContainer().myDBRepositories.login(username, password)
@@ -42,5 +49,22 @@ class UserVM : ViewModel(){
             }
         }
     }
+    fun logout(navController: NavController, dataStore: DataStoreManager){
 
+        viewModelScope.launch {
+            MyDBContainer().myDBRepositories.logout()
+            dataStore.saveToken("")
+            MyDBContainer.ACCESS_TOKEN=""
+            navController.navigate(NavGraph.LoginPageRoute)
+        }
+    }
+
+    fun getAllMissions(): List<User> {
+        var usera: List<User> = emptyList()
+        viewModelScope.launch {
+            usera = MyDBContainer().myDBRepositories.getdatauser() ?: emptyList()
+            _usera.value = usera
+        }
+        return usera
+    }
 }
