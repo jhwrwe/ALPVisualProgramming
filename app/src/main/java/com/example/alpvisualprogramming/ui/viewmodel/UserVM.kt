@@ -20,6 +20,7 @@ class UserVM : ViewModel() {
     private val _usera = MutableStateFlow(User())
     val usera: StateFlow<User> = _usera.asStateFlow()
 
+
     fun ButtonLogin(
         username: String,
         password: String,
@@ -34,13 +35,15 @@ class UserVM : ViewModel() {
             } else if (token.equals("User not found", true)) {
                 Toast.makeText(context, token, Toast.LENGTH_LONG).show()
             } else {
-                navController.navigate(NavGraph.ToDoListRoute)
                 dataStore.saveToken(token)
+//                getUser()
+                navController.navigate(NavGraph.HomePageRoute)
                 dataStore.getToken.collect { token ->
                     if (token != null) {
                         MyDBContainer.ACCESS_TOKEN = token
                     }
                 }
+
             }
         }
     }
@@ -74,12 +77,18 @@ class UserVM : ViewModel() {
         }
     }
 
-    fun getUser(): User {
-        var usera: User = User()
+    fun getUser(): User? {
+        var usera: List<User> = emptyList()
         viewModelScope.launch {
-            usera = MyDBContainer().myDBRepositories.getdatauser() as User
-            _usera.value = usera
+            usera = MyDBContainer().myDBRepositories.getdatauser() as List<User>
+            if (usera.isNotEmpty()){
+                _usera.value = usera[0]
+            }
         }
-        return usera
+        if (usera.isNotEmpty()){
+            return usera[0]
+        } else {
+            return null
+        }
     }
 }

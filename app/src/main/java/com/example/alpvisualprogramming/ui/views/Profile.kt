@@ -48,7 +48,12 @@ import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
 @Composable
-fun Profile(navController: NavController, userViewModel: UserVM, missionViewModel: MissionVM, badgeViewModel: BadgeVM,) {
+fun Profile(
+    navController: NavController,
+    userViewModel: UserVM,
+    missionViewModel: MissionVM,
+    badgeViewModel: BadgeVM,
+) {
     val user by userViewModel.usera.collectAsState()
     val uBadges by badgeViewModel.uBadges.collectAsState()
     val missions by missionViewModel.missions.collectAsState()
@@ -124,13 +129,23 @@ fun Profile(navController: NavController, userViewModel: UserVM, missionViewMode
                                 verticalArrangement = Arrangement.Center
                             ) {
                                 Text(
-                                    text = user.fullname,
+                                    text =
+                                    if (user.fullname.isNotEmpty()) {
+                                        user.fullname.toString()
+                                    } else {
+                                        "ERROR NAME"
+                                    },
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 22.sp,
                                     color = Color(0xFF3F3F3F)
                                 )
                                 Text(
-                                    text = user.email,
+                                    text =
+                                    if (user.email.isNotEmpty()) {
+                                        user.email.toString()
+                                    } else {
+                                        "ERROR EMAIL"
+                                    },
                                     fontWeight = FontWeight.SemiBold,
                                     color = Color.Gray,
                                     fontSize = 15.sp,
@@ -166,7 +181,12 @@ fun Profile(navController: NavController, userViewModel: UserVM, missionViewMode
                                         verticalArrangement = Arrangement.Center
                                     ) {
                                         Text(
-                                            text = user.coins.toString(),
+                                            text =
+                                            if (user.coins.toInt() == 0) {
+                                                "0"
+                                            } else {
+                                                user.coins.toString()
+                                            },
                                             fontWeight = FontWeight.Bold,
                                             fontSize = 40.sp,
                                             color = Color(0xFFFAB005),
@@ -266,7 +286,7 @@ fun Profile(navController: NavController, userViewModel: UserVM, missionViewMode
                                         badgess(
                                             picture = uBadges[item].image,
 
-                                        )
+                                            )
                                     }
                                 }
                             }
@@ -471,7 +491,7 @@ fun Profile(navController: NavController, userViewModel: UserVM, missionViewMode
         }
 
 
-            Footer(navController = navController, "Profile")
+        Footer(navController = navController, "Profile")
 
     }
 
@@ -536,7 +556,13 @@ fun badgess(picture: String) {
     val context = LocalContext.current
     val drawable = stringToDrawableId(context, picture)
     Image(
-        painter = painterResource(id = context.resources.getIdentifier(picture, "drawable", context.packageName)),
+        painter = painterResource(
+            id = context.resources.getIdentifier(
+                picture,
+                "drawable",
+                context.packageName
+            )
+        ),
         contentDescription = "badge",
         modifier = Modifier
             .padding(bottom = 3.dp)
@@ -549,6 +575,8 @@ fun badgess(picture: String) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Profile_preview() {
+    val navController = rememberNavController()
+    Profile(navController = navController, userViewModel = UserVM(), missionViewModel = MissionVM(), badgeViewModel = BadgeVM())
 //    val navController = rememberNavController()
 //
 }

@@ -21,22 +21,27 @@ class MyDBRepositories (private val myDBService: MyDBService){
         return result.message
     }
     suspend fun getdatauser(): List<User>{
-
         try {
-            val user = myDBService.getdatauser().data as? List<User>
+            val userResponse = myDBService.getdatauser()
             val data = mutableListOf<User>()
-            if(user != null){
-                for (users in user){
-                    val userr = User(
-                        users.fullname,
-                        users.phone_number,
-                        users.username,
-                        users.coins,
-                        users.role_id,
-                        users.profile_photo_path,
-                        users.password,
-                    )
-                    data.add(userr)
+
+            if (userResponse != null) {
+                val user = userResponse.data as? List<Map<String, Any>>
+
+                if (user != null) {
+                    for (userItems in user) {
+                        val user = User(
+                            // missionMap["id"] as Int, // Uncomment if 'id' is present
+                            userItems["fullname"] as String,
+                            userItems["phonenumber"] as String,
+                            userItems["username"] as String,
+                            userItems["coins"] as Int,
+                            userItems["role_id"] as Int,
+                            userItems["profile_photo_path"] as String,
+                            userItems["password"] as String,
+                            )
+                        data.add(user)
+                    }
                 }
             }
             return data
@@ -79,27 +84,6 @@ class MyDBRepositories (private val myDBService: MyDBService){
         val result = myDBService.decreasingcoins(id)
         return result.message
     }
-//    suspend fun getAllBadge(): List<Badge>{
-//        try {
-//            val AllBadge = myDBService.getAllBadge().data as? List<Badge>
-//            val data = mutableListOf<Badge>()
-//            if(AllBadge != null){
-//                for (badges in AllBadge){
-//                    val badgeaa = Badge(
-//                        badges.id,
-//                        badges.image,
-//                        badges.name,
-//                        badges.price
-//                    )
-//                    data.add(badgeaa)
-//                }
-//            }
-//            return data
-//        }catch (e: Exception){
-//            Log.d("Error11", e.message.toString())
-//            return mutableListOf()
-//        }
-//    }
     suspend fun getAllBadge(): List<Badge> {
         try {
             val allBadgeResponse = myDBService.getAllBadge()
@@ -130,27 +114,6 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
     }
 
-//    suspend fun getAllUserBadge(): List<Badge>{
-//        try {
-//            val AllBadge = myDBService.getAllBadgeUserHas().data as? List<Badge>
-//            val data = mutableListOf<Badge>()
-//            if(AllBadge != null){
-//                for (badges in AllBadge){
-//                    val badgeaa = Badge(
-//                        badges.id,
-//                        badges.image,
-//                        badges.name,
-//                        badges.price
-//                    )
-//                    data.add(badgeaa)
-//                }
-//            }
-//            return data
-//        }catch (e: Exception){
-//            Log.d("Error11", e.message.toString())
-//            return mutableListOf()
-//        }
-//    }
     suspend fun getAllUserBadge(): List<Badge> {
         try {
             val allBadgeUserResponse = myDBService.getAllBadgeUserHas()
