@@ -23,18 +23,16 @@ class TodolistVM : ViewModel() {
     private val _todolists = MutableStateFlow<List<Todolist>>(emptyList())
     val todolists: StateFlow<List<Todolist>> = _todolists.asStateFlow()
 
-    init {
-        getTodolistByUrgency(1)
-    }
-
-    fun getTodolistByUrgency(id: Int): List<Todolist> {
+    fun getTodolistByUrgency(id: Int, navController: NavController): List<Todolist> {
         var todolistList: List<Todolist> = emptyList()
         viewModelScope.launch{
             todolistList = MyDBContainer().myDBRepositories.getTodolistByUrgency(id) ?: emptyList()
             _todolists.value = todolistList
+            navController.navigate(NavGraph.ToDoListRoute)
         }
         return todolistList
     }
+
     fun ButtonSubmitTodolist(title:String, date:java.sql.Date, time:Time, urgency_status:Int, description:String ,location: String, context: Context, navController: NavController){
         viewModelScope.launch {
             // bisa apa ngaa jika waktu create id null?
