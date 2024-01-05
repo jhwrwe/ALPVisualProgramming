@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+//import androidx.compose.foundation.layout.BoxScopeInstance.align
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -35,6 +37,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.NavGraph
+import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 
 @Composable
 fun SignInPageView(navController: NavController) {
@@ -51,47 +54,53 @@ fun SignInPageView(navController: NavController) {
                 .padding(start = 20.dp)
         ) {
             Text(
-                text = "Welcome to,",
+                text = "Welcome to,\nApplication name",
                 color = Color.White,
                 fontSize = 35.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.SemiBold,
+                fontFamily = poppinsFamily,
+//                lineHeight = 25.sp
             )
-            Text(
-                text = "Application name",
-                color = Color.White,
-                fontSize = 35.sp,
-                fontWeight = FontWeight.Bold
-            )
+//            Text(
+//                text = "Application name",
+//                color = Color.White,
+//                fontSize = 35.sp,
+//                fontWeight = FontWeight.SemiBold,
+//                fontFamily = poppinsFamily,
+////                lineHeight = 25.sp
+//            )
         }
         Card(
             modifier = Modifier
                 .zIndex(2f)
                 .fillMaxWidth()
-                .height(200.dp)
+                .height(195.dp)
                 .clip(RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp))
                 .border(2.dp, Color.Gray, RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp)),
             colors = CardDefaults.cardColors(Color.White)
         ) {
             Text(
-                text = "Be more productive with '...' and start",
+                text = "Be more productive with '...' and start \nwriting your to-do list",
                 color = Color(0xFF3F3F3F),
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Medium,
                 fontSize = 15.sp,
+                fontFamily = poppinsFamily,
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .padding(vertical = 2.dp)
                     .padding(top = 30.dp)
             )
-            Text(
-                text = "writing your to-do list",
-                color = Color(0xFF3F3F3F),
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 15.sp,
-                modifier = Modifier
-                    .padding(horizontal = 20.dp)
-                    .padding(vertical = 2.dp)
-                    .padding(bottom = 10.dp)
-            )
+//            Text(
+//                text = "writing your to-do list",
+//                color = Color(0xFF3F3F3F),
+//                fontWeight = FontWeight.Medium,
+//                fontSize = 15.sp,
+//                fontFamily = poppinsFamily,
+//                modifier = Modifier
+//                    .padding(horizontal = 20.dp)
+//                    .padding(vertical = 2.dp)
+//                    .padding(bottom = 10.dp)
+//            )
             Button(
                 onClick = {
                     if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
@@ -107,7 +116,13 @@ fun SignInPageView(navController: NavController) {
                 colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
                 shape = RoundedCornerShape(8.dp)
             ) {
-                Text(text = "Sign In", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                Text(
+                    text = "Sign In",
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 15.sp,
+                    fontFamily = poppinsFamily,
+                    textAlign = TextAlign.Center
+                )
             }
 
 
@@ -116,26 +131,32 @@ fun SignInPageView(navController: NavController) {
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
                     .padding(bottom = 12.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "Create Account",
-                    color = Color(0xFF3F3F3F),
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Right,
-                    textDecoration = TextDecoration.Underline,
-                    modifier = Modifier
-                        .fillMaxWidth(0.85f)
-                        .clickable { navController.navigate(NavGraph.SignUpPage) }
-                )
-                Icon(
-                    imageVector = Icons.Rounded.ArrowForward,
-                    contentDescription = "Arrow Icon",
-                    tint = Color(0xFF3F3F3F),
-                    modifier = Modifier
-                            .clickable { navController.navigate(NavGraph.SignUpPage) }
-                )
+                Row(
+                    modifier = Modifier.clickable { navController.navigate(NavGraph.SignUpPage) },
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Create Account",
+                        color = Color(0xFF3F3F3F),
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = poppinsFamily,
+                        textAlign = TextAlign.Right,
+                        textDecoration = TextDecoration.Underline,
+                        modifier = Modifier
+                            .padding(end = 8.dp)
+                    )
+                    Icon(
+                        imageVector = Icons.Rounded.ArrowForward,
+                        contentDescription = "Arrow Icon",
+                        tint = Color(0xFF3F3F3F),
+                        modifier = Modifier
+                            .graphicsLayer(scaleY = 0.8f)
+                    )
+                }
             }
 
         }
