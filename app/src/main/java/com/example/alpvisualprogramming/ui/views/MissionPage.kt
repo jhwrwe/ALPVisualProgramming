@@ -58,21 +58,23 @@ import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
+import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
 @Composable
 fun MissionView(
     missionViewModel: MissionVM,
     badgeViewModel: BadgeVM,
-    navController: NavController
+    userViewModel: UserVM,
+    navController: NavController,
 ) {
 
     val missions by missionViewModel.missions.collectAsState()
     val badges by badgeViewModel.badges.collectAsState()
+    val user by userViewModel.usera.collectAsState()
 
     var missionBox: Boolean by rememberSaveable {
         mutableStateOf(true)
     }
-
     var badgeBox: Boolean by rememberSaveable {
         mutableStateOf(false)
     }
@@ -136,7 +138,12 @@ fun MissionView(
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Text(
-                                text = "12345",
+                                text =
+                                if (user.coins == 0) {
+                                    "0"
+                                } else {
+                                    user.coins.toString()
+                                },
                                 fontFamily = poppinsFamily,
                                 color = Color.White,
                                 fontSize = 40.sp,
@@ -212,7 +219,7 @@ fun MissionView(
                                     quantity = missions[item].quantity,
                                     coins = missions[item].coins,
                                     description = missions[item].description,
-                                    id = missions[item].id,
+//                                    id = missions[item].id,
                                     VM = missionViewModel,
                                 )
                             }
@@ -361,9 +368,9 @@ fun MissionView(
 fun Missions(
     title: String,
     description: String,
-    quantity: Int,
-    coins: Int,
-    id: Int,
+    quantity: Double,
+    coins: Double,
+//    id: Int,
     VM: MissionVM
 ) {
     Column(
@@ -404,7 +411,7 @@ fun Missions(
                             .size(28.dp)
                     )
                     Text(
-                        text = "$coins",
+                        text = "${coins.toInt()}",
 //                        fontFamily = poppinsFamily,
                         fontSize = 26.sp,
                         fontWeight = FontWeight.SemiBold,
@@ -456,7 +463,7 @@ fun Missions(
                             .height(28.dp)
                             .background(Color(0xFF3960E6), RoundedCornerShape(8.dp))
                             .clickable {
-                                VM.claimMissionCoins(id)
+                                VM.claimMissionCoins(1)
                             },
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
@@ -472,7 +479,7 @@ fun Missions(
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "$quantity",
+                        text = "${quantity.toInt()}",
                         fontFamily = poppinsFamily,
                         fontSize = 16.sp,
                         lineHeight = 18.sp,
@@ -489,7 +496,7 @@ fun Missions(
 }
 
 @Composable
-fun Badges(id: Int, title: String, price: Int, picture: String, badgeVM: BadgeVM) {
+fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: BadgeVM) {
 
     val context = LocalContext.current
     val drawable = stringToDrawableId(context, picture)
@@ -563,7 +570,7 @@ fun Badges(id: Int, title: String, price: Int, picture: String, badgeVM: BadgeVM
                     ) {
                         Text(
                             fontFamily = poppinsFamily,
-                            text = "$price",
+                            text = "${price.toDouble()}",
                             color = Color.White,
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold
@@ -633,7 +640,7 @@ fun Badges(id: Int, title: String, price: Int, picture: String, badgeVM: BadgeVM
                         Button(
                             onClick = {
                                 badgeBoolean = false
-                                badgeVM.CreateBadgeUser(id, context)
+                                badgeVM.CreateBadgeUser(id.toInt(), context)
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3960E6)),
                             modifier = Modifier
@@ -669,5 +676,5 @@ fun stringToDrawableId(context: Context, resourceName: String): Int {
 @Composable
 fun Preview() {
     val navController = rememberNavController()
-    MissionView(MissionVM(), BadgeVM(), navController)
+    MissionView(MissionVM(), BadgeVM(), UserVM(), navController)
 }

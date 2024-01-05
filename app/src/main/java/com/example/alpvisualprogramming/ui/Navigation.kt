@@ -62,7 +62,7 @@ fun ApplicationNavigation() {
             JournalPageView(navController)
         }
         composable(NavGraph.MissionPageRoute) {
-            MissionView(MissionVM(), BadgeVM(), navController)
+            MissionView(MissionVM(), BadgeVM(), UserVM(), navController)
         }
         composable(NavGraph.ProfileRoute) {
             Profile(navController)

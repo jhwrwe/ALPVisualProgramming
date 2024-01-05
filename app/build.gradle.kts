@@ -51,6 +51,9 @@ android {
 
 dependencies {
 
+    //GSON CONVERTER?
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
     //FOR NAVIGATING (FOOTER)
     implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")

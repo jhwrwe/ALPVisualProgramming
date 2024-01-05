@@ -7,6 +7,7 @@ import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.model.Todolist
 import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.services.MyDBService
+import com.google.gson.reflect.TypeToken
 import java.net.HttpURLConnection
 
 class MyDBRepositories (private val myDBService: MyDBService){
@@ -130,28 +131,32 @@ class MyDBRepositories (private val myDBService: MyDBService){
 //        }
         return result.message
     }
-    suspend fun getAllMission(): List<Mission>{
+    suspend fun getAllMission(): List<Mission> {
         try {
-            val AllMission = myDBService.getAllMission().data as? List<Mission>
+            val allMissionResponse = myDBService.getAllMission()
             val data = mutableListOf<Mission>()
-            if(AllMission != null){
-                for (Mission in AllMission){
-                    val mission = Mission(
-                        Mission.id,
-                        Mission.title,
-                        Mission.description,
-                        Mission.quantity,
-                        Mission.coins,
-                        Mission.urgency_status,
-                        Mission.user_id,
-                    )
-                    data.add(mission)
+
+            if (allMissionResponse != null) {
+                val allMission = allMissionResponse.data as? List<Map<String, Any>>
+
+                if (allMission != null) {
+                    for (missionMap in allMission) {
+                        val mission = Mission(
+                            // missionMap["id"] as Int, // Uncomment if 'id' is present
+                            missionMap["title"] as String,
+                            missionMap["description"] as String,
+                            missionMap["quantity"] as Double,
+                            missionMap["coins"] as Double
+                        )
+                        data.add(mission)
+                    }
                 }
             }
+
             return data
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d("Error11", e.message.toString())
-            return mutableListOf()
+            return emptyList()
         }
     }
     suspend fun claimMissionCoin(id:Int):String{
