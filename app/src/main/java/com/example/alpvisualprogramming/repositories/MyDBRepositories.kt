@@ -20,34 +20,35 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
         return result.message
     }
-    suspend fun getdatauser(): List<User>{
+
+    suspend fun getdatauser(): List<User> {
         try {
-            val userResponse = myDBService.getdatauser()
+            val alldatauseresponse = myDBService.getdatauser()
             val data = mutableListOf<User>()
 
-            if (userResponse != null) {
-                val user = userResponse.data as? List<Map<String, Any>>
+            if (alldatauseresponse != null) {
+                val alluserdata = alldatauseresponse.data as? List<Map<String, Any>>
 
-                if (user != null) {
-                    for (userItems in user) {
-                        val user = User(
-                            // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            userItems["fullname"] as String,
-                            userItems["phonenumber"] as String,
-                            userItems["username"] as String,
-                            userItems["coins"] as Int,
-                            userItems["role_id"] as Int,
-                            userItems["profile_photo_path"] as String,
-                            userItems["password"] as String,
-                            )
-                        data.add(user)
+                if (alluserdata != null) {
+                    for (dataMap in alluserdata) {
+                        val userss = User(
+                            dataMap["fullname"] as String,
+                            dataMap["phone_number"] as String,
+                            dataMap["username"] as String,
+                            dataMap["coins"] as Int,
+                            dataMap["role_id"] as Int,
+                            dataMap["profile_photo_path"] as String,
+                            dataMap["password"] as String,
+                        )
+                        data.add(userss)
                     }
                 }
             }
+
             return data
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d("Error11", e.message.toString())
-            return mutableListOf()
+            return emptyList()
         }
     }
     suspend fun deleteuser():String{
