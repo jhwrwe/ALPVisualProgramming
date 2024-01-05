@@ -66,7 +66,6 @@ class UserVM : ViewModel() {
     }
 
     fun logout(navController: NavController, dataStore: DataStoreManager) {
-
         viewModelScope.launch {
             MyDBContainer().myDBRepositories.logout()
             dataStore.saveToken("")

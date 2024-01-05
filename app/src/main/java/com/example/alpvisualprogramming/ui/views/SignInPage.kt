@@ -74,7 +74,7 @@ fun SignInPageView(navController: NavController) {
             modifier = Modifier
                 .zIndex(2f)
                 .fillMaxWidth()
-                .height(195.dp)
+                .height(200.dp)
                 .clip(RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp))
                 .border(2.dp, Color.Gray, RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp)),
             colors = CardDefaults.cardColors(Color.White)
@@ -135,9 +135,9 @@ fun SignInPageView(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
-                    modifier = Modifier.clickable { navController.navigate(NavGraph.SignUpPage) },
-                    horizontalArrangement = Arrangement.End,
-                    verticalAlignment = Alignment.CenterVertically
+                    modifier = Modifier.clickable {
+                        navController.navigate(NavGraph.SignUpPage)
+                    },
                 ) {
                     Text(
                         text = "Create Account",
