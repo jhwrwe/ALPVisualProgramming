@@ -17,9 +17,6 @@ import kotlinx.coroutines.launch
 
 class UserVM : ViewModel() {
 
-    private val _usera = MutableStateFlow<List<User>>(emptyList())
-    val usera: StateFlow<List<User>> = _usera.asStateFlow()
-
     fun ButtonLogin(
         username: String,
         password: String,
@@ -75,12 +72,7 @@ class UserVM : ViewModel() {
         }
     }
 
-    fun getUser(): List<User> {
-        var usera: List<User> = emptyList()
-        viewModelScope.launch {
-            usera = MyDBContainer().myDBRepositories.getdatauser() ?: emptyList()
-            _usera.value = usera
-        }
-        return usera
+    fun getUser() {
+
     }
 }

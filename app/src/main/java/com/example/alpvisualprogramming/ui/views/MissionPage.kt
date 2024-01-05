@@ -569,8 +569,6 @@ fun Badges(id: Int, title: String, price: Int, picture: String, badgeVM: BadgeVM
                             fontWeight = FontWeight.SemiBold
                         )
                     }
-
-
                 }
             }
 
