@@ -44,13 +44,15 @@ class BadgeVM : ViewModel() {
         return badges
     }
 
-    fun CreateBadgeUser(badge_id: Int, context: Context) {
+    fun CreateBadgeUser(badge_id: Int, context: Context, coins: Int, price: Int) {
         viewModelScope.launch {
-            val finnish = MyDBContainer().myDBRepositories.user_badge(badge_id)
-//            if (finnish.equals("Success",true)){
-            Toast.makeText(context, finnish, Toast.LENGTH_SHORT).show()
-//            }
-            DecreaseCoins(badge_id, context)
+            val process = MyDBContainer().myDBRepositories.user_badge(badge_id)
+            if (coins >= price) {
+                Toast.makeText(context, "Successly Bought", Toast.LENGTH_SHORT).show()
+                DecreaseCoins(badge_id, context)
+            } else {
+                Toast.makeText(context, "Not Enough Coins", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

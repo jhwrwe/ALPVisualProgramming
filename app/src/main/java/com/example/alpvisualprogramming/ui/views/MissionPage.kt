@@ -242,6 +242,7 @@ fun MissionView(
                                     price = badges[item].price,
                                     picture = badges[item].image,
                                     badgeVM = badgeViewModel,
+                                    userCoins = user.coins.toInt()
                                 )
                             }
                         }
@@ -499,7 +500,7 @@ fun Missions(
 }
 
 @Composable
-fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: BadgeVM) {
+fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: BadgeVM, userCoins: Int) {
 
     val context = LocalContext.current
 //    val drawable = stringToDrawableId(context, picture)
@@ -573,7 +574,7 @@ fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: B
                     ) {
                         Text(
                             fontFamily = poppinsFamily,
-                            text = "${price.toDouble()}",
+                            text = "${price.toInt()}",
                             color = Color.White,
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold
@@ -641,7 +642,7 @@ fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: B
                         Button(
                             onClick = {
                                 badgeBoolean = false
-                                badgeVM.CreateBadgeUser(id.toInt(), context)
+                                badgeVM.CreateBadgeUser(id.toInt(), context, userCoins, price.toInt())
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3960E6)),
                             modifier = Modifier

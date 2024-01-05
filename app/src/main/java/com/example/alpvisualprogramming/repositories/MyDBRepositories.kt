@@ -82,27 +82,6 @@ class MyDBRepositories (private val myDBService: MyDBService){
         val result = myDBService.decreasingcoins(id)
         return result.message
     }
-//    suspend fun getAllBadge(): List<Badge>{
-//        try {
-//            val AllBadge = myDBService.getAllBadge().data as? List<Badge>
-//            val data = mutableListOf<Badge>()
-//            if(AllBadge != null){
-//                for (badges in AllBadge){
-//                    val badgeaa = Badge(
-//                        badges.id,
-//                        badges.image,
-//                        badges.name,
-//                        badges.price
-//                    )
-//                    data.add(badgeaa)
-//                }
-//            }
-//            return data
-//        }catch (e: Exception){
-//            Log.d("Error11", e.message.toString())
-//            return mutableListOf()
-//        }
-//    }
     suspend fun getAllBadge(): List<Badge> {
         try {
             val allBadgeResponse = myDBService.getAllBadge()
@@ -133,27 +112,6 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
     }
 
-//    suspend fun getAllUserBadge(): List<Badge>{
-//        try {
-//            val AllBadge = myDBService.getAllBadgeUserHas().data as? List<Badge>
-//            val data = mutableListOf<Badge>()
-//            if(AllBadge != null){
-//                for (badges in AllBadge){
-//                    val badgeaa = Badge(
-//                        badges.id,
-//                        badges.image,
-//                        badges.name,
-//                        badges.price
-//                    )
-//                    data.add(badgeaa)
-//                }
-//            }
-//            return data
-//        }catch (e: Exception){
-//            Log.d("Error11", e.message.toString())
-//            return mutableListOf()
-//        }
-//    }
     suspend fun getAllUserBadge(): List<Badge> {
         try {
             val allBadgeUserResponse = myDBService.getAllBadgeUserHas()

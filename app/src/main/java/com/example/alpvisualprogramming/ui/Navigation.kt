@@ -65,7 +65,7 @@ fun ApplicationNavigation() {
             MissionView(MissionVM(), BadgeVM(), UserVM(), navController)
         }
         composable(NavGraph.ProfileRoute) {
-            Profile(navController)
+            Profile(navController, UserVM(), MissionVM(),BadgeVM())
         }
         composable(NavGraph.SignInPageRoute) {
             SignInPageView(navController)
