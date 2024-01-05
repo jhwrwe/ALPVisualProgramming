@@ -1,5 +1,7 @@
 package com.example.alpvisualprogramming.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
@@ -33,6 +35,7 @@ object NavGraph {
     const val ToDoListRoute = "ToDoList"
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ApplicationNavigation() {
     val navController = rememberNavController()
@@ -40,12 +43,7 @@ fun ApplicationNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination =
-            if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
-                NavGraph.LoginPageRoute
-            } else {
-                NavGraph.HomePageRoute
-            }
+        startDestination = NavGraph.SignInPageRoute,
     ) {
         composable(NavGraph.LoginPageRoute) {
             if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
