@@ -54,7 +54,10 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.alpvisualprogramming.R
+import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
@@ -499,7 +502,7 @@ fun Missions(
 fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: BadgeVM) {
 
     val context = LocalContext.current
-    val drawable = stringToDrawableId(context, picture)
+//    val drawable = stringToDrawableId(context, picture)
     var badgeBoolean by remember { mutableStateOf(false) }
 
     val localContext = LocalContext.current
@@ -536,7 +539,7 @@ fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: B
                     textAlign = TextAlign.Center
                 )
                 Image(
-                    painter = painterResource(id = drawable),
+                    painter = painterResource(id = context.resources.getIdentifier(picture, "drawable", context.packageName)),
                     contentDescription = "badge",
                     modifier = Modifier
                         .weight(6f)
@@ -624,7 +627,7 @@ fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: B
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Image(
-                                painter = painterResource(id = drawable),
+                                painter = painterResource(id = context.resources.getIdentifier(picture, "drawable", context.packageName)),
                                 contentDescription = "badge",
                                 modifier = Modifier
                                     .weight(6f)
