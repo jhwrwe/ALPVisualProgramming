@@ -4,6 +4,7 @@ import android.media.Image
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,9 +52,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
+import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
 
 @Composable
-fun MainPageView(navController: NavController){
+fun MainPageView(
+    navController: NavController,
+    todolistViewModel: TodolistVM
+){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -122,16 +127,26 @@ fun MainPageView(navController: NavController){
                 LazyRow(
                     content = {
                         item {
-                            ColoredCard("Schedule", "Points", Color(0xFF00CD00))
+                            ColoredCard("Schedule", "Points", Color(0xFF00CD00)){
+                                todolistViewModel.getTodolistByUrgency(1, navController)
+                            }
                         }
                         item {
                             ColoredCard("Meetings", "Agenda", Color(0xFF007AFF))
+                            {
+                                todolistViewModel.getTodolistByUrgency(2, navController)
+                            }
                         }
                         item {
                             ColoredCard("Tasks", "Progress", Color(0xFFDB8901))
+                            {
+                                todolistViewModel.getTodolistByUrgency(3, navController)
+                            }
                         }
                         item {
-                            ColoredCard("Events", "Details", Color(0xFFDF013A))
+                            ColoredCard("Events", "Details", Color(0xFFDF013A)){
+                                todolistViewModel.getTodolistByUrgency(4, navController)
+                            }
                         }
                     }
                 )
@@ -181,7 +196,7 @@ fun MainPageView(navController: NavController){
 }
 
 @Composable
-fun ColoredCard(title: String, subtitle: String, color: Color) {
+fun ColoredCard(title: String, subtitle: String, color: Color, onClick: () -> Unit) {
     val gradient = Brush.horizontalGradient(
         colors = listOf(
             color,
@@ -192,6 +207,7 @@ fun ColoredCard(title: String, subtitle: String, color: Color) {
 
     Card(
         modifier = Modifier
+            .clickable(onClick = onClick)
             .width(150.dp)
             .height(100.dp)
             .padding(end = 8.dp),
@@ -228,7 +244,7 @@ fun ColoredCard(title: String, subtitle: String, color: Color) {
 }
 
 @Composable
-fun IconTextNumberCard(imageResId: Int, text: String, number: Int) {
+fun IconTextNumberCard(imageResId: Int, text: String, number: Int ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -280,5 +296,5 @@ fun IconTextNumberCard(imageResId: Int, text: String, number: Int) {
 @Composable
 fun MainPagePreview(){
     val navController = rememberNavController()
-    MainPageView(navController)
+    MainPageView(navController, TodolistVM())
 }
