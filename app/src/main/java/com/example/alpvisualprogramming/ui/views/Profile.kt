@@ -44,12 +44,14 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
+import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
 @Composable
-fun Profile(navController: NavController, userViewModel: UserVM, badgeViewModel: BadgeVM,) {
+fun Profile(navController: NavController, userViewModel: UserVM, missionViewModel: MissionVM, badgeViewModel: BadgeVM,) {
     val user by userViewModel.usera.collectAsState()
     val uBadges by badgeViewModel.uBadges.collectAsState()
+    val missions by missionViewModel.missions.collectAsState()
     Column(modifier = Modifier.fillMaxSize(1F)) {
         Column(
             modifier = Modifier
@@ -209,7 +211,7 @@ fun Profile(navController: NavController, userViewModel: UserVM, badgeViewModel:
                                         verticalArrangement = Arrangement.Center
                                     ) {
                                         Text(
-                                            text = "200",
+                                            text = missions.size.toString(),
                                             fontWeight = FontWeight.Bold,
                                             fontSize = 40.sp,
                                             color = Color.Green
