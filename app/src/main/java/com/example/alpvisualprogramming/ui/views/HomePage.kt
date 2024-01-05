@@ -58,116 +58,125 @@ fun MainPageView(navController: NavController){
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Column (
-            modifier = Modifier.background(Color(0xFF3960E6)),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Text(
-                modifier = Modifier.padding(top = 10.dp),
-                text = "Application Name",
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 24.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column(
-                ) {
-                    Text(
-                        text = "Hello,",
-                        fontSize = 28.sp,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = "Richie Reuben",
-                        fontSize = 28.sp,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_account_circle_24),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(80.dp)
-                        .clip(CircleShape)
-                )
-            }
-        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp)
+                .weight(9f)
         ) {
-            Text(
-                text = "Priority Matrix",
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                color = Color(0xFF3F3F3F),
-                modifier = Modifier.padding(vertical = 12.dp)
-            )
-            // Card dengan tulisan "Schedule" di atas dan "Points" di bawah
-            LazyRow(
-                content = {
-                    item {
-                        ColoredCard("Schedule", "Points", Color(0xFF00CD00))
+            Column (
+                modifier = Modifier.background(Color(0xFF3960E6)),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Text(
+                    modifier = Modifier.padding(top = 10.dp),
+                    text = "Application Name",
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 24.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column(
+                    ) {
+                        Text(
+                            text = "Hello,",
+                            fontSize = 28.sp,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "Richie Reuben",
+                            fontSize = 28.sp,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
-                    item {
-                        ColoredCard("Meetings", "Agenda", Color(0xFF007AFF))
-                    }
-                    item {
-                        ColoredCard("Tasks", "Progress", Color(0xFFDB8901))
-                    }
-                    item {
-                        ColoredCard("Events", "Details", Color(0xFFDF013A))
-                    }
+                    Image(
+                        painter = painterResource(id = R.drawable.baseline_account_circle_24),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(80.dp)
+                            .clip(CircleShape)
+                    )
                 }
-            )
-            Text(
-                text = "Deadline",
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                color = Color(0xFF3F3F3F),
-                modifier = Modifier.padding(bottom = 12.dp, top = 20.dp)
-            )
-            IconTextNumberCard(
-                imageResId = R.drawable.icons8_time_96,
-                text = "Too Late",
-                number = 42
-            )
-            IconTextNumberCard(
-                imageResId = R.drawable.icons8_deadline_96,
-                text = "Today",
-                number = 42
-            )
-            IconTextNumberCard(
-                imageResId = R.drawable.icons8_do_not_disturb_ios_96,
-                text = "Tomorrow",
-                number = 42
-            )
-            IconTextNumberCard(
-                imageResId = R.drawable.icons8_question_96,
-                text = "Someday",
-                number = 42
-            )
-            IconTextNumberCard(
-                imageResId = R.drawable.icons8_no_data_availible_96,
-                text = "No Deadline",
-                number = 42
-            )
-            IconTextNumberCard(
-                imageResId = R.drawable.icons8_done_96,
-                text = "Done",
-                number = 42
-            )
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    text = "Priority Matrix",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = Color(0xFF3F3F3F),
+                    modifier = Modifier.padding(vertical = 12.dp)
+                )
+                // Card dengan tulisan "Schedule" di atas dan "Points" di bawah
+                LazyRow(
+                    content = {
+                        item {
+                            ColoredCard("Schedule", "Points", Color(0xFF00CD00))
+                        }
+                        item {
+                            ColoredCard("Meetings", "Agenda", Color(0xFF007AFF))
+                        }
+                        item {
+                            ColoredCard("Tasks", "Progress", Color(0xFFDB8901))
+                        }
+                        item {
+                            ColoredCard("Events", "Details", Color(0xFFDF013A))
+                        }
+                    }
+                )
+                Text(
+                    text = "Deadline",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = Color(0xFF3F3F3F),
+                    modifier = Modifier.padding(bottom = 12.dp, top = 20.dp)
+                )
+                IconTextNumberCard(
+                    imageResId = R.drawable.icons8_time_96,
+                    text = "Too Late",
+                    number = 42
+                )
+                IconTextNumberCard(
+                    imageResId = R.drawable.icons8_deadline_96,
+                    text = "Today",
+                    number = 42
+                )
+                IconTextNumberCard(
+                    imageResId = R.drawable.icons8_do_not_disturb_ios_96,
+                    text = "Tomorrow",
+                    number = 42
+                )
+                IconTextNumberCard(
+                    imageResId = R.drawable.icons8_question_96,
+                    text = "Someday",
+                    number = 42
+                )
+                IconTextNumberCard(
+                    imageResId = R.drawable.icons8_no_data_availible_96,
+                    text = "No Deadline",
+                    number = 42
+                )
+                IconTextNumberCard(
+                    imageResId = R.drawable.icons8_done_96,
+                    text = "Done",
+                    number = 42
+                )
+            }
         }
+
+        Footer(navController = navController, BlackText = "To Do")
+
     }
 }
 

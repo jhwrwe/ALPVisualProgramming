@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+//import androidx.compose.foundation.layout.RowScopeInstance.weight
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
@@ -62,6 +63,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
+import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
 import java.sql.Time
@@ -79,98 +81,108 @@ fun TodoListView(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Row(
-            modifier = Modifier
-                .background(Color(0xFF3960E6))
-                .fillMaxWidth()
-                .padding(vertical = 10.dp, horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.baseline_arrow_back_24),
-                contentDescription = null,
+
+            Row(
                 modifier = Modifier
-                    .clip(CircleShape)
-                    .size(30.dp)
-            )
-            Spacer(modifier = Modifier.width(115.dp))
-            Text(
-                text = "Task To Do",
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-            )
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, bottom = 12.dp)
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.frame_5),
-                contentDescription = null,
+                    .background(Color(0xFF3960E6))
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp, horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(30.dp)
+                        .clickable {
+                            navController.navigate(NavGraph.HomePageRoute)
+                        }
+                )
+                Spacer(modifier = Modifier.width(115.dp))
+                Text(
+                    text = "Task To Do",
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                )
+            }
+            Row(
                 modifier = Modifier
-                    .size(35.dp)
-            )
-            Spacer(modifier = Modifier.width(12.dp))
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 12.dp)
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.frame_5),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(35.dp)
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = "Do First",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
+                    color = Color(0xFF3F3F3F),
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = "8 Task",
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 14.sp,
+                    color = Color(0xFF8B8E91),
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+            }
             Text(
-                text = "Do First",
-                fontWeight = FontWeight.Bold,
-                fontSize = 30.sp,
-                color = Color(0xFF3F3F3F),
-            )
-            Spacer(modifier = Modifier.width(12.dp))
-            Text(
-                text = "8 Task",
+                text = "Urgent and important.  Give this task the highest priority.",
                 fontWeight = FontWeight.Normal,
                 fontSize = 14.sp,
-                color = Color(0xFF8B8E91),
-                modifier = Modifier.padding(top = 10.dp)
+                color = Color(0xFF3F3F3F),
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
-        }
-        Text(
-            text = "Urgent and important.  Give this task the highest priority.",
-            fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
-            color = Color(0xFF3F3F3F),
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
 
-        LazyColumn(
-        ) {
-            items(todolists.size) { item ->
-                todolists[item].date?.let {
-                    todolists[item].time?.let { it1 ->
-                        todolists[item].id?.let { it2 ->
-                            CardWithCheckbox(
-                                title = todolists[item].title,
-                                location = todolists[item].location,
-                                date = it,
-                                time = it1,
-                                id = it2,
-                                TodolistVM = todolistViewModel
-                            )
+            LazyColumn(
+            ) {
+                items(todolists.size) { item ->
+                    todolists[item].date?.let {
+                        todolists[item].time?.let { it1 ->
+                            todolists[item].id?.let { it2 ->
+                                CardWithCheckbox(
+                                    title = todolists[item].title,
+                                    location = todolists[item].location,
+                                    date = it,
+                                    time = it1,
+                                    id = it2,
+                                    TodolistVM = todolistViewModel
+                                )
+                            }
                         }
                     }
                 }
             }
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.baseline_add_circle_24),
-                contentDescription = null,
+            Box(
                 modifier = Modifier
-                    .size(100.dp)
-                    .align(Alignment.BottomEnd)
-                    .padding(8.dp) // Adjust padding as needed
-            )
-        }
+                    .fillMaxSize()
+                    .padding(top = 16.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_add_circle_24),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(90.dp)
+                        .align(Alignment.BottomEnd)
+                        .padding(4.dp) // Adjust padding as needed
+                        .clickable {
+                            navController.navigate(NavGraph.InputToDoRoute)
+                        }
+                )
+            }
+
     }
+
+
 }
 
 @Composable

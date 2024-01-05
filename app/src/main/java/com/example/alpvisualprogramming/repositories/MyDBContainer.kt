@@ -22,7 +22,7 @@ class MyDBContainer() {
         var ACCESS_TOKEN = ""
     }
 
-    private val BASE_URL = "https://10.0.2.2:8000/ALP_VP_team9_API/public/api/"
+    private val BASE_URL = "http://192.168.1.7:8000/api/"
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(AuthInterceptor(ACCESS_TOKEN))

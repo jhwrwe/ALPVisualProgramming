@@ -25,12 +25,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 
 @Composable
-fun Footer(navController: NavController) {
+fun Footer(navController: NavController, BlackText: String) {
     Column(
         modifier = Modifier
             .padding(top = 8.dp)
@@ -53,7 +52,11 @@ fun Footer(navController: NavController) {
                 Modifier
                     .weight(1f)
                     .padding(top = 12.dp, bottom = 12.dp),
-                Color.Black,
+                if (BlackText == "To Do") {
+                    Color.Black
+                } else {
+                    Color.LightGray
+                },
                 navController = navController
             )
             Spacer(modifier = Modifier.padding(6.dp))
@@ -63,7 +66,11 @@ fun Footer(navController: NavController) {
                 Modifier
                     .weight(1f)
                     .padding(top = 12.dp, bottom = 12.dp),
-                Color.LightGray,
+                if (BlackText == "Journal") {
+                    Color.Black
+                } else {
+                    Color.LightGray
+                },
                 navController = navController
             )
             Spacer(modifier = Modifier.padding(6.dp))
@@ -73,7 +80,11 @@ fun Footer(navController: NavController) {
                 Modifier
                     .weight(1f)
                     .padding(top = 12.dp, bottom = 12.dp),
-                Color.LightGray,
+                if (BlackText == "Mission") {
+                    Color.Black
+                } else {
+                    Color.LightGray
+                },
                 navController = navController
             )
             Spacer(modifier = Modifier.padding(6.dp))
@@ -83,7 +94,11 @@ fun Footer(navController: NavController) {
                 Modifier
                     .weight(1f)
                     .padding(top = 12.dp, bottom = 12.dp),
-                Color.LightGray,
+                if (BlackText == "Profile") {
+                    Color.Black
+                } else {
+                    Color.LightGray
+                },
                 navController = navController
             )
             Spacer(modifier = Modifier.padding(6.dp))
@@ -97,7 +112,7 @@ fun BottomFooter(
     picture: String,
     modifier: Modifier = Modifier,
     color: Color,
-    navController: NavController
+    navController: NavController,
 ) {
 
     val context = LocalContext.current
@@ -113,7 +128,7 @@ fun BottomFooter(
                 .size(35.dp)
                 .clickable {
                     if (title == "To Do") {
-                        navController.navigate(NavGraph.ToDoListRoute)
+                        navController.navigate(NavGraph.HomePageRoute)
                     } else if (title == "Journal") {
                         navController.navigate(NavGraph.JournalPageRoute)
                     } else if (title == "Mission") {

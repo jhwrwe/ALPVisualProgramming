@@ -81,7 +81,11 @@ fun SignUpPageView(userVM: UserVM, navController: NavController) {
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.back_arrow),
-                        contentDescription = "back"
+                        contentDescription = "back",
+                        modifier = Modifier
+                            .clickable {
+                                navController.navigate(NavGraph.LoginPageRoute)
+                            }
                     )
                 }
 
