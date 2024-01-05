@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.alpvisualprogramming.model.Badge
 import com.example.alpvisualprogramming.model.BadgeUser
+import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,7 +29,7 @@ class BadgeVM : ViewModel() {
     fun GetAllUserBadge(): List<Badge>? {
         var uBadges: List<Badge> = emptyList()
         viewModelScope.launch {
-            uBadges = MyDBContainer().myDBRepositories.getAllUserBadge()
+            uBadges = MyDBContainer().myDBRepositories.getAllUserBadge()?: emptyList()
             _uBadges.value = uBadges
         }
         return uBadges
@@ -37,7 +38,7 @@ class BadgeVM : ViewModel() {
     fun GetAllBadge(): List<Badge>? {
         var badges: List<Badge> = emptyList()
         viewModelScope.launch {
-            badges = MyDBContainer().myDBRepositories.getAllBadge()
+            badges = MyDBContainer().myDBRepositories.getAllBadge()?: emptyList()
             _badges.value = badges
         }
         return badges

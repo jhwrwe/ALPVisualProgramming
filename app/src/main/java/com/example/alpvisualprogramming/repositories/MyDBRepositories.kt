@@ -79,47 +79,105 @@ class MyDBRepositories (private val myDBService: MyDBService){
         val result = myDBService.decreasingcoins(id)
         return result.message
     }
-    suspend fun getAllBadge(): List<Badge>{
+//    suspend fun getAllBadge(): List<Badge>{
+//        try {
+//            val AllBadge = myDBService.getAllBadge().data as? List<Badge>
+//            val data = mutableListOf<Badge>()
+//            if(AllBadge != null){
+//                for (badges in AllBadge){
+//                    val badgeaa = Badge(
+//                        badges.id,
+//                        badges.image,
+//                        badges.name,
+//                        badges.price
+//                    )
+//                    data.add(badgeaa)
+//                }
+//            }
+//            return data
+//        }catch (e: Exception){
+//            Log.d("Error11", e.message.toString())
+//            return mutableListOf()
+//        }
+//    }
+    suspend fun getAllBadge(): List<Badge> {
         try {
-            val AllBadge = myDBService.getAllBadge().data as? List<Badge>
+            val allBadgeResponse = myDBService.getAllBadge()
             val data = mutableListOf<Badge>()
-            if(AllBadge != null){
-                for (badges in AllBadge){
-                    val badgeaa = Badge(
-                        badges.id,
-                        badges.image,
-                        badges.name,
-                        badges.price
-                    )
-                    data.add(badgeaa)
+
+            if (allBadgeResponse != null) {
+                val allBadge = allBadgeResponse.data as? List<Map<String, Any>>
+
+                if (allBadge != null) {
+                    for (badgess in allBadge) {
+                        val badges = Badge(
+                            // missionMap["id"] as Int, // Uncomment if 'id' is present
+                            badgess["id"] as Double,
+                            badgess["image"] as String,
+                            badgess["name"] as String,
+                            badgess["price"] as Double,
+
+                            )
+                        data.add(badges)
+                    }
                 }
             }
+
             return data
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d("Error11", e.message.toString())
-            return mutableListOf()
+            return emptyList()
         }
     }
 
-    suspend fun getAllUserBadge(): List<Badge>{
+//    suspend fun getAllUserBadge(): List<Badge>{
+//        try {
+//            val AllBadge = myDBService.getAllBadgeUserHas().data as? List<Badge>
+//            val data = mutableListOf<Badge>()
+//            if(AllBadge != null){
+//                for (badges in AllBadge){
+//                    val badgeaa = Badge(
+//                        badges.id,
+//                        badges.image,
+//                        badges.name,
+//                        badges.price
+//                    )
+//                    data.add(badgeaa)
+//                }
+//            }
+//            return data
+//        }catch (e: Exception){
+//            Log.d("Error11", e.message.toString())
+//            return mutableListOf()
+//        }
+//    }
+    suspend fun getAllUserBadge(): List<Badge> {
         try {
-            val AllBadge = myDBService.getAllBadgeUserHas().data as? List<Badge>
+            val allBadgeUserResponse = myDBService.getAllBadgeUserHas()
             val data = mutableListOf<Badge>()
-            if(AllBadge != null){
-                for (badges in AllBadge){
-                    val badgeaa = Badge(
-                        badges.id,
-                        badges.image,
-                        badges.name,
-                        badges.price
-                    )
-                    data.add(badgeaa)
+
+            if (allBadgeUserResponse != null) {
+                val alluserbadge = allBadgeUserResponse.data as? List<Map<String, Any>>
+
+                if (alluserbadge != null) {
+                    for (userbadge in alluserbadge) {
+                        val userbadges = Badge(
+                            // missionMap["id"] as Int, // Uncomment if 'id' is present
+                            userbadge["id"] as Double,
+                            userbadge["image"] as String,
+                            userbadge["name"] as String,
+                            userbadge["price"] as Double,
+
+                        )
+                        data.add(userbadges)
+                    }
                 }
             }
+
             return data
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d("Error11", e.message.toString())
-            return mutableListOf()
+            return emptyList()
         }
     }
 
