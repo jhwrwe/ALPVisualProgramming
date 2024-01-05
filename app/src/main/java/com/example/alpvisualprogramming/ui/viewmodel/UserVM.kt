@@ -17,6 +17,9 @@ import kotlinx.coroutines.launch
 
 class UserVM : ViewModel() {
 
+    private val _usera = MutableStateFlow(User())
+    val usera: StateFlow<User> = _usera.asStateFlow()
+
     fun ButtonLogin(
         username: String,
         password: String,
@@ -63,7 +66,6 @@ class UserVM : ViewModel() {
     }
 
     fun logout(navController: NavController, dataStore: DataStoreManager) {
-
         viewModelScope.launch {
             MyDBContainer().myDBRepositories.logout()
             dataStore.saveToken("")
@@ -72,7 +74,12 @@ class UserVM : ViewModel() {
         }
     }
 
-    fun getUser() {
-
+    fun getUser(): User {
+        var usera: User = User()
+        viewModelScope.launch {
+            usera = MyDBContainer().myDBRepositories.getdatauser() as User
+            _usera.value = usera
+        }
+        return usera
     }
 }
