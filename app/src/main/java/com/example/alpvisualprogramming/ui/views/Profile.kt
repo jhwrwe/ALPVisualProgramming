@@ -25,6 +25,8 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,9 +43,13 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
+import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
+import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
 @Composable
-fun Profile(navController: NavController) {
+fun Profile(navController: NavController, userViewModel: UserVM, badgeViewModel: BadgeVM,) {
+    val user by userViewModel.usera.collectAsState()
+    val uBadges by badgeViewModel.uBadges.collectAsState()
     Column(modifier = Modifier.fillMaxSize(1F)) {
         Column(
             modifier = Modifier
@@ -116,13 +122,13 @@ fun Profile(navController: NavController) {
                                 verticalArrangement = Arrangement.Center
                             ) {
                                 Text(
-                                    text = "Richie Reuben",
+                                    text = user.fullname,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 22.sp,
                                     color = Color(0xFF3F3F3F)
                                 )
                                 Text(
-                                    text = "richirebuenh@gmail.com",
+                                    text = user.email,
                                     fontWeight = FontWeight.SemiBold,
                                     color = Color.Gray,
                                     fontSize = 15.sp,
@@ -158,7 +164,7 @@ fun Profile(navController: NavController) {
                                         verticalArrangement = Arrangement.Center
                                     ) {
                                         Text(
-                                            text = "1.340",
+                                            text = user.coins.toString(),
                                             fontWeight = FontWeight.Bold,
                                             fontSize = 40.sp,
                                             color = Color(0xFFFAB005),
@@ -254,24 +260,10 @@ fun Profile(navController: NavController) {
                                         .padding(top = 10.dp)
                                         .padding(bottom = 10.dp)
                                 ) {
-                                    item {
+                                    items(uBadges.size) { item ->
                                         badgess(
-                                            picture = "bronze_medal"
-                                        )
-                                    }
-                                    item {
-                                        badgess(
-                                            picture = "silver_medal"
-                                        )
-                                    }
-                                    item {
-                                        badgess(
-                                            picture = "gold_medal"
-                                        )
-                                    }
-                                    item {
-                                        badgess(
-                                            picture = "sandglass"
+                                            picture = uBadges[item].image,
+
                                         )
                                     }
                                 }
@@ -542,7 +534,7 @@ fun badgess(picture: String) {
     val context = LocalContext.current
     val drawable = stringToDrawableId(context, picture)
     Image(
-        painter = painterResource(id = drawable),
+        painter = painterResource(id = context.resources.getIdentifier(picture, "drawable", context.packageName)),
         contentDescription = "badge",
         modifier = Modifier
             .padding(bottom = 3.dp)
@@ -555,6 +547,6 @@ fun badgess(picture: String) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Profile_preview() {
-    val navController = rememberNavController()
-    Profile(navController);
+//    val navController = rememberNavController()
+//
 }
