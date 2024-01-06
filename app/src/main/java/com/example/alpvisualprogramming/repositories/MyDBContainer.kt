@@ -1,6 +1,7 @@
 package com.example.alpvisualprogramming.repositories
 
 import com.example.alpvisualprogramming.services.MyDBService
+import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -22,7 +23,7 @@ class MyDBContainer() {
         var ACCESS_TOKEN = ""
     }
 
-    private val BASE_URL = "http://192.168.1.7:8000/api/"
+    private val BASE_URL = "https://api.kchr.dev/api-richie/api/"
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(AuthInterceptor(ACCESS_TOKEN))

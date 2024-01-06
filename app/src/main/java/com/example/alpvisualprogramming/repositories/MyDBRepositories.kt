@@ -9,6 +9,8 @@ import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.services.MyDBService
 import com.google.gson.reflect.TypeToken
 import java.net.HttpURLConnection
+import java.sql.Date
+import java.sql.Time
 
 class MyDBRepositories (private val myDBService: MyDBService){
     suspend fun login(username:String, password:String):String{
@@ -205,26 +207,30 @@ class MyDBRepositories (private val myDBService: MyDBService){
     //todolist
     suspend fun getTodolistByUrgency(urgencyStatus: Int): List<Todolist>{
         try {
-            val listTodolists = myDBService.getTodolistByUrgency(urgencyStatus).data as? List<Todolist>
+            val listTodolists = myDBService.getTodolistByUrgency(urgencyStatus)
             val data = mutableListOf<Todolist>()
-            if(listTodolists != null){
-                for (todolist in listTodolists){
-                    val todo = Todolist(
-                        todolist.id,
-                        todolist.title,
-                        todolist.date,
-                        todolist.time,
-                        todolist.urgency_status,
-                        todolist.description,
-                        todolist.progress_status,
-                        todolist.location,
-                    )
-                    data.add(todo)
+            if (listTodolists != null) {
+                val allTodolist = listTodolists.data as? List<Map<String, Any>>
+                if(allTodolist != null){
+                    for (todolist in allTodolist){
+                        val todo = Todolist(
+                            todolist["id"] as Int,
+                            todolist["title"] as String,
+                            todolist["date"] as Date,
+                            todolist["time"] as Time,
+                            todolist["urgency_status"] as Int,
+                            todolist["description"] as String,
+                            todolist["progress_status"] as Boolean,
+                            todolist["location"] as String,
+                        )
+                        data.add(todo)
+                    }
                 }
             }
             return data
+            Log.d("Errorppp", data.toString())
         }catch (e: Exception){
-            Log.d("Error11", e.message.toString())
+            Log.d("Errorljlkj", e.message.toString())
             return mutableListOf()
         }
     }
