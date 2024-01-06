@@ -1,6 +1,7 @@
 package com.example.alpvisualprogramming.model
 
 data class User(
+//    var id: Double = 0.0,
     var fullname: String = "",
     var phone_number: String = "",
     var username: String = "",

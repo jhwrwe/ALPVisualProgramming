@@ -54,6 +54,7 @@ fun Profile(
     missionViewModel: MissionVM,
     badgeViewModel: BadgeVM,
 ) {
+    userViewModel.getUser()
     val user by userViewModel.usera.collectAsState()
     val uBadges by badgeViewModel.uBadges.collectAsState()
     val missions by missionViewModel.missions.collectAsState()
@@ -131,9 +132,9 @@ fun Profile(
                                 Text(
                                     text =
                                     if (user.fullname.isNotEmpty()) {
-                                        user.fullname.toString()
+                                        user.fullname
                                     } else {
-                                        "ERROR NAME"
+                                        "ERROR FULLNAME"
                                     },
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 22.sp,
@@ -142,7 +143,7 @@ fun Profile(
                                 Text(
                                     text =
                                     if (user.email.isNotEmpty()) {
-                                        user.email.toString()
+                                        user.email
                                     } else {
                                         "ERROR EMAIL"
                                     },

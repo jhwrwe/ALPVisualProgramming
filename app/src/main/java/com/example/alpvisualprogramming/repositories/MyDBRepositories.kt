@@ -22,8 +22,8 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
         return result.message
     }
-//    suspend fun getdatauser(): List<User>{
-//
+    suspend fun getdatauser(): List<User>{
+
 //        try {
 //            val user = myDBService.getdatauser().data as? List<User>
 //            val data = mutableListOf<User>()
@@ -46,10 +46,39 @@ class MyDBRepositories (private val myDBService: MyDBService){
 //            Log.d("Error11", e.message.toString())
 //            return mutableListOf()
 //        }
-//    }
-    suspend fun getdatauser(): User {
-        return myDBService.getdatauser()
+
+//        try {
+            val userResponse = myDBService.getdatauser()
+            val data = mutableListOf<User>()
+            if (userResponse != null) {
+                val user = userResponse.data as? List<Map<String, Any>>
+                    if (user != null) {
+                        for (items in user) {
+                            val userInput = User(
+//                                items["id"] as Double, // Uncomment if 'id' is present
+                                (items["fullname"] as? String)?.toString() ?: "",
+                                (items["phone_number"] as? String)?.toString() ?: "",
+                                (items["username"] as? String)?.toString() ?: "",
+                                (items["coins"] as? Double)?.toInt() ?: 0,
+                                (items["role_id"] as? Double)?.toInt() ?: 2,
+                                (items["email"] as? String)?.toString() ?: "",
+                                (items["profile_photo_path"] as? String)?.toString() ?: "",
+                                (items["password"] as? String)?.toString() ?: "",
+                                )
+                            data.add(userInput)
+                            Log.d("DATA", data.toString())
+                        }
+                    }
+            }
+            return data
+//        } catch (e: Exception) {
+//            Log.d("Error11", e.message.toString())
+//            return mutableListOf()
+//        }
     }
+//    suspend fun getdatauser(): User {
+//        return myDBService.getdatauser()
+//    }
     suspend fun deleteuser():String{
         val result = myDBService.deleteuser()
         return result.message
@@ -88,6 +117,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
         try {
             val allBadgeResponse = myDBService.getAllBadge()
             val data = mutableListOf<Badge>()
+
 
             if (allBadgeResponse != null) {
                 val allBadge = allBadgeResponse.data as? List<Map<String, Any>>
