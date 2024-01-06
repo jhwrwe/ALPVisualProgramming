@@ -1,9 +1,7 @@
 package com.example.alpvisualprogramming.ui.views
 
-import android.media.Image
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,34 +16,21 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.rounded.ArrowForward
-import androidx.compose.material.icons.rounded.Clear
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,12 +38,17 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
+import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
 @Composable
 fun MainPageView(
     navController: NavController,
-    todolistViewModel: TodolistVM
-){
+    todolistViewModel: TodolistVM,
+    userVM: UserVM,
+) {
+    userVM.getUser()
+    val user by userVM.usera.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,10 +58,10 @@ fun MainPageView(
                 .fillMaxSize()
                 .weight(9f)
         ) {
-            Column (
+            Column(
                 modifier = Modifier.background(Color(0xFF3960E6)),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
+            ) {
                 Text(
                     modifier = Modifier.padding(top = 10.dp),
                     text = "Application Name",
@@ -96,7 +86,12 @@ fun MainPageView(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "Richie Reuben",
+                            text =
+                            if (user.fullname.isNotEmpty()) {
+                                "${user.fullname}"
+                            } else {
+                                "ERROR FULLNAME"
+                            },
                             fontSize = 28.sp,
                             color = Color.White,
                             fontWeight = FontWeight.Bold
@@ -127,7 +122,7 @@ fun MainPageView(
                 LazyRow(
                     content = {
                         item {
-                            ColoredCard("Schedule", "Points", Color(0xFF00CD00)){
+                            ColoredCard("Schedule", "Points", Color(0xFF00CD00)) {
                                 todolistViewModel.getTodolistByUrgency(1, navController)
                             }
                         }
@@ -144,7 +139,7 @@ fun MainPageView(
                             }
                         }
                         item {
-                            ColoredCard("Events", "Details", Color(0xFFDF013A)){
+                            ColoredCard("Events", "Details", Color(0xFFDF013A)) {
                                 todolistViewModel.getTodolistByUrgency(4, navController)
                             }
                         }
@@ -244,7 +239,7 @@ fun ColoredCard(title: String, subtitle: String, color: Color, onClick: () -> Un
 }
 
 @Composable
-fun IconTextNumberCard(imageResId: Int, text: String, number: Int ) {
+fun IconTextNumberCard(imageResId: Int, text: String, number: Int) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -291,10 +286,9 @@ fun IconTextNumberCard(imageResId: Int, text: String, number: Int ) {
 }
 
 
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MainPagePreview(){
+fun MainPagePreview() {
     val navController = rememberNavController()
-    MainPageView(navController, TodolistVM())
+    MainPageView(navController, TodolistVM(), UserVM())
 }

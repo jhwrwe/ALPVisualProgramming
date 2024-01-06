@@ -53,7 +53,7 @@ fun ApplicationNavigation() {
             }
         }
         composable(NavGraph.HomePageRoute) {
-            MainPageView(navController, TodolistVM())
+            MainPageView(navController, TodolistVM(), UserVM())
         }
         composable(NavGraph.InputToDoRoute) {
             Input_to_do(navController, TodolistVM())

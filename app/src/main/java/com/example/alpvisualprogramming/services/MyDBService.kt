@@ -28,7 +28,7 @@ interface MyDBService{
     suspend fun deleteuser():APIResponse
 
     @GET("data_user")
-    suspend fun getdatauser():User
+    suspend fun getdatauser():APIResponse
 
     @PATCH("update_user")
     suspend fun update_bio(@Body user: User):APIResponse

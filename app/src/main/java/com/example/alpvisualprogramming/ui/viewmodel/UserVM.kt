@@ -1,6 +1,7 @@
 package com.example.alpvisualprogramming.ui.viewmodel
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -83,6 +84,7 @@ class UserVM : ViewModel() {
             usera = MyDBContainer().myDBRepositories.getdatauser() as List<User>
             if (usera.isNotEmpty()){
                 _usera.value = usera[0]
+                Log.d("_USERA.VALUE", _usera.value.toString())
             }
         }
         if (usera.isNotEmpty()){
