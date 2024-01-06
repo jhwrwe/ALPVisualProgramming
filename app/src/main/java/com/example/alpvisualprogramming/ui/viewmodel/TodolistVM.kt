@@ -33,16 +33,16 @@ class TodolistVM : ViewModel() {
         return todolistList
     }
 
-    fun ButtonSubmitTodolist(title:String, date:java.sql.Date, time:Time, urgency_status:Int, description:String ,location: String, context: Context, navController: NavController){
-        viewModelScope.launch {
-            // bisa apa ngaa jika waktu create id null?
-            val CreateTodolistnotpermanent = Todolist(null, title, date, time, urgency_status, description, false, location)
-            val finnish = MyDBContainer().myDBRepositories.createTodolist(CreateTodolistnotpermanent)
-            if (finnish.equals("Success",true)){
-//                navController.navigate(NavGraph.LoginPageRoute)
-            }
-        }
-    }
+//    fun ButtonSubmitTodolist(title:String, date:java.sql.Date, time:Time, urgency_status:Int, description:String ,location: String, context: Context, navController: NavController){
+//        viewModelScope.launch {
+//            // bisa apa ngaa jika waktu create id null?
+//            val CreateTodolistnotpermanent = Todolist(null, title, date, time, urgency_status, description, false, location)
+//            val finnish = MyDBContainer().myDBRepositories.createTodolist(CreateTodolistnotpermanent)
+//            if (finnish.equals("Success",true)){
+////                navController.navigate(NavGraph.LoginPageRoute)
+//            }
+//        }
+//    }
 
     fun deleteTodolist(id: Int){
         viewModelScope.launch {
