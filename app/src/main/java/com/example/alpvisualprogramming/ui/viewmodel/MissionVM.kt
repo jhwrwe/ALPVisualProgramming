@@ -4,12 +4,15 @@ import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.repositories.MyDBContainer
+import com.example.alpvisualprogramming.ui.NavGraph
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
 class MissionVM() : ViewModel() {
 
@@ -30,11 +33,14 @@ class MissionVM() : ViewModel() {
     }
 
 
-    fun claimMissionCoins(id: Int, remaining: Int, quantity: Int, context: Context) {
+    fun claimMissionCoins(id: Int, remaining: Int, quantity: Int, context: Context, UserVM: UserVM, navController: NavController) {
+        var message: String = ""
         viewModelScope.launch {
             if (remaining >= quantity) {
-                MyDBContainer().myDBRepositories.claimMissionCoin(id)
-                Toast.makeText(context, "Successfuly Claimed", Toast.LENGTH_LONG).show()
+                message = MyDBContainer().myDBRepositories.claimMissionCoin(id)
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                UserVM.getUser()
+//                navController.navigate(NavGraph.MissionPageRoute)
             } else {
                 val remainingQuantity = quantity - remaining
                 Toast.makeText(context, "$remainingQuantity Works Remaining", Toast.LENGTH_LONG).show()

@@ -57,12 +57,15 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.alpvisualprogramming.R
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
+import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun MissionView(
     missionViewModel: MissionVM,
@@ -71,12 +74,14 @@ fun MissionView(
     navController: NavController,
 ) {
 
+    getUser(userVM = userViewModel)
+
     val context = LocalContext.current
 
     userViewModel.getUser()
     val missions by missionViewModel.missions.collectAsState()
     val badges by badgeViewModel.badges.collectAsState()
-    val user by userViewModel.usera.collectAsState()
+    val user by GlobalVariable.usera.collectAsState()
 
     var missionBox: Boolean by rememberSaveable {
         mutableStateOf(true)
@@ -229,7 +234,9 @@ fun MissionView(
                                     remaining = missions[item].remaining,
 //                                    id = missions[item].id,
                                     VM = missionViewModel,
+                                    UserVM = userViewModel,
                                     context = context,
+                                    navController = navController
                                 )
                             }
                         }
@@ -248,7 +255,7 @@ fun MissionView(
                                     price = badges[item].price,
                                     picture = badges[item].image,
                                     badgeVM = badgeViewModel,
-                                    userCoins = user.coins
+                                    userCoins = GlobalVariable.usera.value.coins
                                 )
                             }
                         }
@@ -383,7 +390,9 @@ fun Missions(
     coins: Int,
     remaining: Int,
     VM: MissionVM,
+    UserVM: UserVM,
     context: Context,
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
@@ -475,7 +484,14 @@ fun Missions(
                             .height(28.dp)
                             .background(Color(0xFF3960E6), RoundedCornerShape(8.dp))
                             .clickable {
-                                VM.claimMissionCoins(id, remaining, quantity, context)
+                                VM.claimMissionCoins(
+                                    id,
+                                    remaining,
+                                    quantity,
+                                    context,
+                                    UserVM,
+                                    navController = navController
+                                )
                             },
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
@@ -686,3 +702,4 @@ fun Preview() {
     val navController = rememberNavController()
     MissionView(MissionVM(), BadgeVM(), UserVM(), navController)
 }
+

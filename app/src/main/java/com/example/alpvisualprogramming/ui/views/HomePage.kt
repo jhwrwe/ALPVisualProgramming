@@ -1,5 +1,7 @@
 package com.example.alpvisualprogramming.ui.views
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -40,14 +42,18 @@ import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
 import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
+
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun MainPageView(
     navController: NavController,
     todolistViewModel: TodolistVM,
     userVM: UserVM,
 ) {
-    userVM.getUser()
-    val user by userVM.usera.collectAsState()
+//    userVM.getUser()
+//    val user by userVM.usera.collectAsState()
+    getUser(userVM = userVM)
 
     Column(
         modifier = Modifier
@@ -87,11 +93,11 @@ fun MainPageView(
                         )
                         Text(
                             text =
-                            if (user.fullname.isNotEmpty()) {
-                                "${user.fullname}"
-                            } else {
-                                "ERROR FULLNAME"
-                            },
+//                            if (GlobalVariable.User.fullname.isNotEmpty()) {
+                                "${GlobalVariable.usera.value.fullname}",
+//                            } else {
+//                                "ERROR FULLNAME"
+//                            },
                             fontSize = 28.sp,
                             color = Color.White,
                             fontWeight = FontWeight.Bold
@@ -291,4 +297,17 @@ fun IconTextNumberCard(imageResId: Int, text: String, number: Int) {
 fun MainPagePreview() {
     val navController = rememberNavController()
     MainPageView(navController, TodolistVM(), UserVM())
+}
+
+@Composable
+fun getUser(userVM: UserVM) {
+//    val user = userVM.getUser()
+//    Log.d("USER_VM", user.toString())
+//    if (GlobalVariable.User.username.isEmpty()) {
+//        GlobalVariable.User = user
+//        Log.d("USER", GlobalVariable.User.toString())
+//    }
+    if (GlobalVariable.usera.toString().isEmpty()) {
+        userVM.getUser()
+    }
 }
