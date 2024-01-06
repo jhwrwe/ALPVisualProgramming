@@ -1,10 +1,12 @@
 package com.example.alpvisualprogramming.ui.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.alpvisualprogramming.model.Todolist
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.repositories.MyDBContainer
@@ -20,14 +22,14 @@ import java.util.Date
 
 class TodolistVM : ViewModel() {
 
-    private val _todolists = MutableStateFlow<List<Todolist>>(emptyList())
-    val todolists: StateFlow<List<Todolist>> = _todolists.asStateFlow()
+
+
 
     fun getTodolistByUrgency(id: Int, navController: NavController): List<Todolist> {
         var todolistList: List<Todolist> = emptyList()
         viewModelScope.launch{
             todolistList = MyDBContainer().myDBRepositories.getTodolistByUrgency(id) ?: emptyList()
-            _todolists.value = todolistList
+            GlobalVariable._todolists.value = todolistList
             navController.navigate(NavGraph.ToDoListRoute)
         }
         return todolistList

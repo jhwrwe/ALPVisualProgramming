@@ -2,6 +2,7 @@ package com.example.alpvisualprogramming.globalvariable
 
 import com.example.alpvisualprogramming.model.Badge
 import com.example.alpvisualprogramming.model.Mission
+import com.example.alpvisualprogramming.model.Todolist
 import com.example.alpvisualprogramming.model.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,5 +22,8 @@ class GlobalVariable() {
 
         val _uBadges = MutableStateFlow<List<Badge>>(emptyList())
         val uBadges: StateFlow<List<Badge>> = _uBadges.asStateFlow()
+
+        val _todolists = MutableStateFlow<List<Todolist>>(emptyList())
+        val todolists: StateFlow<List<Todolist>> = _todolists.asStateFlow()
     }
 }

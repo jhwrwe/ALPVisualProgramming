@@ -1,5 +1,8 @@
 package com.example.alpvisualprogramming.model
 
+import java.sql.Date
+import java.sql.Time
+
 class Todolist(
         var id: Int,
         var title: String = "",

@@ -242,6 +242,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
         try {
             val listTodolists = myDBService.getTodolistByUrgency(urgencyStatus)
             val data = mutableListOf<Todolist>()
+
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
                 if(allTodolist != null){
@@ -264,8 +265,9 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     }
                 }
             }
+//            Log.d("repo", data[0].title)
             return data
-            Log.d("Error GetToDOListUrgency", data.toString())
+//            Log.d("Error GetToDOListUrgency", data.toString())
         }catch (e: Exception){
             Log.d("Error GetToDOListUrgency", e.message.toString())
             return mutableListOf()
