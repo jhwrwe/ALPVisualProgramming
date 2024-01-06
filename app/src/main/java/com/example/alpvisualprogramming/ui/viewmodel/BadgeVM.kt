@@ -4,22 +4,12 @@ import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.model.Badge
-import com.example.alpvisualprogramming.model.BadgeUser
-import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.repositories.MyDBContainer
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class BadgeVM : ViewModel() {
-
-    private val _badges = MutableStateFlow<List<Badge>>(emptyList())
-    val badges: StateFlow<List<Badge>> = _badges.asStateFlow()
-
-    private val _uBadges = MutableStateFlow<List<Badge>>(emptyList())
-    val uBadges: StateFlow<List<Badge>> = _uBadges.asStateFlow()
 
     init {
         GetAllUserBadge()
@@ -29,8 +19,8 @@ class BadgeVM : ViewModel() {
     fun GetAllUserBadge(): List<Badge>? {
         var uBadges: List<Badge> = emptyList()
         viewModelScope.launch {
-            uBadges = MyDBContainer().myDBRepositories.getAllUserBadge()?: emptyList()
-            _uBadges.value = uBadges
+            uBadges = MyDBContainer().myDBRepositories.getAllUserBadge() ?: emptyList()
+            GlobalVariable._uBadges.value = uBadges
         }
         return uBadges
     }
@@ -38,8 +28,8 @@ class BadgeVM : ViewModel() {
     fun GetAllBadge(): List<Badge>? {
         var badges: List<Badge> = emptyList()
         viewModelScope.launch {
-            badges = MyDBContainer().myDBRepositories.getAllBadge()?: emptyList()
-            _badges.value = badges
+            badges = MyDBContainer().myDBRepositories.getAllBadge() ?: emptyList()
+            GlobalVariable._badges.value = badges
         }
         return badges
     }

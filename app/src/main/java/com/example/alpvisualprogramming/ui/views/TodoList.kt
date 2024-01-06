@@ -143,25 +143,25 @@ fun TodoListView(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            LazyColumn(
-            ) {
-                items(todolists.size) { item ->
-                    todolists[item].date?.let {
-                        todolists[item].time?.let { it1 ->
-                            todolists[item].id?.let { it2 ->
-                                CardWithCheckbox(
-                                    title = todolists[item].title,
-                                    location = todolists[item].location,
-                                    date = it,
-                                    time = it1,
-                                    id = it2,
-                                    TodolistVM = todolistViewModel
-                                )
-                            }
-                        }
-                    }
-                }
-            }
+//            LazyColumn(
+//            ) {
+//                items(todolists.size) { item ->
+//                    todolists[item].date?.let {
+//                        todolists[item].time?.let { it1 ->
+//                            todolists[item].id?.let { it2 ->
+//                                CardWithCheckbox(
+//                                    title = todolists[item].title,
+//                                    location = todolists[item].location,
+//                                    date = it,
+//                                    time = it1,
+//                                    id = it2,
+//                                    TodolistVM = todolistViewModel
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
+//            }
             Box(
                 modifier = Modifier
                     .fillMaxSize()

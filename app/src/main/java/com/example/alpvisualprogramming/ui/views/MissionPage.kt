@@ -77,10 +77,8 @@ fun MissionView(
     getUser(userVM = userViewModel)
 
     val context = LocalContext.current
-
-    userViewModel.getUser()
-    val missions by missionViewModel.missions.collectAsState()
-    val badges by badgeViewModel.badges.collectAsState()
+    val missions by GlobalVariable.missions.collectAsState()
+    val badges by GlobalVariable.badges.collectAsState()
     val user by GlobalVariable.usera.collectAsState()
 
     var missionBox: Boolean by rememberSaveable {

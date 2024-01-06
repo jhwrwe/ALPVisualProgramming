@@ -1,5 +1,6 @@
 package com.example.alpvisualprogramming.globalvariable
 
+import com.example.alpvisualprogramming.model.Badge
 import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.model.User
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,5 +15,11 @@ class GlobalVariable() {
 
         val _missions = MutableStateFlow<List<Mission>>(emptyList())
         val missions: StateFlow<List<Mission>> = _missions.asStateFlow()
+
+        val _badges = MutableStateFlow<List<Badge>>(emptyList())
+        val badges: StateFlow<List<Badge>> = _badges.asStateFlow()
+
+        val _uBadges = MutableStateFlow<List<Badge>>(emptyList())
+        val uBadges: StateFlow<List<Badge>> = _uBadges.asStateFlow()
     }
 }

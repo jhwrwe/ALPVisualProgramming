@@ -51,8 +51,7 @@ fun MainPageView(
     todolistViewModel: TodolistVM,
     userVM: UserVM,
 ) {
-//    userVM.getUser()
-//    val user by userVM.usera.collectAsState()
+
     getUser(userVM = userVM)
 
     Column(
@@ -301,13 +300,5 @@ fun MainPagePreview() {
 
 @Composable
 fun getUser(userVM: UserVM) {
-//    val user = userVM.getUser()
-//    Log.d("USER_VM", user.toString())
-//    if (GlobalVariable.User.username.isEmpty()) {
-//        GlobalVariable.User = user
-//        Log.d("USER", GlobalVariable.User.toString())
-//    }
-    if (GlobalVariable.usera.toString().isEmpty()) {
-        userVM.getUser()
-    }
+    userVM.getUser()
 }
