@@ -127,10 +127,10 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     for (badgess in allBadge) {
                         val badges = Badge(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            badgess["id"] as Double,
-                            badgess["image"] as String,
-                            badgess["name"] as String,
-                            badgess["price"] as Double,
+                            (badgess["id"] as? Double)?.toInt() ?: 0,
+                            (badgess["image"] as? String)?.toString() ?: "",
+                            (badgess["price"] as? String)?.toString() ?: "",
+                            (badgess["price"] as? Double)?.toInt() ?: 0,
 
                             )
                         data.add(badges)
@@ -157,11 +157,10 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     for (userbadge in alluserbadge) {
                         val userbadges = Badge(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            userbadge["id"] as Double,
-                            userbadge["image"] as String,
-                            userbadge["name"] as String,
-                            userbadge["price"] as Double,
-
+                            (userbadge["id"] as? Double)?.toInt() ?: 0,
+                            (userbadge["image"] as? String)?.toString() ?: "",
+                            (userbadge["price"] as? String)?.toString() ?: "",
+                            (userbadge["price"] as? Double)?.toInt() ?: 0,
                         )
                         data.add(userbadges)
                     }
@@ -195,10 +194,12 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     for (missionMap in allMission) {
                         val mission = Mission(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            missionMap["title"] as String,
-                            missionMap["description"] as String,
-                            missionMap["quantity"] as Double,
-                            missionMap["coins"] as Double
+                            (missionMap["id"] as? Double)?.toInt() ?: 0,
+                            (missionMap["title"] as? String)?.toString() ?: "",
+                            (missionMap["description"] as? String)?.toString() ?: "",
+                            (missionMap["remaining"] as? Double)?.toInt() ?: 0,
+                            (missionMap["quantity"] as? Double)?.toInt() ?: 0,
+                            (missionMap["coins"] as? Double)?.toInt() ?: 0,
                         )
                         data.add(mission)
                     }
