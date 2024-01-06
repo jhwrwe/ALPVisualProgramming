@@ -60,7 +60,7 @@ class BadgeVM : ViewModel() {
         viewModelScope.launch {
             val finnish = MyDBContainer().myDBRepositories.coins_minus(badge_id)
 //            if (finnish.equals("Success",true)){
-            Toast.makeText(context, finnish, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, finnish, Toast.LENGTH_SHORT).show()
 //            }
         }
     }

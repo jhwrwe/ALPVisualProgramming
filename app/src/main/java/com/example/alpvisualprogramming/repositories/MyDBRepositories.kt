@@ -1,5 +1,6 @@
 package com.example.alpvisualprogramming.repositories
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.example.alpvisualprogramming.model.Badge
 import com.example.alpvisualprogramming.model.BadgeUser
@@ -20,6 +21,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
         return result.message
     }
+    @SuppressLint("SuspiciousIndentation")
     suspend fun getdatauser(): List<User>{
 
 //        try {
@@ -45,7 +47,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
 //            return mutableListOf()
 //        }
 
-//        try {
+        try {
             val userResponse = myDBService.getdatauser()
             val data = mutableListOf<User>()
             if (userResponse != null) {
@@ -69,10 +71,10 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     }
             }
             return data
-//        } catch (e: Exception) {
-//            Log.d("Error11", e.message.toString())
-//            return mutableListOf()
-//        }
+        } catch (e: Exception) {
+            Log.d("Error11", e.message.toString())
+            return mutableListOf()
+        }
     }
 //    suspend fun getdatauser(): User {
 //        return myDBService.getdatauser()
@@ -124,10 +126,10 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     for (badgess in allBadge) {
                         val badges = Badge(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            badgess["id"] as Double,
-                            badgess["image"] as String,
-                            badgess["name"] as String,
-                            badgess["price"] as Double,
+                            (badgess["id"] as? Double)?.toInt() ?: 0,
+                            (badgess["image"] as? String)?.toString() ?: "",
+                            (badgess["price"] as? String)?.toString() ?: "",
+                            (badgess["price"] as? Double)?.toInt() ?: 0,
 
                             )
                         data.add(badges)
@@ -154,11 +156,10 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     for (userbadge in alluserbadge) {
                         val userbadges = Badge(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            userbadge["id"] as Double,
-                            userbadge["image"] as String,
-                            userbadge["name"] as String,
-                            userbadge["price"] as Double,
-
+                            (userbadge["id"] as? Double)?.toInt() ?: 0,
+                            (userbadge["image"] as? String)?.toString() ?: "",
+                            (userbadge["price"] as? String)?.toString() ?: "",
+                            (userbadge["price"] as? Double)?.toInt() ?: 0,
                         )
                         data.add(userbadges)
                     }
@@ -192,10 +193,12 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     for (missionMap in allMission) {
                         val mission = Mission(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            missionMap["title"] as String,
-                            missionMap["description"] as String,
-                            missionMap["quantity"] as Double,
-                            missionMap["coins"] as Double
+                            (missionMap["id"] as? Double)?.toInt() ?: 0,
+                            (missionMap["title"] as? String)?.toString() ?: "",
+                            (missionMap["description"] as? String)?.toString() ?: "",
+                            (missionMap["remaining"] as? Double)?.toInt() ?: 0,
+                            (missionMap["quantity"] as? Double)?.toInt() ?: 0,
+                            (missionMap["coins"] as? Double)?.toInt() ?: 0,
                         )
                         data.add(mission)
                     }

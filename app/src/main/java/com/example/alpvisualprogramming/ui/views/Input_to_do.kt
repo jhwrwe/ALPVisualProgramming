@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -52,6 +53,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
+import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
 import java.sql.Time
@@ -86,7 +88,11 @@ fun Input_to_do(
         Icon(
             imageVector = Icons.Rounded.ArrowBack,
             contentDescription = "Arrow Icon",
-            tint = Color.White
+            tint = Color.White,
+            modifier = Modifier
+                .clickable {
+                    navController.navigate(NavGraph.ToDoListRoute)
+                }
         )
         Text(
             text = "Add new task",
