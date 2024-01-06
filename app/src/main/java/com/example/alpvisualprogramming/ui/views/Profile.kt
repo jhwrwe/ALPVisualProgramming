@@ -1,5 +1,6 @@
 package com.example.alpvisualprogramming.ui.views
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -56,6 +57,7 @@ fun Profile(
     badgeViewModel: BadgeVM,
 ) {
     userViewModel.getUser()
+    Log.d("Profile", "")
     val user by GlobalVariable.usera.collectAsState()
     val uBadges by GlobalVariable.uBadges.collectAsState()
     val missions by GlobalVariable.missions.collectAsState()

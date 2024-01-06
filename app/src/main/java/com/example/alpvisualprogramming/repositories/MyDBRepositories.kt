@@ -73,7 +73,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
             }
             return data
         } catch (e: Exception) {
-            Log.d("Error11", e.message.toString())
+            Log.d("Error GetDataUser", e.message.toString())
             return mutableListOf()
         }
     }
@@ -140,7 +140,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
 
             return data
         } catch (e: Exception) {
-            Log.d("Error11", e.message.toString())
+            Log.d("Error GetAllBadge", e.message.toString())
             return emptyList()
         }
     }
@@ -208,7 +208,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
 
             return data
         } catch (e: Exception) {
-            Log.d("Error11", e.message.toString())
+            Log.d("ERROR GetAllMission", e.message.toString())
             return emptyList()
         }
     }
@@ -265,9 +265,9 @@ class MyDBRepositories (private val myDBService: MyDBService){
                 }
             }
             return data
-            Log.d("Errorppp", data.toString())
+            Log.d("Error GetToDOListUrgency", data.toString())
         }catch (e: Exception){
-            Log.d("Errorljlkj", e.message.toString())
+            Log.d("Error GetToDOListUrgency", e.message.toString())
             return mutableListOf()
         }
     }
@@ -314,9 +314,9 @@ class MyDBRepositories (private val myDBService: MyDBService){
                 }
             }
             return data
-            Log.d("Errorppp", data.toString())
+            Log.d("Error GetLateToDoList", data.toString())
         }catch (e: Exception){
-            Log.d("Errorljlkj", e.message.toString())
+            Log.d("Error GetLateToDoList", e.message.toString())
             return mutableListOf()
         }
     }
@@ -348,9 +348,9 @@ class MyDBRepositories (private val myDBService: MyDBService){
                 }
             }
             return data
-            Log.d("Errorppp", data.toString())
+            Log.d("Error GetTodayToDoList", data.toString())
         }catch (e: Exception){
-            Log.d("Errorljlkj", e.message.toString())
+            Log.d("Error GetTodayToDoList", e.message.toString())
             return mutableListOf()
         }
     }
@@ -382,9 +382,9 @@ class MyDBRepositories (private val myDBService: MyDBService){
                 }
             }
             return data
-            Log.d("Errorppp", data.toString())
+            Log.d("Error GetTomorrowToDoList", data.toString())
         }catch (e: Exception){
-            Log.d("Errorljlkj", e.message.toString())
+            Log.d("Error GetTomorrowToDoList", e.message.toString())
             return mutableListOf()
         }
     }
@@ -416,9 +416,9 @@ class MyDBRepositories (private val myDBService: MyDBService){
                 }
             }
             return data
-            Log.d("Errorppp", data.toString())
+            Log.d("GetSomeDay", data.toString())
         }catch (e: Exception){
-            Log.d("Errorljlkj", e.message.toString())
+            Log.d("GetSomeDay", e.message.toString())
             return mutableListOf()
         }
     }
@@ -450,9 +450,9 @@ class MyDBRepositories (private val myDBService: MyDBService){
                 }
             }
             return data
-            Log.d("Errorppp", data.toString())
+            Log.d("getDoneToDoList", data.toString())
         }catch (e: Exception){
-            Log.d("Errorljlkj", e.message.toString())
+            Log.d("getDoneToDoList", e.message.toString())
             return mutableListOf()
         }
     }

@@ -53,7 +53,7 @@ fun MainPageView(
 ) {
 
     getUser(userVM = userVM)
-
+Log.d("HomePage", "")
     Column(
         modifier = Modifier
             .fillMaxSize()
