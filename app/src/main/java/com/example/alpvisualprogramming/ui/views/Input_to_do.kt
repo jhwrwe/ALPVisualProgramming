@@ -1,11 +1,10 @@
 package com.example.alpvisualprogramming.ui.views
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,26 +12,24 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -41,8 +38,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -52,61 +47,74 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.alpvisualprogramming.R
-import com.example.alpvisualprogramming.ui.NavGraph
-import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
-import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
-import java.sql.Time
-import java.time.LocalTime
-import java.util.Date
+import com.maxkeppeker.sheets.core.models.base.rememberSheetState
+import com.maxkeppeler.sheets.calendar.CalendarDialog
+import com.maxkeppeler.sheets.calendar.models.CalendarConfig
+import com.maxkeppeler.sheets.calendar.models.CalendarSelection
+import com.maxkeppeler.sheets.calendar.models.CalendarStyle
+import com.maxkeppeler.sheets.clock.ClockDialog
+import com.maxkeppeler.sheets.clock.models.ClockSelection
+import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Input_to_do(
-    navController: NavController,
-    todolistViewModel: TodolistVM,
+fun InputToDo(navController: NavController) {
 
-    ){
-    val context = LocalContext.current
+    Column(modifier = Modifier.fillMaxSize()) {
+        val calenderstate = rememberSheetState()
+        CalendarDialog(
+            state = calenderstate,
+            config = CalendarConfig(
+                monthSelection = true,
+                yearSelection = true,
+                style = CalendarStyle.MONTH,
+                disabledDates = listOf(LocalDate.now().plusDays(7))
+            ),
+            selection = CalendarSelection.Date{date ->
+                Log.d("selectedDate","$date")
+            }
+        )
+        val clockstate = rememberSheetState()
+        ClockDialog(state = clockstate, selection = ClockSelection.HoursMinutes{hours, minutes ->
+            Log.d("selectedDate","$hours:$minutes")
 
-    Column( modifier = Modifier.fillMaxSize()){
+        })
         var title by rememberSaveable { mutableStateOf("") }
-        var date by rememberSaveable { mutableStateOf(Date()) }
-        var time by rememberSaveable { mutableStateOf(LocalTime.now()) }
+        var date by rememberSaveable { mutableStateOf("") }
+        var time by rememberSaveable { mutableStateOf("") }
         var location by rememberSaveable { mutableStateOf("") }
-        var urgency by rememberSaveable { mutableStateOf(0) }
-        var description by rememberSaveable { mutableStateOf("") }
+        var category by rememberSaveable { mutableStateOf("") }
 
-    Row (
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color(0xFF3960E5))
-            .padding(vertical = 10.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            imageVector = Icons.Rounded.ArrowBack,
-            contentDescription = "Arrow Icon",
-            tint = Color.White,
+        Row(
             modifier = Modifier
-                .clickable {
-                    navController.navigate(NavGraph.ToDoListRoute)
-                }
-        )
-        Text(
-            text = "Add new task",
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(1F)
-        )
-    }
-        Column ( modifier = Modifier
-            .padding(20.dp)
-            .padding(top = 20.dp)){
-            Text(text = "Title", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold)
-            customTextField(
+                .fillMaxWidth()
+                .background(Color(0xFF3960E5))
+                .padding(20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.ArrowBack,
+                contentDescription = "Arrow Icon",
+                tint = Color.White
+            )
+            Text(
+                text = "Add new task",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(1F)
+            )
+        }
+        Column(modifier = Modifier.padding(20.dp)) {
+            Text(
+                text = "Title",
+                fontSize = 15.sp,
+                color = Color.Gray,
+                fontWeight = FontWeight.SemiBold
+            )
+            CustomTextField(
                 value = title,
                 onValueChanged = { title = it },
                 text = "Add Task Title",
@@ -114,62 +122,78 @@ fun Input_to_do(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 ),
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             )
 
-            Text(text = "Urgency", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
-            customTextFielda(
-                value = urgency.toString(), // Konversi Int ke String saat mengatur nilai
-                onValueChanged = {
-                    try {
-                        urgency = it.toInt() // Ubah String ke Int saat menerima nilai
-                    } catch (e: NumberFormatException) {
-                        // Handle jika input tidak valid
-                    }
-                },
+            Text(
+                text = "Category",
+                fontSize = 15.sp,
+                color = Color.Gray,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(top = 10.dp)
+            )
+            CustomTextField(
+                value = category,
+                onValueChanged = { category = it },
                 text = "Do first",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 ),
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             )
-            Row (Modifier.fillMaxWidth()   , horizontalArrangement = Arrangement.SpaceBetween){
-                Column (Modifier.weight(0.95F)) {
-                    Text(text = "Date", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
-//                    customTextField(
-//                        value = date,
-//                        onValueChanged = { date = it },
-//                        text = "Des 12, 2023",
-//                        keyboardOptions = KeyboardOptions.Default.copy(
-//                            keyboardType = KeyboardType.Text,
-//                            imeAction = ImeAction.Next
-//                        ),
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                    )
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(Modifier.weight(0.95F)) {
+                    Text(
+                        text = "Date",
+                        fontSize = 15.sp,
+                        color = Color.Gray,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(top = 10.dp)
+                    )
+                    Button(onClick = {
+                        calenderstate.show()
+                    }) {
+                        Text(text = "Date Picker")
+                    }
+                    DatePicker(
+                        date = date,
+                        onDateSelected = { selectedDate -> date = selectedDate },
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
-                Column (Modifier.weight(0.95F)) {
-                    Text(text = "Time", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
-//                    customTextField(
-//                        value = time,
-//                        onValueChanged = { time = it },
-//                        text = "12:00",
-//                        keyboardOptions = KeyboardOptions.Default.copy(
-//                            keyboardType = KeyboardType.Text,
-//                            imeAction = ImeAction.Next
-//                        ),
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                    )
+                Column(Modifier.weight(0.95F)) {
+                    Text(
+                        text = "Time",
+                        fontSize = 15.sp,
+                        color = Color.Gray,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(top = 10.dp)
+                    )
+                    Button(onClick = {
+                        clockstate.show()
+                    }) {
+                        Text(text = "Time Picker")
+                    }
+                    TimePicker(
+                        time = time,
+                        onTimeSelected = { selectedTime -> time = selectedTime },
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
-
             }
-            Text(text = "Location", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
-            customTextField(
+            Text(
+                text = "Location",
+                fontSize = 15.sp,
+                color = Color.Gray,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(top = 10.dp)
+            )
+            CustomTextField(
                 value = location,
                 onValueChanged = { location = it },
                 text = "Juanda airport",
@@ -177,56 +201,86 @@ fun Input_to_do(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 ),
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             )
-            Text(text = "Description", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
-            customTextField(
-                value = description,
-                onValueChanged = { description = it },
+            Text(
+                text = "Description",
+                fontSize = 15.sp,
+                color = Color.Gray,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(top = 10.dp)
+            )
+            CustomTextField(
+                value = location,
+                onValueChanged = { location = it },
                 text = "badadad",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 ),
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             )
-            Row (modifier = Modifier
-                .padding(top = 20.dp)
-                .fillMaxWidth(),horizontalArrangement = Arrangement.SpaceBetween){
-                Column (Modifier.weight(0.95F),){
-                    Button(onClick = { /*TODO*/ }, modifier = Modifier
-                        .fillMaxWidth(),colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
-                        shape = RoundedCornerShape(8.dp)) {
-                        Text(text = "Invite people + ", fontWeight = FontWeight.Bold,fontSize = 15.sp)
+            Row(
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(Modifier.weight(0.95F)) {
+                    Button(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(text = "Invite people + ", fontWeight = FontWeight.Bold, fontSize = 15.sp)
                     }
                 }
-                Column (Modifier.weight(0.95F)){
+                Column(Modifier.weight(0.95F)) {
 
                 }
             }
-            Button(onClick = {
-//                todolistViewModel.ButtonSubmitTodolist(
-//                    title,
-//                    date,
-//                    time,
-//                    urgency,
-//                    description,
-//                    location,
-//                    context,
-//                    navController
-//                )
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 90.dp),colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
-                shape = RoundedCornerShape(8.dp)) {
-                Text(text = "Create", fontWeight = FontWeight.Bold,fontSize = 15.sp)
+            Button(
+                onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
+                colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Text(text = "Create", fontWeight = FontWeight.Bold, fontSize = 15.sp)
             }
-
-        }
         }
     }
+}
+@Composable
+fun DatePicker(date: String, onDateSelected: (String) -> Unit, modifier: Modifier = Modifier) {
+    OutlinedIconButton(
+        onClick = {
+
+            val defaultDate = "Jan 01, 2024"
+            onDateSelected(defaultDate)
+        },
+        modifier = modifier
+    ) {
+        Icon(imageVector = Icons.Outlined.DateRange, contentDescription = "Date Picker Icon")
+        Text(text = date)
+    }
+}
+
+@Composable
+fun TimePicker(time: String, onTimeSelected: (String) -> Unit, modifier: Modifier = Modifier) {
+    OutlinedIconButton(
+        onClick = {
+            val defaultTime = "12:00 PM"
+            onTimeSelected(defaultTime)
+        },
+        modifier = modifier
+    ) {
+        Icon(imageVector = Icons.Outlined.Schedule, contentDescription = "Time Picker Icon")
+        Text(text = time)
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -250,56 +304,12 @@ fun customTextField(
             textColor = Color.Black
         )
     )
-    DropdownMenuItem(text = { Text(text = "ini dropdown") }, onClick = { /*TODO*/ })
-    DropdownMenu(expanded = true, onDismissRequest = { /*TODO*/ }) {
-        DropdownMenuItem(text = { Text(text = "pil 1") }, onClick = { /*TODO*/ })
-        DropdownMenuItem(text = { Text(text = "pil 2") }, onClick = { /*TODO*/ })
-    }
 }
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun customTextFielda(
-    value: String,
-    onValueChanged: (String) -> Unit,
-    text: String,
-    keyboardOptions: KeyboardOptions,
-    modifier: Modifier = Modifier,
-) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChanged,
-        label = { Text(text = text) },
-        keyboardOptions = keyboardOptions,
-        modifier = modifier,
-        shape = RoundedCornerShape(25),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Gray,
-            unfocusedBorderColor = Color.Gray,
-            textColor = Color.Black
-
-        ),
-                trailingIcon ={
-                    Icon(
-                        imageVector =  Icons.Default.KeyboardArrowDown,
-                        contentDescription = "Hide password"
-                    )
-                }, leadingIcon = {
-            Image(
-                painter = painterResource(id = R.drawable.frame_5),
-                contentDescription = "yeah",
-                modifier = Modifier
-                    .size(20.dp),
-            )
-        },
-    )
-}
-
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Input_to_dopreview() {
     val navController = rememberNavController()
-    Input_to_do(navController, TodolistVM());
+    InputToDo(navController);
 }

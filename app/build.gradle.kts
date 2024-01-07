@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.testing.utp.computeRegistrationDirectoryContainer
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -83,6 +85,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
+    implementation("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -92,5 +95,9 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.6")
+    implementation("com.maxkeppeler.sheets-compose-dialogs:core:1.0.2")
+    implementation("com.maxkeppeler.sheets-compose-dialogs:calendar:1.0.2")
+    implementation("com.maxkeppeler.sheets-compose-dialogs:clock:1.0.2")
 
 }

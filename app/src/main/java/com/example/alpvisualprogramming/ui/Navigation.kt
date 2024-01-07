@@ -13,7 +13,7 @@ import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
 import com.example.alpvisualprogramming.ui.viewmodel.UserVM
-import com.example.alpvisualprogramming.ui.views.Input_to_do
+import com.example.alpvisualprogramming.ui.views.InputToDo
 import com.example.alpvisualprogramming.ui.views.JournalPageView
 import com.example.alpvisualprogramming.ui.views.LogInPageView
 import com.example.alpvisualprogramming.ui.views.MainPageView
@@ -56,7 +56,7 @@ fun ApplicationNavigation() {
             MainPageView(navController, TodolistVM(), UserVM())
         }
         composable(NavGraph.InputToDoRoute) {
-            Input_to_do(navController, TodolistVM())
+            InputToDo(navController)
         }
         composable(NavGraph.JournalPageRoute) {
             JournalPageView(navController)
