@@ -1,5 +1,6 @@
 package com.example.alpvisualprogramming.ui.views
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -43,6 +44,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 import com.example.alpvisualprogramming.ui.viewmodel.UserVM
@@ -55,9 +57,10 @@ fun Profile(
     badgeViewModel: BadgeVM,
 ) {
     userViewModel.getUser()
-    val user by userViewModel.usera.collectAsState()
-    val uBadges by badgeViewModel.uBadges.collectAsState()
-    val missions by missionViewModel.missions.collectAsState()
+    Log.d("Profile", "")
+    val user by GlobalVariable.usera.collectAsState()
+    val uBadges by GlobalVariable.uBadges.collectAsState()
+    val missions by GlobalVariable.missions.collectAsState()
     Column(modifier = Modifier.fillMaxSize(1F)) {
         Column(
             modifier = Modifier

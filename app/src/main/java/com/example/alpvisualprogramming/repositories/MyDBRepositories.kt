@@ -1,14 +1,16 @@
 package com.example.alpvisualprogramming.repositories
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.example.alpvisualprogramming.model.Badge
-import com.example.alpvisualprogramming.model.BadgeUser
 import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.model.Todolist
 import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.services.MyDBService
-import com.google.gson.reflect.TypeToken
 import java.net.HttpURLConnection
+import java.sql.Date
+import java.sql.Time
+import java.text.SimpleDateFormat
 
 class MyDBRepositories (private val myDBService: MyDBService){
     suspend fun login(username:String, password:String):String{
@@ -20,6 +22,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
         }
         return result.message
     }
+    @SuppressLint("SuspiciousIndentation")
     suspend fun getdatauser(): List<User>{
 
 //        try {
@@ -45,7 +48,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
 //            return mutableListOf()
 //        }
 
-//        try {
+        try {
             val userResponse = myDBService.getdatauser()
             val data = mutableListOf<User>()
             if (userResponse != null) {
@@ -69,10 +72,10 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     }
             }
             return data
-//        } catch (e: Exception) {
-//            Log.d("Error11", e.message.toString())
-//            return mutableListOf()
-//        }
+        } catch (e: Exception) {
+            Log.d("Error GetDataUser", e.message.toString())
+            return mutableListOf()
+        }
     }
 //    suspend fun getdatauser(): User {
 //        return myDBService.getdatauser()
@@ -124,10 +127,10 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     for (badgess in allBadge) {
                         val badges = Badge(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            badgess["id"] as Double,
-                            badgess["image"] as String,
-                            badgess["name"] as String,
-                            badgess["price"] as Double,
+                            (badgess["id"] as? Double)?.toInt() ?: 0,
+                            (badgess["image"] as? String)?.toString() ?: "",
+                            (badgess["price"] as? String)?.toString() ?: "",
+                            (badgess["price"] as? Double)?.toInt() ?: 0,
 
                             )
                         data.add(badges)
@@ -137,7 +140,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
 
             return data
         } catch (e: Exception) {
-            Log.d("Error11", e.message.toString())
+            Log.d("Error GetAllBadge", e.message.toString())
             return emptyList()
         }
     }
@@ -154,11 +157,10 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     for (userbadge in alluserbadge) {
                         val userbadges = Badge(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            userbadge["id"] as Double,
-                            userbadge["image"] as String,
-                            userbadge["name"] as String,
-                            userbadge["price"] as Double,
-
+                            (userbadge["id"] as? Double)?.toInt() ?: 0,
+                            (userbadge["image"] as? String)?.toString() ?: "",
+                            (userbadge["price"] as? String)?.toString() ?: "",
+                            (userbadge["price"] as? Double)?.toInt() ?: 0,
                         )
                         data.add(userbadges)
                     }
@@ -192,10 +194,12 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     for (missionMap in allMission) {
                         val mission = Mission(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            missionMap["title"] as String,
-                            missionMap["description"] as String,
-                            missionMap["quantity"] as Double,
-                            missionMap["coins"] as Double
+                            (missionMap["id"] as? Double)?.toInt() ?: 0,
+                            (missionMap["title"] as? String)?.toString() ?: "",
+                            (missionMap["description"] as? String)?.toString() ?: "",
+                            (missionMap["remaining"] as? Double)?.toInt() ?: 0,
+                            (missionMap["quantity"] as? Double)?.toInt() ?: 0,
+                            (missionMap["coins"] as? Double)?.toInt() ?: 0,
                         )
                         data.add(mission)
                     }
@@ -204,7 +208,7 @@ class MyDBRepositories (private val myDBService: MyDBService){
 
             return data
         } catch (e: Exception) {
-            Log.d("Error11", e.message.toString())
+            Log.d("ERROR GetAllMission", e.message.toString())
             return emptyList()
         }
     }
@@ -232,29 +236,40 @@ class MyDBRepositories (private val myDBService: MyDBService){
     }
 
 
+
     //todolist
     suspend fun getTodolistByUrgency(urgencyStatus: Int): List<Todolist>{
         try {
-            val listTodolists = myDBService.getTodolistByUrgency(urgencyStatus).data as? List<Todolist>
+            val listTodolists = myDBService.getTodolistByUrgency(urgencyStatus)
             val data = mutableListOf<Todolist>()
-            if(listTodolists != null){
-                for (todolist in listTodolists){
-                    val todo = Todolist(
-                        todolist.id,
-                        todolist.title,
-                        todolist.date,
-                        todolist.time,
-                        todolist.urgency_status,
-                        todolist.description,
-                        todolist.progress_status,
-                        todolist.location,
-                    )
-                    data.add(todo)
+
+            if (listTodolists != null) {
+                val allTodolist = listTodolists.data as? List<Map<String, Any>>
+                if(allTodolist != null){
+                    for (todolist in allTodolist){
+                        val todo = Todolist(
+                            (todolist["id"] as? Int)?.toInt() ?: 0,
+                            (todolist["title"] as? String)?.toString() ?: "",
+                            (todolist["date"] as? Date)?.let {
+                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
+                            } ?: "",
+                            (todolist["time"] as? Time)?.let {
+                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
+                            } ?: "",
+                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            (todolist["description"] as? String)?.toString() ?: "",
+                            (todolist["progress_status"]) as? Boolean ?: false,
+                            (todolist["location"] as? String)?.toString() ?: "",
+                        )
+                        data.add(todo)
+                    }
                 }
             }
+//            Log.d("repo", data[0].title)
             return data
+//            Log.d("Error GetToDOListUrgency", data.toString())
         }catch (e: Exception){
-            Log.d("Error11", e.message.toString())
+            Log.d("Error GetToDOListUrgency", e.message.toString())
             return mutableListOf()
         }
     }
@@ -276,130 +291,170 @@ class MyDBRepositories (private val myDBService: MyDBService){
 
     suspend fun getLateTodolist(): List<Todolist>{
         try {
-            val listTodolists = myDBService.getLateTodolists().data as? List<Todolist>
+            val listTodolists = myDBService.getLateTodolists()
             val data = mutableListOf<Todolist>()
-            if(listTodolists != null){
-                for (todolist in listTodolists){
-                    val todo = Todolist(
-                        todolist.id,
-                        todolist.title,
-                        todolist.date,
-                        todolist.time,
-                        todolist.urgency_status,
-                        todolist.description,
-                        todolist.progress_status,
-                        todolist.location,
-                    )
-                    data.add(todo)
+            if (listTodolists != null) {
+                val allTodolist = listTodolists.data as? List<Map<String, Any>>
+                if(allTodolist != null){
+                    for (todolist in allTodolist){
+                        val todo = Todolist(
+                            (todolist["id"] as? Int)?.toInt() ?: 0,
+                            (todolist["title"] as? String)?.toString() ?: "",
+                            (todolist["date"] as? Date)?.let {
+                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
+                            } ?: "",
+                            (todolist["time"] as? Time)?.let {
+                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
+                            } ?: "",
+                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            (todolist["description"] as? String)?.toString() ?: "",
+                            (todolist["progress_status"]) as? Boolean ?: false,
+                            (todolist["location"] as? String)?.toString() ?: "",
+                        )
+                        data.add(todo)
+                    }
                 }
             }
             return data
+            Log.d("Error GetLateToDoList", data.toString())
         }catch (e: Exception){
-            Log.d("Error11", e.message.toString())
+            Log.d("Error GetLateToDoList", e.message.toString())
             return mutableListOf()
         }
     }
 
     suspend fun getTodayTodolist(): List<Todolist>{
         try {
-            val listTodolists = myDBService.getTodayTodolists().data as? List<Todolist>
+            val listTodolists = myDBService.getTodayTodolists()
             val data = mutableListOf<Todolist>()
-            if(listTodolists != null){
-                for (todolist in listTodolists){
-                    val todo = Todolist(
-                        todolist.id,
-                        todolist.title,
-                        todolist.date,
-                        todolist.time,
-                        todolist.urgency_status,
-                        todolist.description,
-                        todolist.progress_status,
-                        todolist.location,
-                    )
-                    data.add(todo)
+            if (listTodolists != null) {
+                val allTodolist = listTodolists.data as? List<Map<String, Any>>
+                if(allTodolist != null){
+                    for (todolist in allTodolist){
+                        val todo = Todolist(
+                            (todolist["id"] as? Int)?.toInt() ?: 0,
+                            (todolist["title"] as? String)?.toString() ?: "",
+                            (todolist["date"] as? Date)?.let {
+                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
+                            } ?: "",
+                            (todolist["time"] as? Time)?.let {
+                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
+                            } ?: "",
+                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            (todolist["description"] as? String)?.toString() ?: "",
+                            (todolist["progress_status"]) as? Boolean ?: false,
+                            (todolist["location"] as? String)?.toString() ?: "",
+                        )
+                        data.add(todo)
+                    }
                 }
             }
             return data
+            Log.d("Error GetTodayToDoList", data.toString())
         }catch (e: Exception){
-            Log.d("Error11", e.message.toString())
+            Log.d("Error GetTodayToDoList", e.message.toString())
             return mutableListOf()
         }
     }
 
     suspend fun getTomorrowTodolist(): List<Todolist>{
         try {
-            val listTodolists = myDBService.getTomorrowTodolists().data as? List<Todolist>
+            val listTodolists = myDBService.getTomorrowTodolists()
             val data = mutableListOf<Todolist>()
-            if(listTodolists != null){
-                for (todolist in listTodolists){
-                    val todo = Todolist(
-                        todolist.id,
-                        todolist.title,
-                        todolist.date,
-                        todolist.time,
-                        todolist.urgency_status,
-                        todolist.description,
-                        todolist.progress_status,
-                        todolist.location,
-                    )
-                    data.add(todo)
+            if (listTodolists != null) {
+                val allTodolist = listTodolists.data as? List<Map<String, Any>>
+                if(allTodolist != null){
+                    for (todolist in allTodolist){
+                        val todo = Todolist(
+                            (todolist["id"] as? Int)?.toInt() ?: 0,
+                            (todolist["title"] as? String)?.toString() ?: "",
+                            (todolist["date"] as? Date)?.let {
+                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
+                            } ?: "",
+                            (todolist["time"] as? Time)?.let {
+                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
+                            } ?: "",
+                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            (todolist["description"] as? String)?.toString() ?: "",
+                            (todolist["progress_status"]) as? Boolean ?: false,
+                            (todolist["location"] as? String)?.toString() ?: "",
+                        )
+                        data.add(todo)
+                    }
                 }
             }
             return data
+            Log.d("Error GetTomorrowToDoList", data.toString())
         }catch (e: Exception){
-            Log.d("Error11", e.message.toString())
+            Log.d("Error GetTomorrowToDoList", e.message.toString())
             return mutableListOf()
         }
     }
 
     suspend fun getSomedayTodolist(): List<Todolist>{
         try {
-            val listTodolists = myDBService.getSomedayTodolists().data as? List<Todolist>
+            val listTodolists = myDBService.getSomedayTodolists()
             val data = mutableListOf<Todolist>()
-            if(listTodolists != null){
-                for (todolist in listTodolists){
-                    val todo = Todolist(
-                        todolist.id,
-                        todolist.title,
-                        todolist.date,
-                        todolist.time,
-                        todolist.urgency_status,
-                        todolist.description,
-                        todolist.progress_status,
-                        todolist.location,
-                    )
-                    data.add(todo)
+            if (listTodolists != null) {
+                val allTodolist = listTodolists.data as? List<Map<String, Any>>
+                if(allTodolist != null){
+                    for (todolist in allTodolist){
+                        val todo = Todolist(
+                            (todolist["id"] as? Int)?.toInt() ?: 0,
+                            (todolist["title"] as? String)?.toString() ?: "",
+                            (todolist["date"] as? Date)?.let {
+                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
+                            } ?: "",
+                            (todolist["time"] as? Time)?.let {
+                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
+                            } ?: "",
+                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            (todolist["description"] as? String)?.toString() ?: "",
+                            (todolist["progress_status"]) as? Boolean ?: false,
+                            (todolist["location"] as? String)?.toString() ?: "",
+                        )
+                        data.add(todo)
+                    }
                 }
             }
             return data
+            Log.d("GetSomeDay", data.toString())
         }catch (e: Exception){
-            Log.d("Error11", e.message.toString())
+            Log.d("GetSomeDay", e.message.toString())
             return mutableListOf()
         }
     }
 
     suspend fun getDoneTodolist(): List<Todolist>{
         try {
-            val listTodolists = myDBService.getDoneTodolists().data as? List<Todolist>
+            val listTodolists = myDBService.getDoneTodolists()
             val data = mutableListOf<Todolist>()
-            if(listTodolists != null){
-                for (todolist in listTodolists){
-                    val todo = Todolist(
-                        todolist.id,
-                        todolist.title,
-                        todolist.date,
-                        todolist.time,
-                        todolist.urgency_status,
-                        todolist.description,
-                        todolist.progress_status,
-                        todolist.location,
-                    )
-                    data.add(todo)
+            if (listTodolists != null) {
+                val allTodolist = listTodolists.data as? List<Map<String, Any>>
+                if(allTodolist != null){
+                    for (todolist in allTodolist){
+                        val todo = Todolist(
+                            (todolist["id"] as? Int)?.toInt() ?: 0,
+                            (todolist["title"] as? String)?.toString() ?: "",
+                            (todolist["date"] as? Date)?.let {
+                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
+                            } ?: "",
+                            (todolist["time"] as? Time)?.let {
+                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
+                            } ?: "",
+                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            (todolist["description"] as? String)?.toString() ?: "",
+                            (todolist["progress_status"]) as? Boolean ?: false,
+                            (todolist["location"] as? String)?.toString() ?: "",
+                        )
+                        data.add(todo)
+                    }
                 }
             }
             return data
+            Log.d("getDoneToDoList", data.toString())
         }catch (e: Exception){
-            Log.d("Error11", e.message.toString())
+            Log.d("getDoneToDoList", e.message.toString())
             return mutableListOf()
         }
     }

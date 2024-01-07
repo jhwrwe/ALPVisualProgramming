@@ -7,20 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.alpvisualprogramming.Data.DataStoreManager
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.NavGraph
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 
 class UserVM : ViewModel() {
-
-    private val _usera = MutableStateFlow(User())
-    val usera: StateFlow<User> = _usera.asStateFlow()
-
 
     fun ButtonLogin(
         username: String,
@@ -78,19 +72,19 @@ class UserVM : ViewModel() {
         }
     }
 
-    fun getUser(): User? {
+    fun getUser(): User {
         var usera: List<User> = emptyList()
         viewModelScope.launch {
             usera = MyDBContainer().myDBRepositories.getdatauser() as List<User>
-            if (usera.isNotEmpty()){
-                _usera.value = usera[0]
-                Log.d("_USERA.VALUE", _usera.value.toString())
+            if (usera.isNotEmpty()) {
+                GlobalVariable._usera.value = usera[0]
+                Log.d("_USERA.VALUE", GlobalVariable._usera.value.toString())
             }
         }
-        if (usera.isNotEmpty()){
+        if (usera.isNotEmpty()) {
             return usera[0]
         } else {
-            return null
+            return User()
         }
     }
 }

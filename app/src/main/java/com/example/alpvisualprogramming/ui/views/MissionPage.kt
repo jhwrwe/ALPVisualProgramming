@@ -2,6 +2,7 @@ package com.example.alpvisualprogramming.ui.views
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -57,12 +58,15 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.alpvisualprogramming.R
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
+import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.theme.poppinsFamily
 import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 import com.example.alpvisualprogramming.ui.viewmodel.UserVM
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun MissionView(
     missionViewModel: MissionVM,
@@ -71,9 +75,12 @@ fun MissionView(
     navController: NavController,
 ) {
 
-    val missions by missionViewModel.missions.collectAsState()
-    val badges by badgeViewModel.badges.collectAsState()
-    val user by userViewModel.usera.collectAsState()
+    getUser(userVM = userViewModel)
+    Log.d("MissionPage", "")
+    val context = LocalContext.current
+    val missions by GlobalVariable.missions.collectAsState()
+    val badges by GlobalVariable.badges.collectAsState()
+    val user by GlobalVariable.usera.collectAsState()
 
     var missionBox: Boolean by rememberSaveable {
         mutableStateOf(true)
@@ -218,12 +225,17 @@ fun MissionView(
                         ) {
                             items(missions.size) { item ->
                                 Missions(
+                                    id = missions[item].id,
                                     title = missions[item].title,
                                     quantity = missions[item].quantity,
                                     coins = missions[item].coins,
                                     description = missions[item].description,
+                                    remaining = missions[item].remaining,
 //                                    id = missions[item].id,
                                     VM = missionViewModel,
+                                    UserVM = userViewModel,
+                                    context = context,
+                                    navController = navController
                                 )
                             }
                         }
@@ -242,7 +254,7 @@ fun MissionView(
                                     price = badges[item].price,
                                     picture = badges[item].image,
                                     badgeVM = badgeViewModel,
-                                    userCoins = user.coins.toInt()
+                                    userCoins = GlobalVariable.usera.value.coins
                                 )
                             }
                         }
@@ -370,12 +382,16 @@ fun MissionView(
 
 @Composable
 fun Missions(
+    id: Int,
     title: String,
     description: String,
-    quantity: Double,
-    coins: Double,
-//    id: Int,
-    VM: MissionVM
+    quantity: Int,
+    coins: Int,
+    remaining: Int,
+    VM: MissionVM,
+    UserVM: UserVM,
+    context: Context,
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
@@ -415,7 +431,7 @@ fun Missions(
                             .size(28.dp)
                     )
                     Text(
-                        text = "${coins.toInt()}",
+                        text = "${coins}",
 //                        fontFamily = poppinsFamily,
                         fontSize = 26.sp,
                         fontWeight = FontWeight.SemiBold,
@@ -467,7 +483,14 @@ fun Missions(
                             .height(28.dp)
                             .background(Color(0xFF3960E6), RoundedCornerShape(8.dp))
                             .clickable {
-                                VM.claimMissionCoins(1)
+                                VM.claimMissionCoins(
+                                    id,
+                                    remaining,
+                                    quantity,
+                                    context,
+                                    UserVM,
+                                    navController = navController
+                                )
                             },
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
@@ -483,7 +506,7 @@ fun Missions(
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "${quantity.toInt()}",
+                        text = "$remaining/${quantity}",
                         fontFamily = poppinsFamily,
                         fontSize = 16.sp,
                         lineHeight = 18.sp,
@@ -500,13 +523,11 @@ fun Missions(
 }
 
 @Composable
-fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: BadgeVM, userCoins: Int) {
+fun Badges(id: Int, title: String, price: Int, picture: String, badgeVM: BadgeVM, userCoins: Int) {
 
     val context = LocalContext.current
 //    val drawable = stringToDrawableId(context, picture)
     var badgeBoolean by remember { mutableStateOf(false) }
-
-    val localContext = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -574,7 +595,7 @@ fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: B
                     ) {
                         Text(
                             fontFamily = poppinsFamily,
-                            text = "${price.toInt()}",
+                            text = "${price}",
                             color = Color.White,
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold
@@ -642,7 +663,7 @@ fun Badges(id: Double, title: String, price: Double, picture: String, badgeVM: B
                         Button(
                             onClick = {
                                 badgeBoolean = false
-                                badgeVM.CreateBadgeUser(id.toInt(), context, userCoins, price.toInt())
+                                badgeVM.CreateBadgeUser(id, context, userCoins, price)
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3960E6)),
                             modifier = Modifier
@@ -680,3 +701,4 @@ fun Preview() {
     val navController = rememberNavController()
     MissionView(MissionVM(), BadgeVM(), UserVM(), navController)
 }
+

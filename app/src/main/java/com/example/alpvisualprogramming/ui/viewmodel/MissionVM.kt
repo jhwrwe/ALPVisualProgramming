@@ -1,19 +1,16 @@
 package com.example.alpvisualprogramming.ui.viewmodel
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.repositories.MyDBContainer
-import com.example.alpvisualprogramming.repositories.MyDBRepositories
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class MissionVM() : ViewModel() {
-
-    private val _missions = MutableStateFlow<List<Mission>>(emptyList())
-    val missions: StateFlow<List<Mission>> = _missions.asStateFlow()
 
     init {
         getAllMissions()
@@ -23,17 +20,31 @@ class MissionVM() : ViewModel() {
         var missionsList: List<Mission> = emptyList()
         viewModelScope.launch {
             missionsList = MyDBContainer().myDBRepositories.getAllMission() ?: emptyList()
-            _missions.value = missionsList
+            GlobalVariable._missions.value = missionsList
         }
         return missionsList
     }
 
 
-    fun claimMissionCoins(id: Int) :String {
-        var message : Any = ""
+    fun claimMissionCoins(
+        id: Int,
+        remaining: Int,
+        quantity: Int,
+        context: Context,
+        UserVM: UserVM,
+        navController: NavController
+    ) {
+        var message: String = ""
         viewModelScope.launch {
-            val message = MyDBContainer().myDBRepositories.claimMissionCoin(id)
+            if (remaining >= quantity) {
+                message = MyDBContainer().myDBRepositories.claimMissionCoin(id)
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                UserVM.getUser()
+            } else {
+                val remainingQuantity = quantity - remaining
+                Toast.makeText(context, "$remainingQuantity Works Remaining", Toast.LENGTH_LONG)
+                    .show()
+            }
         }
-        return message.toString()
     }
 }
