@@ -23,14 +23,14 @@ import java.util.Date
 class TodolistVM : ViewModel() {
 
 
-
-
     fun getTodolistByUrgency(id: Int, navController: NavController): List<Todolist> {
         var todolistList: List<Todolist> = emptyList()
-        viewModelScope.launch{
+        viewModelScope.launch {
             todolistList = MyDBContainer().myDBRepositories.getTodolistByUrgency(id) ?: emptyList()
             GlobalVariable._todolists.value = todolistList
+            Log.d(".value TESTING", GlobalVariable._todolists.value.toString())
             navController.navigate(NavGraph.ToDoListRoute)
+            GlobalVariable.urgency = id
         }
         return todolistList
     }
@@ -46,9 +46,27 @@ class TodolistVM : ViewModel() {
 //        }
 //    }
 
-    fun deleteTodolist(id: Int){
+    fun deleteTodolist(id: Int, navController: NavController) {
+        var todolistList: List<Todolist> = emptyList()
         viewModelScope.launch {
             MyDBContainer().myDBRepositories.deleteTodolist(id)
+            todolistList =
+                MyDBContainer().myDBRepositories.getTodolistByUrgency(GlobalVariable.urgency)
+                    ?: emptyList()
+            GlobalVariable._todolists.value = todolistList
+        }
+    }
+
+    fun ToDoListDone(id: Int) {
+        var todolistList: List<Todolist> = emptyList()
+        viewModelScope.launch {
+            MyDBContainer().myDBRepositories.todolistDone(id)
+            Log.d("DONE", "NO ERROR IN todolistDOne(id)")
+            todolistList =
+                MyDBContainer().myDBRepositories.getTodolistByUrgency(GlobalVariable.urgency)
+                    ?: emptyList()
+            Log.d("todolist gottem", "NO ERROR IN todolisList")
+            GlobalVariable._todolists.value = todolistList
         }
     }
 }

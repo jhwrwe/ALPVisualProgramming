@@ -40,6 +40,7 @@ class MissionVM() : ViewModel() {
                 message = MyDBContainer().myDBRepositories.claimMissionCoin(id)
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show()
                 UserVM.getUser()
+                getAllMissions()
             } else {
                 val remainingQuantity = quantity - remaining
                 Toast.makeText(context, "$remainingQuantity Works Remaining", Toast.LENGTH_LONG)

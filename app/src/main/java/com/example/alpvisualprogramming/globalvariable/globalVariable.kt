@@ -25,5 +25,7 @@ class GlobalVariable() {
 
         val _todolists = MutableStateFlow<List<Todolist>>(emptyList())
         val todolists: StateFlow<List<Todolist>> = _todolists.asStateFlow()
+
+        var urgency: Int = 0;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.alpvisualprogramming.ui.views
 
+//import androidx.compose.foundation.layout.RowScopeInstance.weight
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,7 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-//import androidx.compose.foundation.layout.RowScopeInstance.weight
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -44,15 +45,14 @@ import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
-import java.sql.Date
-import java.sql.Time
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun TodoListView(
     navController: NavController,
     todolistViewModel: TodolistVM,
-){
+) {
 
     val todolists by GlobalVariable.todolists.collectAsState()
 
@@ -63,101 +63,104 @@ fun TodoListView(
             .fillMaxSize()
     ) {
 
-            Row(
+        Row(
+            modifier = Modifier
+                .background(Color(0xFF3960E6))
+                .fillMaxWidth()
+                .padding(vertical = 10.dp, horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                contentDescription = null,
                 modifier = Modifier
-                    .background(Color(0xFF3960E6))
-                    .fillMaxWidth()
-                    .padding(vertical = 10.dp, horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_arrow_back_24),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(30.dp)
-                        .clickable {
-                            navController.navigate(NavGraph.HomePageRoute)
-                        }
-                )
-                Spacer(modifier = Modifier.width(115.dp))
-                Text(
-                    text = "Task To Do",
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp, bottom = 12.dp)
-                    .padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.frame_5),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(35.dp)
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                Text(
-                    text = "Do First",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp,
-                    color = Color(0xFF3F3F3F),
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                Text(
-                    text = "8 Task",
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp,
-                    color = Color(0xFF8B8E91),
-                    modifier = Modifier.padding(top = 10.dp)
-                )
-            }
+                    .clip(CircleShape)
+                    .size(30.dp)
+                    .clickable {
+                        navController.navigate(NavGraph.HomePageRoute)
+                    }
+            )
+            Spacer(modifier = Modifier.width(115.dp))
             Text(
-                text = "Urgent and important.  Give this task the highest priority.",
+                text = "Task To Do",
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp, bottom = 12.dp)
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.frame_5),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(35.dp)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(
+                text = "Do First",
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp,
+                color = Color(0xFF3F3F3F),
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(
+                text = "8 Task",
                 fontWeight = FontWeight.Normal,
                 fontSize = 14.sp,
-                color = Color(0xFF3F3F3F),
-                modifier = Modifier.padding(horizontal = 16.dp)
+                color = Color(0xFF8B8E91),
+                modifier = Modifier.padding(top = 10.dp)
             )
+        }
+        Text(
+            text = "Urgent and important.  Give this task the highest priority.",
+            fontWeight = FontWeight.Normal,
+            fontSize = 14.sp,
+            color = Color(0xFF3F3F3F),
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
 
-            LazyColumn(
-            ) {
-                items(todolists.size) { item ->
-                                CardWithCheckbox(
-                                    title = todolists[item].title,
-                                    location = todolists[item].location,
-                                    date = todolists[item].date,
-                                    time = todolists[item].time,
-                                    id = todolists[item].id,
-                                    VM = todolistViewModel
-                                )
-                            }
+        LazyColumn(
+        ) {
+            items(todolists.size) { item ->
+                if (todolists[item].progress_status == false) {
+                    CardWithCheckbox(
+                        id = todolists[item].id,
+                        title = todolists[item].title,
+                        location = todolists[item].location,
+                        date = todolists[item].date,
+                        time = todolists[item].time,
+                        progress_status = todolists[item].progress_status,
+                        navController = navController,
+                        VM = todolistViewModel
+                    )
                 }
             }
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 16.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_add_circle_24),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(90.dp)
-                        .align(Alignment.BottomEnd)
-                        .padding(4.dp) // Adjust padding as needed
-                        .clickable {
-                            navController.navigate(NavGraph.InputToDoRoute)
-                        }
-                )
-            }
-
+        }
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 16.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.baseline_add_circle_24),
+            contentDescription = null,
+            modifier = Modifier
+                .size(90.dp)
+                .align(Alignment.BottomEnd)
+                .padding(4.dp) // Adjust padding as needed
+                .clickable {
+                    navController.navigate(NavGraph.InputToDoRoute)
+                }
+        )
     }
 
+}
 
 
 @Composable
@@ -167,14 +170,17 @@ fun CardWithCheckbox(
     date: String,
     time: String,
     id: Int,
-    VM: TodolistVM
+    progress_status: Boolean,
+    VM: TodolistVM,
+    navController: NavController
 ) {
+
+    Log.d("TODOLIST ID", id.toString())
     var isChecked by rememberSaveable { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
-            ,
+            .padding(16.dp),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFFE4EFFF)
@@ -187,8 +193,17 @@ fun CardWithCheckbox(
         ) {
             Checkbox(
                 checked = isChecked,
-                onCheckedChange = { isChecked = it },
-                modifier = Modifier.size(24.dp)
+                onCheckedChange = {
+                    isChecked = it
+                    TodolistVM().ToDoListDone(id)
+                    Log.d("CLICKED HERE", "CHECKBOX CLICKED")
+                },
+                modifier = Modifier
+                    .size(24.dp)
+//                    .clickable {
+//                        TodolistVM().ToDoListDone(id)
+//                        Log.d("CLICKED HERE", "CHECKBOX CLICKED")
+//                    }
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column(
@@ -228,7 +243,7 @@ fun CardWithCheckbox(
                 modifier = Modifier
                     .size(20.dp)
                     .clickable {
-                        VM.deleteTodolist(id + 1)
+                        VM.deleteTodolist(id, navController)
                     }
             )
         }
@@ -238,7 +253,7 @@ fun CardWithCheckbox(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun TodoListPreview(){
+fun TodoListPreview() {
     val navController = rememberNavController()
     TodoListView(navController, TodolistVM())
 }

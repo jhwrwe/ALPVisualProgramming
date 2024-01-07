@@ -10,20 +10,20 @@ import com.example.alpvisualprogramming.services.MyDBService
 import java.net.HttpURLConnection
 import java.sql.Date
 import java.sql.Time
-import java.text.SimpleDateFormat
 
-class MyDBRepositories (private val myDBService: MyDBService){
-    suspend fun login(username:String, password:String):String{
+class MyDBRepositories(private val myDBService: MyDBService) {
+    suspend fun login(username: String, password: String): String {
         val user = User(username = username, password = password)
         val result = myDBService.login(user)
 
-        if(result.status.toInt()== HttpURLConnection.HTTP_OK){
+        if (result.status.toInt() == HttpURLConnection.HTTP_OK) {
             return result.data as String
         }
         return result.message
     }
+
     @SuppressLint("SuspiciousIndentation")
-    suspend fun getdatauser(): List<User>{
+    suspend fun getdatauser(): List<User> {
 
 //        try {
 //            val user = myDBService.getdatauser().data as? List<User>
@@ -53,23 +53,23 @@ class MyDBRepositories (private val myDBService: MyDBService){
             val data = mutableListOf<User>()
             if (userResponse != null) {
                 val user = userResponse.data as? List<Map<String, Any>>
-                    if (user != null) {
-                        for (items in user) {
-                            val userInput = User(
+                if (user != null) {
+                    for (items in user) {
+                        val userInput = User(
 //                                items["id"] as Double, // Uncomment if 'id' is present
-                                (items["fullname"] as? String)?.toString() ?: "",
-                                (items["phone_number"] as? String)?.toString() ?: "",
-                                (items["username"] as? String)?.toString() ?: "",
-                                (items["coins"] as? Double)?.toInt() ?: 0,
-                                (items["role_id"] as? Double)?.toInt() ?: 2,
-                                (items["email"] as? String)?.toString() ?: "",
-                                (items["profile_photo_path"] as? String)?.toString() ?: "",
-                                (items["password"] as? String)?.toString() ?: "",
-                                )
-                            data.add(userInput)
-                            Log.d("DATA", data.toString())
-                        }
+                            (items["fullname"] as? String)?.toString() ?: "",
+                            (items["phone_number"] as? String)?.toString() ?: "",
+                            (items["username"] as? String)?.toString() ?: "",
+                            (items["coins"] as? Double)?.toInt() ?: 0,
+                            (items["role_id"] as? Double)?.toInt() ?: 2,
+                            (items["email"] as? String)?.toString() ?: "",
+                            (items["profile_photo_path"] as? String)?.toString() ?: "",
+                            (items["password"] as? String)?.toString() ?: "",
+                        )
+                        data.add(userInput)
+                        Log.d("DATA", data.toString())
                     }
+                }
             }
             return data
         } catch (e: Exception) {
@@ -77,43 +77,49 @@ class MyDBRepositories (private val myDBService: MyDBService){
             return mutableListOf()
         }
     }
-//    suspend fun getdatauser(): User {
+
+    //    suspend fun getdatauser(): User {
 //        return myDBService.getdatauser()
 //    }
-    suspend fun deleteuser():String{
+    suspend fun deleteuser(): String {
         val result = myDBService.deleteuser()
         return result.message
     }
 
-    suspend fun update_bio(user: User):String{
+    suspend fun update_bio(user: User): String {
         val result = myDBService.update_bio(user)
 //        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
 //            return result.data as String
 //        }
         return result.message
     }
-    suspend fun create_badge(badge: Badge):String{
+
+    suspend fun create_badge(badge: Badge): String {
         val result = myDBService.createBadge(badge)
 //        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
 //            return result.data as String
 //        }
         return result.message
     }
-    suspend fun deleteBadge(badge: Badge):String{
+
+    suspend fun deleteBadge(badge: Badge): String {
         val result = myDBService.deleteBadge(badge)
 //        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
 //            return result.data as String
 //        }
         return result.message
     }
-    suspend fun user_badge(id:Int):String{
+
+    suspend fun user_badge(id: Int): String {
         val result = myDBService.create_Badge_user(id)
         return result.message
     }
-    suspend fun coins_minus(id:Int):String{
+
+    suspend fun coins_minus(id: Int): String {
         val result = myDBService.decreasingcoins(id)
         return result.message
     }
+
     suspend fun getAllBadge(): List<Badge> {
         try {
             val allBadgeResponse = myDBService.getAllBadge()
@@ -175,13 +181,14 @@ class MyDBRepositories (private val myDBService: MyDBService){
     }
 
     //mission
-    suspend fun createMission(mission: Mission):String{
+    suspend fun createMission(mission: Mission): String {
         val result = myDBService.createMission(mission)
 //        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
 //            return result.data as String
 //        }
         return result.message
     }
+
     suspend fun getAllMission(): List<Mission> {
         try {
             val allMissionResponse = myDBService.getAllMission()
@@ -194,12 +201,12 @@ class MyDBRepositories (private val myDBService: MyDBService){
                     for (missionMap in allMission) {
                         val mission = Mission(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
-                            (missionMap["id"] as? Double)?.toInt() ?: 0,
-                            (missionMap["title"] as? String)?.toString() ?: "",
-                            (missionMap["description"] as? String)?.toString() ?: "",
-                            (missionMap["remaining"] as? Double)?.toInt() ?: 0,
-                            (missionMap["quantity"] as? Double)?.toInt() ?: 0,
-                            (missionMap["coins"] as? Double)?.toInt() ?: 0,
+                            id = (missionMap["id"] as? Double)?.toInt() ?: 0,
+                            title = (missionMap["title"] as? String)?.toString() ?: "",
+                            description = (missionMap["description"] as? String)?.toString() ?: "",
+                            remaining = (missionMap["remaining"] as? Double)?.toInt() ?: 0,
+                            quantity = (missionMap["quantity"] as? Double)?.toInt() ?: 0,
+                            coins = (missionMap["coins"] as? Double)?.toInt() ?: 0,
                         )
                         data.add(mission)
                     }
@@ -212,22 +219,24 @@ class MyDBRepositories (private val myDBService: MyDBService){
             return emptyList()
         }
     }
-    suspend fun claimMissionCoin(id:Int):String{
+
+    suspend fun claimMissionCoin(id: Int): String {
         val result = myDBService.claimMissionCoin(id)
         return result.message
     }
 
-    suspend fun deleteMission(id:Int):String{
+    suspend fun deleteMission(id: Int): String {
         val result = myDBService.deleteMission(id)
         return result.message
     }
 
     //user
-    suspend fun logout():String{
+    suspend fun logout(): String {
         val result = myDBService.logout()
         return result.message
     }
-    suspend fun register(user: User):String{
+
+    suspend fun register(user: User): String {
         val result = myDBService.register(user)
 //        if(result.status.toInt()== HttpURLConnection.HTTP_OK){
 //            return result.data as String
@@ -236,45 +245,41 @@ class MyDBRepositories (private val myDBService: MyDBService){
     }
 
 
-
     //todolist
-    suspend fun getTodolistByUrgency(urgencyStatus: Int): List<Todolist>{
+    suspend fun getTodolistByUrgency(urgencyStatus: Int): List<Todolist> {
         try {
             val listTodolists = myDBService.getTodolistByUrgency(urgencyStatus)
             val data = mutableListOf<Todolist>()
 
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
-                if(allTodolist != null){
-                    for (todolist in allTodolist){
+                if (allTodolist != null) {
+                    for (todolist in allTodolist) {
                         val todo = Todolist(
-                            (todolist["id"] as? Int)?.toInt() ?: 0,
-                            (todolist["title"] as? String)?.toString() ?: "",
-                            (todolist["date"] as? Date)?.let {
-                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
-                            } ?: "",
-                            (todolist["time"] as? Time)?.let {
-                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
-                            } ?: "",
-                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
-                            (todolist["description"] as? String)?.toString() ?: "",
-                            (todolist["progress_status"]) as? Boolean ?: false,
-                            (todolist["location"] as? String)?.toString() ?: "",
+                            id = (todolist["id"] as? Double)?.toInt() ?: 0,
+                            title = (todolist["title"] as? String)?.toString() ?: "",
+                            date = (todolist["date"] as? String)?.toString() ?: "",
+                            time = (todolist["time"] as? String)?.toString() ?: "",
+                            urgency_status = (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            description = (todolist["description"] as? String)?.toString() ?: "",
+                            progress_status = (todolist["progress_status"] as? Double)?.toInt() != 0,
+                            location = (todolist["location"] as? String)?.toString() ?: "",
                         )
                         data.add(todo)
                     }
                 }
             }
 //            Log.d("repo", data[0].title)
+//            Log.d("DATA urgency status", data.toString())
             return data
 //            Log.d("Error GetToDOListUrgency", data.toString())
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d("Error GetToDOListUrgency", e.message.toString())
             return mutableListOf()
         }
     }
 
-    suspend fun getTodolistDetail(id: Int): Todolist{
+    suspend fun getTodolistDetail(id: Int): Todolist {
         val todolist = myDBService.getTodolistDetail(id).data as Todolist
         val data = Todolist(
             todolist.id,
@@ -289,27 +294,23 @@ class MyDBRepositories (private val myDBService: MyDBService){
         return data
     }
 
-    suspend fun getLateTodolist(): List<Todolist>{
+    suspend fun getLateTodolist(): List<Todolist> {
         try {
             val listTodolists = myDBService.getLateTodolists()
             val data = mutableListOf<Todolist>()
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
-                if(allTodolist != null){
-                    for (todolist in allTodolist){
+                if (allTodolist != null) {
+                    for (todolist in allTodolist) {
                         val todo = Todolist(
-                            (todolist["id"] as? Int)?.toInt() ?: 0,
-                            (todolist["title"] as? String)?.toString() ?: "",
-                            (todolist["date"] as? Date)?.let {
-                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
-                            } ?: "",
-                            (todolist["time"] as? Time)?.let {
-                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
-                            } ?: "",
-                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
-                            (todolist["description"] as? String)?.toString() ?: "",
-                            (todolist["progress_status"]) as? Boolean ?: false,
-                            (todolist["location"] as? String)?.toString() ?: "",
+                            id = (todolist["id"] as? Double)?.toInt() ?: 0,
+                            title = (todolist["title"] as? String)?.toString() ?: "",
+                            date = (todolist["date"] as? String)?.toString() ?: "",
+                            time = (todolist["time"] as? String)?.toString() ?: "",
+                            urgency_status = (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            description = (todolist["description"] as? String)?.toString() ?: "",
+                            progress_status = (todolist["progress_status"] as? Double)?.toInt() != 0,
+                            location = (todolist["location"] as? String)?.toString() ?: "",
                         )
                         data.add(todo)
                     }
@@ -317,33 +318,29 @@ class MyDBRepositories (private val myDBService: MyDBService){
             }
             return data
             Log.d("Error GetLateToDoList", data.toString())
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d("Error GetLateToDoList", e.message.toString())
             return mutableListOf()
         }
     }
 
-    suspend fun getTodayTodolist(): List<Todolist>{
+    suspend fun getTodayTodolist(): List<Todolist> {
         try {
             val listTodolists = myDBService.getTodayTodolists()
             val data = mutableListOf<Todolist>()
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
-                if(allTodolist != null){
-                    for (todolist in allTodolist){
+                if (allTodolist != null) {
+                    for (todolist in allTodolist) {
                         val todo = Todolist(
-                            (todolist["id"] as? Int)?.toInt() ?: 0,
-                            (todolist["title"] as? String)?.toString() ?: "",
-                            (todolist["date"] as? Date)?.let {
-                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
-                            } ?: "",
-                            (todolist["time"] as? Time)?.let {
-                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
-                            } ?: "",
-                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
-                            (todolist["description"] as? String)?.toString() ?: "",
-                            (todolist["progress_status"]) as? Boolean ?: false,
-                            (todolist["location"] as? String)?.toString() ?: "",
+                            id = (todolist["id"] as? Double)?.toInt() ?: 0,
+                            title = (todolist["title"] as? String)?.toString() ?: "",
+                            date = (todolist["date"] as? String)?.toString() ?: "",
+                            time = (todolist["time"] as? String)?.toString() ?: "",
+                            urgency_status = (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            description = (todolist["description"] as? String)?.toString() ?: "",
+                            progress_status = (todolist["progress_status"] as? Double)?.toInt() != 0,
+                            location = (todolist["location"] as? String)?.toString() ?: "",
                         )
                         data.add(todo)
                     }
@@ -351,33 +348,29 @@ class MyDBRepositories (private val myDBService: MyDBService){
             }
             return data
             Log.d("Error GetTodayToDoList", data.toString())
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d("Error GetTodayToDoList", e.message.toString())
             return mutableListOf()
         }
     }
 
-    suspend fun getTomorrowTodolist(): List<Todolist>{
+    suspend fun getTomorrowTodolist(): List<Todolist> {
         try {
             val listTodolists = myDBService.getTomorrowTodolists()
             val data = mutableListOf<Todolist>()
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
-                if(allTodolist != null){
-                    for (todolist in allTodolist){
+                if (allTodolist != null) {
+                    for (todolist in allTodolist) {
                         val todo = Todolist(
-                            (todolist["id"] as? Int)?.toInt() ?: 0,
-                            (todolist["title"] as? String)?.toString() ?: "",
-                            (todolist["date"] as? Date)?.let {
-                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
-                            } ?: "",
-                            (todolist["time"] as? Time)?.let {
-                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
-                            } ?: "",
-                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
-                            (todolist["description"] as? String)?.toString() ?: "",
-                            (todolist["progress_status"]) as? Boolean ?: false,
-                            (todolist["location"] as? String)?.toString() ?: "",
+                            id = (todolist["id"] as? Double)?.toInt() ?: 0,
+                            title = (todolist["title"] as? String)?.toString() ?: "",
+                            date = (todolist["date"] as? String)?.toString() ?: "",
+                            time = (todolist["time"] as? String)?.toString() ?: "",
+                            urgency_status = (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            description = (todolist["description"] as? String)?.toString() ?: "",
+                            progress_status = (todolist["progress_status"] as? Double)?.toInt() != 0,
+                            location = (todolist["location"] as? String)?.toString() ?: "",
                         )
                         data.add(todo)
                     }
@@ -385,33 +378,29 @@ class MyDBRepositories (private val myDBService: MyDBService){
             }
             return data
             Log.d("Error GetTomorrowToDoList", data.toString())
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d("Error GetTomorrowToDoList", e.message.toString())
             return mutableListOf()
         }
     }
 
-    suspend fun getSomedayTodolist(): List<Todolist>{
+    suspend fun getSomedayTodolist(): List<Todolist> {
         try {
             val listTodolists = myDBService.getSomedayTodolists()
             val data = mutableListOf<Todolist>()
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
-                if(allTodolist != null){
-                    for (todolist in allTodolist){
+                if (allTodolist != null) {
+                    for (todolist in allTodolist) {
                         val todo = Todolist(
-                            (todolist["id"] as? Int)?.toInt() ?: 0,
-                            (todolist["title"] as? String)?.toString() ?: "",
-                            (todolist["date"] as? Date)?.let {
-                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
-                            } ?: "",
-                            (todolist["time"] as? Time)?.let {
-                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
-                            } ?: "",
-                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
-                            (todolist["description"] as? String)?.toString() ?: "",
-                            (todolist["progress_status"]) as? Boolean ?: false,
-                            (todolist["location"] as? String)?.toString() ?: "",
+                            id = (todolist["id"] as? Double)?.toInt() ?: 0,
+                            title = (todolist["title"] as? String)?.toString() ?: "",
+                            date = (todolist["date"] as? String)?.toString() ?: "",
+                            time = (todolist["time"] as? String)?.toString() ?: "",
+                            urgency_status = (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            description = (todolist["description"] as? String)?.toString() ?: "",
+                            progress_status = (todolist["progress_status"] as? Double)?.toInt() != 0,
+                            location = (todolist["location"] as? String)?.toString() ?: "",
                         )
                         data.add(todo)
                     }
@@ -419,33 +408,29 @@ class MyDBRepositories (private val myDBService: MyDBService){
             }
             return data
             Log.d("GetSomeDay", data.toString())
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d("GetSomeDay", e.message.toString())
             return mutableListOf()
         }
     }
 
-    suspend fun getDoneTodolist(): List<Todolist>{
+    suspend fun getDoneTodolist(): List<Todolist> {
         try {
             val listTodolists = myDBService.getDoneTodolists()
             val data = mutableListOf<Todolist>()
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
-                if(allTodolist != null){
-                    for (todolist in allTodolist){
+                if (allTodolist != null) {
+                    for (todolist in allTodolist) {
                         val todo = Todolist(
-                            (todolist["id"] as? Int)?.toInt() ?: 0,
-                            (todolist["title"] as? String)?.toString() ?: "",
-                            (todolist["date"] as? Date)?.let {
-                                android.text.format.DateFormat.format("yyyy-MM-dd", it).toString()
-                            } ?: "",
-                            (todolist["time"] as? Time)?.let {
-                                android.text.format.DateFormat.format("HH:mm:ss", it).toString()
-                            } ?: "",
-                            (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
-                            (todolist["description"] as? String)?.toString() ?: "",
-                            (todolist["progress_status"]) as? Boolean ?: false,
-                            (todolist["location"] as? String)?.toString() ?: "",
+                            id = (todolist["id"] as? Double)?.toInt() ?: 0,
+                            title = (todolist["title"] as? String)?.toString() ?: "",
+                            date = (todolist["date"] as? String)?.toString() ?: "",
+                            time = (todolist["time"] as? String)?.toString() ?: "",
+                            urgency_status = (todolist["urgency_status"] as? Int)?.toInt() ?: 0,
+                            description = (todolist["description"] as? String)?.toString() ?: "",
+                            progress_status = (todolist["progress_status"] as? Double)?.toInt() != 0,
+                            location = (todolist["location"] as? String)?.toString() ?: "",
                         )
                         data.add(todo)
                     }
@@ -453,13 +438,13 @@ class MyDBRepositories (private val myDBService: MyDBService){
             }
             return data
             Log.d("getDoneToDoList", data.toString())
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d("getDoneToDoList", e.message.toString())
             return mutableListOf()
         }
     }
 
-    suspend fun createTodolist(todolist: Todolist):String{
+    suspend fun createTodolist(todolist: Todolist): String {
         val result = myDBService.createTodolist(todolist)
 //        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
 //            return result.data as String
@@ -467,13 +452,17 @@ class MyDBRepositories (private val myDBService: MyDBService){
         return result.message
     }
 
-    suspend fun deleteTodolist(id:Int):String{
+    suspend fun deleteTodolist(id: Int): String {
         val result = myDBService.deleteTodolist(id)
         return result.message
     }
 
-    suspend fun todolistDone(id:Int):String{
-        val result = myDBService.todolistDone(id)
-        return result.message
+    suspend fun todolistDone(id: Int){
+//        myDBService.todolistDone(id)
+        try {
+            myDBService.todolistDone(id)
+        } catch (e: Exception) {
+
+        }
     }
 }
