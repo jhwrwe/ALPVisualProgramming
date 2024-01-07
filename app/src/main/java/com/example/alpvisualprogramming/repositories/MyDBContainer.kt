@@ -24,7 +24,7 @@ class MyDBContainer() {
     }
 
 
-    private val BASE_URL = "http://192.168.201.44:8000/api/"
+    private val BASE_URL = "http://192.168.120.44:8000/api/"
 
 
     private val client = OkHttpClient.Builder()

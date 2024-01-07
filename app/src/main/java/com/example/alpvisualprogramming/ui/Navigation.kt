@@ -56,7 +56,7 @@ fun ApplicationNavigation() {
             MainPageView(navController, TodolistVM(), UserVM())
         }
         composable(NavGraph.InputToDoRoute) {
-            InputToDo(navController)
+            InputToDo(navController,TodolistVM())
         }
         composable(NavGraph.JournalPageRoute) {
             JournalPageView(navController)

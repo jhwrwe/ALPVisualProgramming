@@ -2,10 +2,10 @@ package com.example.alpvisualprogramming.services
 
 import com.example.alpvisualprogramming.model.APIResponse
 import com.example.alpvisualprogramming.model.Badge
-import com.example.alpvisualprogramming.model.BadgeUser
 import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.model.Todolist
 import com.example.alpvisualprogramming.model.User
+import com.example.alpvisualprogramming.model.todolisttempo
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -58,7 +58,7 @@ interface MyDBService{
 
     //todolist
     @POST("todolist")
-    suspend fun createTodolist(@Body todolist: Todolist):APIResponse
+    suspend fun createTodolist(@Body todolist: todolisttempo):APIResponse
     @GET("todolist/{urgency}")
     suspend fun getTodolistByUrgency(@Path("urgency") urgency_status: Int): APIResponse
 
