@@ -6,6 +6,7 @@ import com.example.alpvisualprogramming.model.Badge
 import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.model.Todolist
 import com.example.alpvisualprogramming.model.User
+import com.example.alpvisualprogramming.model.todolisttempo
 import com.example.alpvisualprogramming.services.MyDBService
 import java.net.HttpURLConnection
 
@@ -442,7 +443,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
         }
     }
 
-    suspend fun createTodolist(todolist: Todolist): String {
+    suspend fun createTodolist(todolist: todolisttempo): String {
         val result = myDBService.createTodolist(todolist)
 //        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
 //            return result.data as String

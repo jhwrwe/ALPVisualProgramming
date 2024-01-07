@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.model.Todolist
+import com.example.alpvisualprogramming.model.todolisttempo
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.NavGraph
 import kotlinx.coroutines.launch
@@ -25,16 +26,16 @@ class TodolistVM : ViewModel() {
         return todolistList
     }
 
-//    fun ButtonSubmitTodolist(title:String, date:java.sql.Date, time:Time, urgency_status:Int, description:String ,location: String, context: Context, navController: NavController){
-//        viewModelScope.launch {
-//            // bisa apa ngaa jika waktu create id null?
-//            val CreateTodolistnotpermanent = Todolist(null, title, date, time, urgency_status, description, false, location)
-//            val finnish = MyDBContainer().myDBRepositories.createTodolist(CreateTodolistnotpermanent)
-//            if (finnish.equals("Success",true)){
-////                navController.navigate(NavGraph.LoginPageRoute)
-//            }
-//        }
-//    }
+    fun ButtonSubmitTodolist( title:String, date:String, time:String, urgency_status:Int, description:String ,location: String, navController: NavController){
+        viewModelScope.launch {
+
+            val CreateTodolistnotpermanent = todolisttempo(title, date, time, urgency_status, location, description, false)
+            val finnish = MyDBContainer().myDBRepositories.createTodolist(CreateTodolistnotpermanent)
+            if (finnish.equals("Success",true)){
+                navController.navigate(NavGraph.LoginPageRoute)
+            }
+        }
+    }
 
     fun deleteTodolist(id: Int, navController: NavController) {
         var todolistList: List<Todolist> = emptyList()

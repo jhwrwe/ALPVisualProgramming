@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
@@ -55,12 +56,19 @@ import com.maxkeppeler.sheets.calendar.models.CalendarStyle
 import com.maxkeppeler.sheets.clock.ClockDialog
 import com.maxkeppeler.sheets.clock.models.ClockSelection
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InputToDo(navController: NavController) {
-
+fun InputToDo(navController: NavController,
+              todolistViewModel: TodolistVM) {
+    var title by rememberSaveable { mutableStateOf("") }
+    var dates by rememberSaveable { mutableStateOf("") }
+    var time by rememberSaveable { mutableStateOf("") }
+    var location by rememberSaveable { mutableStateOf("") }
+    var description by rememberSaveable { mutableStateOf("") }
+    var category by rememberSaveable { mutableStateOf("") }
     Column(modifier = Modifier.fillMaxSize()) {
         val calenderstate = rememberSheetState()
         CalendarDialog(
@@ -73,18 +81,17 @@ fun InputToDo(navController: NavController) {
             ),
             selection = CalendarSelection.Date{date ->
                 Log.d("selectedDate","$date")
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                dates = formatter.format(date)
             }
         )
         val clockstate = rememberSheetState()
         ClockDialog(state = clockstate, selection = ClockSelection.HoursMinutes{hours, minutes ->
             Log.d("selectedDate","$hours:$minutes")
+            time = "$hours:$minutes"
 
         })
-        var title by rememberSaveable { mutableStateOf("") }
-        var date by rememberSaveable { mutableStateOf("") }
-        var time by rememberSaveable { mutableStateOf("") }
-        var location by rememberSaveable { mutableStateOf("") }
-        var category by rememberSaveable { mutableStateOf("") }
+
 
         Row(
             modifier = Modifier
@@ -160,8 +167,8 @@ fun InputToDo(navController: NavController) {
                         Text(text = "Date Picker")
                     }
                     DatePicker(
-                        date = date,
-                        onDateSelected = { selectedDate -> date = selectedDate },
+                        date = dates,
+                        onDateSelected = { selectedDate -> dates = selectedDate },
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
@@ -211,8 +218,8 @@ fun InputToDo(navController: NavController) {
                 modifier = Modifier.padding(top = 10.dp)
             )
             CustomTextField(
-                value = location,
-                onValueChanged = { location = it },
+                value = description,
+                onValueChanged = { description = it },
                 text = "badadad",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
@@ -228,7 +235,7 @@ fun InputToDo(navController: NavController) {
             ) {
                 Column(Modifier.weight(0.95F)) {
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = {  },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
                         shape = RoundedCornerShape(8.dp)
@@ -241,7 +248,9 @@ fun InputToDo(navController: NavController) {
                 }
             }
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    todolistViewModel.ButtonSubmitTodolist(title,dates,time,0,description,location, navController )
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 50.dp),
@@ -311,5 +320,5 @@ fun customTextField(
 @Composable
 fun Input_to_dopreview() {
     val navController = rememberNavController()
-    InputToDo(navController);
+    InputToDo(navController, TodolistVM());
 }
