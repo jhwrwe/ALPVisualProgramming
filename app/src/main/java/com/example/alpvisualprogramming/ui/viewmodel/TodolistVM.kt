@@ -1,24 +1,14 @@
 package com.example.alpvisualprogramming.ui.viewmodel
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.alpvisualprogramming.model.Todolist
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.alpvisualprogramming.globalvariable.GlobalVariable
-import com.example.alpvisualprogramming.model.Mission
-import com.example.alpvisualprogramming.model.User
+import com.example.alpvisualprogramming.model.Todolist
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.NavGraph
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.sql.Time
-import java.time.LocalDate
-import java.time.LocalTime
-import java.util.Date
 
 class TodolistVM : ViewModel() {
 
@@ -61,7 +51,7 @@ class TodolistVM : ViewModel() {
         var todolistList: List<Todolist> = emptyList()
         viewModelScope.launch {
             MyDBContainer().myDBRepositories.todolistDone(id)
-            Log.d("DONE", "NO ERROR IN todolistDOne(id)")
+            Log.d("DONE", "NO ERROR IN todolistDOne(id)s")
             todolistList =
                 MyDBContainer().myDBRepositories.getTodolistByUrgency(GlobalVariable.urgency)
                     ?: emptyList()

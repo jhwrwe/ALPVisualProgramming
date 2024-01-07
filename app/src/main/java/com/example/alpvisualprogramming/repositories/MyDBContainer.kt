@@ -1,7 +1,6 @@
 package com.example.alpvisualprogramming.repositories
 
 import com.example.alpvisualprogramming.services.MyDBService
-import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -16,9 +15,10 @@ class AuthInterceptor(private val bearerToken: String) : Interceptor {
         return chain.proceed(request)
     }
 }
+
 class MyDBContainer() {
 
-    companion object{
+    companion object {
         val BASE_IMG = ""
         var ACCESS_TOKEN = ""
     }
@@ -37,11 +37,11 @@ class MyDBContainer() {
         .client(client)
         .build()
 
-    private val retrofitService: MyDBService by lazy{
+    private val retrofitService: MyDBService by lazy {
         retrofit.create(MyDBService::class.java)
     }
 
-    val myDBRepositories: MyDBRepositories by lazy{
+    val myDBRepositories: MyDBRepositories by lazy {
         MyDBRepositories(retrofitService)
     }
 }

@@ -7,8 +7,9 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-private const val DATA_STORE_NAME ="Aplication"
-class DataStoreManager (context: Context){
+private const val DATA_STORE_NAME = "Aplication"
+
+class DataStoreManager(context: Context) {
 
     private val Context.dataStore by preferencesDataStore(name = DATA_STORE_NAME)
     private val dataStore = context.dataStore

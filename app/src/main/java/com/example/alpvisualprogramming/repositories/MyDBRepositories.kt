@@ -8,8 +8,6 @@ import com.example.alpvisualprogramming.model.Todolist
 import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.services.MyDBService
 import java.net.HttpURLConnection
-import java.sql.Date
-import java.sql.Time
 
 class MyDBRepositories(private val myDBService: MyDBService) {
     suspend fun login(username: String, password: String): String {
@@ -457,7 +455,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
         return result.message
     }
 
-    suspend fun todolistDone(id: Int){
+    suspend fun todolistDone(id: Int) {
 //        myDBService.todolistDone(id)
         try {
             myDBService.todolistDone(id)
