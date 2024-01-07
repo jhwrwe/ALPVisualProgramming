@@ -30,18 +30,29 @@ class TodolistVM : ViewModel() {
     fun ButtonSubmitTodolist( title:String, date:String, time:String, urgency_status:String, description:String ,location: String, navController: NavController){
 
         viewModelScope.launch {
-            var US: Int =0;
-            if(urgency_status=="Do First"){
-                US = 1
-            }else if(urgency_status=="Schedule"){
-                US =2
-            }else if (urgency_status=="Delegate"){
-                US =3
-            }else if(urgency_status=="Eliminate"){
-                US =4
-            }else{
+            val US: Int = when(urgency_status) {
+                "Do First" -> 1
+                "Schedule" -> 2
+                "Delegate" -> 3
+                "Eliminate" -> 4
+                else -> 0
+            }
+
+            if (US == 0) {
                 navController.navigate(NavGraph.InputToDoRoute)
             }
+//            var US: Int =0;
+//            if(urgency_status=="Do First"){
+//                US = 1
+//            }else if(urgency_status=="Schedule"){
+//                US =2
+//            }else if (urgency_status=="Delegate"){
+//                US =3
+//            }else if(urgency_status=="Eliminate"){
+//                US =4
+//            }else{
+//                navController.navigate(NavGraph.InputToDoRoute)
+//            }
 
             val CreateTodolistnotpermanent = todolisttempo(title, date, time, US, location, description, false)
             val finnish = MyDBContainer().myDBRepositories.createTodolist(CreateTodolistnotpermanent)
