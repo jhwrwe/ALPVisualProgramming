@@ -1,6 +1,7 @@
 package com.example.alpvisualprogramming.ui.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -26,10 +27,23 @@ class TodolistVM : ViewModel() {
         return todolistList
     }
 
-    fun ButtonSubmitTodolist( title:String, date:String, time:String, urgency_status:Int, description:String ,location: String, navController: NavController){
-        viewModelScope.launch {
+    fun ButtonSubmitTodolist( title:String, date:String, time:String, urgency_status:String, description:String ,location: String, navController: NavController){
 
-            val CreateTodolistnotpermanent = todolisttempo(title, date, time, urgency_status, location, description, false)
+        viewModelScope.launch {
+            var US: Int =0;
+            if(urgency_status=="Do First"){
+                US = 1
+            }else if(urgency_status=="Schedule"){
+                US =2
+            }else if (urgency_status=="Delegate"){
+                US =3
+            }else if(urgency_status=="Eliminate"){
+                US =4
+            }else{
+                navController.navigate(NavGraph.InputToDoRoute)
+            }
+
+            val CreateTodolistnotpermanent = todolisttempo(title, date, time, US, location, description, false)
             val finnish = MyDBContainer().myDBRepositories.createTodolist(CreateTodolistnotpermanent)
             if (finnish.equals("Success",true)){
                 navController.navigate(NavGraph.LoginPageRoute)

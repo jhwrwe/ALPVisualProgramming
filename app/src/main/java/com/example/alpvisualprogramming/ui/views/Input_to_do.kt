@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +17,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -23,8 +26,12 @@ import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MenuDefaults
+import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -32,12 +39,16 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -45,6 +56,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
@@ -63,6 +75,15 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun InputToDo(navController: NavController,
               todolistViewModel: TodolistVM) {
+    var expanded by remember{ mutableStateOf(false) }
+    var list = listOf("Do First", "Schedule", "Delegate", "Eliminate")
+    var selectedItem by remember { mutableStateOf("") }
+    var textfiledsize by remember { mutableStateOf(Size.Zero) }
+    val icon = if (expanded){
+        Icons.Filled.KeyboardArrowUp
+    }else{
+        Icons.Filled.KeyboardArrowDown
+    }
     var title by rememberSaveable { mutableStateOf("") }
     var dates by rememberSaveable { mutableStateOf("") }
     var time by rememberSaveable { mutableStateOf("") }
@@ -121,7 +142,7 @@ fun InputToDo(navController: NavController,
                 color = Color.Gray,
                 fontWeight = FontWeight.SemiBold
             )
-            CustomTextField(
+            customTextFielda(
                 value = title,
                 onValueChanged = { title = it },
                 text = "Add Task Title",
@@ -131,7 +152,7 @@ fun InputToDo(navController: NavController,
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
-
+            Column {
             Text(
                 text = "Category",
                 fontSize = 15.sp,
@@ -139,16 +160,35 @@ fun InputToDo(navController: NavController,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(top = 10.dp)
             )
-            CustomTextField(
-                value = category,
-                onValueChanged = { category = it },
-                text = "Do first",
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next
-                ),
-                modifier = Modifier.fillMaxWidth()
+//            CustomTextField(
+//                value = category,
+//                onValueChanged = { category = it },
+//                text = "Do first",
+//                keyboardOptions = KeyboardOptions.Default.copy(
+//                    keyboardType = KeyboardType.Text,
+//                    imeAction = ImeAction.Next
+//                ),
+//                modifier = Modifier.fillMaxWidth()
+//            )
+            OutlinedTextField(value = selectedItem, onValueChange = {selectedItem=it}, modifier= Modifier
+                .fillMaxWidth()
+                .onGloballyPositioned { coordinates ->
+                    textfiledsize = coordinates.size.toSize()
+                },
+                label = { Text(text = "Selected Item")},
+                trailingIcon = {
+                    Icon(icon,"",Modifier.clickable { expanded = !expanded })
+                }
             )
+            DropdownMenu(expanded = expanded, onDismissRequest = { expanded= false }, modifier = Modifier
+                .width(with(LocalDensity.current){textfiledsize.width.toDp()})) {
+                list.forEach {label->
+                  DropdownMenuItem(text = { label }, onClick = {
+                      selectedItem = label
+                      expanded = false})
+                }
+            }
+        }
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -200,7 +240,7 @@ fun InputToDo(navController: NavController,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(top = 10.dp)
             )
-            CustomTextField(
+            customTextFielda(
                 value = location,
                 onValueChanged = { location = it },
                 text = "Juanda airport",
@@ -217,7 +257,7 @@ fun InputToDo(navController: NavController,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(top = 10.dp)
             )
-            CustomTextField(
+            customTextFielda(
                 value = description,
                 onValueChanged = { description = it },
                 text = "badadad",
@@ -249,7 +289,7 @@ fun InputToDo(navController: NavController,
             }
             Button(
                 onClick = {
-                    todolistViewModel.ButtonSubmitTodolist(title,dates,time,0,description,location, navController )
+                    todolistViewModel.ButtonSubmitTodolist(title,dates,time,selectedItem,description,location, navController )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -293,7 +333,7 @@ fun TimePicker(time: String, onTimeSelected: (String) -> Unit, modifier: Modifie
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun customTextField(
+fun customTextFielda(
     value: String,
     onValueChanged: (String) -> Unit,
     text: String,
@@ -314,6 +354,12 @@ fun customTextField(
         )
     )
 }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun customtextfieldforCategory(){
+
+}
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true, showSystemUi = true)
