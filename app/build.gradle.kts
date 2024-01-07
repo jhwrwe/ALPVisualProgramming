@@ -32,7 +32,6 @@ android {
         }
     }
     compileOptions {
-        isCoreLibraryDesugaringEnabled
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -97,6 +96,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.6")
-
+    implementation("com.maxkeppeler.sheets-compose-dialogs:core:1.0.2")
+    implementation("com.maxkeppeler.sheets-compose-dialogs:calendar:1.0.2")
+    implementation("com.maxkeppeler.sheets-compose-dialogs:clock:1.0.2")
 
 }

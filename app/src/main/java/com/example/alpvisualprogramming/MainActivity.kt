@@ -15,7 +15,7 @@ import com.example.alpvisualprogramming.ui.ApplicationNavigation
 import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.theme.ALPVisualProgrammingTheme
 
-import com.example.alpvisualprogramming.ui.views.Input_to_do
+import com.example.alpvisualprogramming.ui.views.InputToDo
 import com.example.alpvisualprogramming.ui.views.JournalPageView
 import com.example.alpvisualprogramming.ui.views.LogInPageView
 import com.example.alpvisualprogramming.ui.views.MainPageView
