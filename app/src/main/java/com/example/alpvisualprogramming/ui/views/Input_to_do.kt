@@ -1,6 +1,7 @@
 package com.example.alpvisualprogramming.ui.views
 
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,6 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -54,8 +56,14 @@ import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.R
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.date.datepicker
+import com.vanpra.composematerialdialogs.datetime.time.timepicker
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.sql.Time
+import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -63,17 +71,22 @@ import java.util.Date
 fun Input_to_do(
     navController: NavController,
     todolistViewModel: TodolistVM,
-
     ){
     val context = LocalContext.current
+//    val urgencyOptions = listOf("Do First", "Schedule", "Delegate", "Eliminate")
 
     Column( modifier = Modifier.fillMaxSize()){
+
+//        var selectedUrgencyIndex by rememberSaveable { mutableStateOf(0) }
         var title by rememberSaveable { mutableStateOf("") }
-        var date by rememberSaveable { mutableStateOf(Date()) }
+        var date by rememberSaveable { mutableStateOf(LocalDate.now()) }
         var time by rememberSaveable { mutableStateOf(LocalTime.now()) }
+        val formattedDate by rememberSaveable{ derivedStateOf { DateTimeFormatter.ofPattern("yyyy-MMM-dd").format(date) }}
+        val formattedTime by rememberSaveable{ derivedStateOf { DateTimeFormatter.ofPattern("hh:mm").format(time) }}
         var location by rememberSaveable { mutableStateOf("") }
         var urgency by rememberSaveable { mutableStateOf(0) }
         var description by rememberSaveable { mutableStateOf("") }
+
 
     Row (
         modifier = Modifier
@@ -130,38 +143,61 @@ fun Input_to_do(
                 modifier = Modifier
                     .fillMaxWidth()
             )
+//            val datedialogstate = rememberMaterialDialogState()
+//            val Timedialogstate = rememberMaterialDialogState()
             Row (Modifier.fillMaxWidth()   , horizontalArrangement = Arrangement.SpaceBetween){
                 Column (Modifier.weight(0.95F)) {
                     Text(text = "Date", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
-//                    customTextField(
-//                        value = date,
-//                        onValueChanged = { date = it },
-//                        text = "Des 12, 2023",
-//                        keyboardOptions = KeyboardOptions.Default.copy(
-//                            keyboardType = KeyboardType.Text,
-//                            imeAction = ImeAction.Next
-//                        ),
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                    )
+//                    Button(onClick = {
+//                        datedialogstate.show()
+//                    }) {
+//                        Text(text = "Pick date")
+//                    }
+//                    Text(text = formattedDate)
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Column (Modifier.weight(0.95F)) {
                     Text(text = "Time", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
-//                    customTextField(
-//                        value = time,
-//                        onValueChanged = { time = it },
-//                        text = "12:00",
-//                        keyboardOptions = KeyboardOptions.Default.copy(
-//                            keyboardType = KeyboardType.Text,
-//                            imeAction = ImeAction.Next
-//                        ),
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                    )
+//                   Button(onClick = {
+//                       Timedialogstate.show()
+//                   }) {
+//                       Text(text = "Pick Time")
+//                  }
+//                    Text(text = formattedTime)
                 }
-
             }
+//            MaterialDialog(
+//                dialogState = datedialogstate,
+//                buttons = {
+//                    positiveButton(text = "Ok"){
+//                        Toast.makeText(context,"clicked ok",Toast.LENGTH_LONG).show()
+//                    }
+//                    negativeButton(text="cancel")
+//                }
+//            ) {
+//                datepicker(
+//                    initialDate = LocalDate.now(),
+//                    title ="pick a date",
+//                ){
+//                    date = it
+//                }
+//            }
+//            MaterialDialog(
+//                dialogState = Timedialogstate,
+//                buttons = {
+//                    positiveButton(text = "Ok"){
+//                        Toast.makeText(context,"clicked ok",Toast.LENGTH_LONG).show()
+//                    }
+//                    negativeButton(text="cancel")
+//                }
+//            ) {
+//                timepicker(
+//                    initialTime = LocalTime.now(),
+//                    title ="pick a date",
+//                ){
+//                    time = it
+//                }
+//            }
             Text(text = "Location", fontSize = 15.sp, color = Color.Gray, fontWeight = FontWeight.SemiBold,modifier = Modifier.padding(top = 10.dp))
             customTextField(
                 value = location,
@@ -186,6 +222,7 @@ fun Input_to_do(
                 modifier = Modifier
                     .fillMaxWidth()
             )
+
             Row (modifier = Modifier
                 .padding(top = 20.dp)
                 .fillMaxWidth(),horizontalArrangement = Arrangement.SpaceBetween){
@@ -244,11 +281,6 @@ fun customTextField(
             textColor = Color.Black
         )
     )
-    DropdownMenuItem(text = { Text(text = "ini dropdown") }, onClick = { /*TODO*/ })
-    DropdownMenu(expanded = true, onDismissRequest = { /*TODO*/ }) {
-        DropdownMenuItem(text = { Text(text = "pil 1") }, onClick = { /*TODO*/ })
-        DropdownMenuItem(text = { Text(text = "pil 2") }, onClick = { /*TODO*/ })
-    }
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -286,7 +318,12 @@ fun customTextFielda(
             )
         },
     )
+    DropdownMenu(expanded = true, onDismissRequest = { /*TODO*/ }) {
+        DropdownMenuItem(text = { Text(text = "pil 1") }, onClick = { /*TODO*/ })
+        DropdownMenuItem(text = { Text(text = "pil 2") }, onClick = { /*TODO*/ })
+    }
 }
+
 
 
 
