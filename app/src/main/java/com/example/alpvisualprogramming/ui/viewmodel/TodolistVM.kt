@@ -57,7 +57,7 @@ class TodolistVM : ViewModel() {
             val CreateTodolistnotpermanent = todolisttempo(title, date, time, US, location, description, false)
             val finnish = MyDBContainer().myDBRepositories.createTodolist(CreateTodolistnotpermanent)
             if (finnish.equals("Success",true)){
-                navController.navigate(NavGraph.LoginPageRoute)
+                navController.navigate(NavGraph.ToDoListRoute)
             }
         }
     }
