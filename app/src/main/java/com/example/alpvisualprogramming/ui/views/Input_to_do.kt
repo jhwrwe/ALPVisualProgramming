@@ -29,6 +29,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.MenuItemColors
@@ -90,6 +91,8 @@ fun InputToDo(navController: NavController,
     var location by rememberSaveable { mutableStateOf("") }
     var description by rememberSaveable { mutableStateOf("") }
     var category by rememberSaveable { mutableStateOf("") }
+    var timesicon by remember{ mutableStateOf(false) }
+    var spaceicon by remember{ mutableStateOf(false) }
     Column(modifier = Modifier.fillMaxSize()) {
         val calenderstate = rememberSheetState()
         CalendarDialog(
@@ -110,7 +113,6 @@ fun InputToDo(navController: NavController,
         ClockDialog(state = clockstate, selection = ClockSelection.HoursMinutes{hours, minutes ->
             Log.d("selectedDate","$hours:$minutes")
             time = "$hours:$minutes"
-
         })
 
 
@@ -135,7 +137,7 @@ fun InputToDo(navController: NavController,
                 modifier = Modifier.fillMaxWidth(1F)
             )
         }
-        Column(modifier = Modifier.padding(20.dp)) {
+        Column() {
             Text(
                 text = "Title",
                 fontSize = 15.sp,
@@ -152,7 +154,7 @@ fun InputToDo(navController: NavController,
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
-            Column {
+            Column (modifier = Modifier.padding(20.dp)){
             Text(
                 text = "Category",
                 fontSize = 15.sp,
@@ -170,22 +172,29 @@ fun InputToDo(navController: NavController,
 //                ),
 //                modifier = Modifier.fillMaxWidth()
 //            )
-            OutlinedTextField(value = selectedItem, onValueChange = {selectedItem=it}, modifier= Modifier
-                .fillMaxWidth()
-                .onGloballyPositioned { coordinates ->
-                    textfiledsize = coordinates.size.toSize()
-                },
+            OutlinedTextField(
+                value = selectedItem,
+                onValueChange = {selectedItem=it},
+                modifier= Modifier
+                    .fillMaxWidth()
+                    .onGloballyPositioned { coordinates ->
+                        textfiledsize = coordinates.size.toSize()
+                    },
                 label = { Text(text = "Selected Item")},
                 trailingIcon = {
                     Icon(icon,"",Modifier.clickable { expanded = !expanded })
                 }
             )
-            DropdownMenu(expanded = expanded, onDismissRequest = { expanded= false }, modifier = Modifier
-                .width(with(LocalDensity.current){textfiledsize.width.toDp()})) {
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded= false },
+                modifier = Modifier
+                    .width(with(LocalDensity.current){textfiledsize.width.toDp()})) {
                 list.forEach {label->
-                  DropdownMenuItem(text = { label }, onClick = {
+                  DropdownMenuItem(text = { Text(text = label) }, onClick = {
                       selectedItem = label
-                      expanded = false})
+                      expanded = false } ,Modifier.background(Color.White))
+
                 }
             }
         }
@@ -201,16 +210,22 @@ fun InputToDo(navController: NavController,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.padding(top = 10.dp)
                     )
-                    Button(onClick = {
+                    OutlinedIconButton(
+                   onClick = {
+                       spaceicon = !spaceicon
                         calenderstate.show()
-                    }) {
-                        Text(text = "Date Picker")
+                    },modifier=Modifier.fillMaxWidth()) {
+                        if(!spaceicon){
+                            Icon(imageVector = Icons.Outlined.DateRange, contentDescription = "Date Picker Icon")
+                        }
+                        Text(text = dates)
                     }
-                    DatePicker(
-                        date = dates,
-                        onDateSelected = { selectedDate -> dates = selectedDate },
-                        modifier = Modifier.fillMaxWidth()
-                    )
+
+//                    DatePicker(
+//                        date = dates,
+//                        onDateSelected = { selectedDate -> dates = selectedDate },
+//                        modifier = Modifier.fillMaxWidth()
+//                    )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Column(Modifier.weight(0.95F)) {
@@ -221,16 +236,20 @@ fun InputToDo(navController: NavController,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.padding(top = 10.dp)
                     )
-                    Button(onClick = {
+                    OutlinedIconButton(onClick = {
+                        timesicon =!timesicon
                         clockstate.show()
-                    }) {
-                        Text(text = "Time Picker")
+                    },modifier=Modifier.fillMaxWidth()) {
+                        if(!timesicon){
+                            Icon(imageVector = Icons.Outlined.Schedule, contentDescription = "Date Picker Icon")
+                        }
+                        Text(text = time)
                     }
-                    TimePicker(
-                        time = time,
-                        onTimeSelected = { selectedTime -> time = selectedTime },
-                        modifier = Modifier.fillMaxWidth()
-                    )
+//                    TimePicker(
+//                        time = time,
+//                        onTimeSelected = { selectedTime -> time = selectedTime },
+//                        modifier = Modifier.fillMaxWidth()
+//                    )
                 }
             }
             Text(
@@ -306,7 +325,6 @@ fun InputToDo(navController: NavController,
 fun DatePicker(date: String, onDateSelected: (String) -> Unit, modifier: Modifier = Modifier) {
     OutlinedIconButton(
         onClick = {
-
             val defaultDate = "Jan 01, 2024"
             onDateSelected(defaultDate)
         },
