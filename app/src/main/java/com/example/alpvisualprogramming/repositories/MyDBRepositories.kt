@@ -451,6 +451,11 @@ class MyDBRepositories(private val myDBService: MyDBService) {
         return result.message
     }
 
+    suspend fun updateTodolist(id: Int, updatedTodoList: todolisttempo): String {
+        val result = myDBService.updateTodolist(id, updatedTodoList)
+        return result.message
+    }
+
     suspend fun deleteTodolist(id: Int): String {
         val result = myDBService.deleteTodolist(id)
         return result.message
