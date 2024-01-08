@@ -137,7 +137,7 @@ fun InputToDo(navController: NavController,
                 modifier = Modifier.fillMaxWidth(1F)
             )
         }
-        Column() {
+        Column(modifier = Modifier.padding(20.dp)) {
             Text(
                 text = "Title",
                 fontSize = 15.sp,
@@ -154,7 +154,7 @@ fun InputToDo(navController: NavController,
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
-            Column (modifier = Modifier.padding(20.dp)){
+            Column (){
             Text(
                 text = "Category",
                 fontSize = 15.sp,
