@@ -122,15 +122,19 @@ fun InputToDo(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFF3960E5))
-                .padding(20.dp),
+                .padding(10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Rounded.ArrowBack,
-                contentDescription = "Arrow Icon",
-                tint = Color.White
-            )
+            IconButton(onClick = { navController.navigate(NavGraph.ToDoListRoute) }
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.ArrowBack,
+                    contentDescription = "Arrow Icon",
+                    tint = Color.White
+                )
+            }
+
             Text(
                 text = "Add new task",
                 color = Color.White,
