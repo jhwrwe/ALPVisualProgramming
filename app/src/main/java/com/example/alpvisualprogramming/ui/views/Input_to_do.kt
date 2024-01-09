@@ -487,29 +487,40 @@ fun UpdateToDo(navController: NavController,
 //                ),
 //                modifier = Modifier.fillMaxWidth()
 //            )
-                OutlinedTextField(
-                    value = selectedItem,
-                    onValueChange = {selectedItem=it},
-                    modifier= Modifier
+                IconButton(
+                    onClick = { expanded = true },
+                    modifier = Modifier
                         .fillMaxWidth()
+                        .clip(RoundedCornerShape(15.dp))
+                        .border(1.dp, Color.Gray, RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))
                         .onGloballyPositioned { coordinates ->
                             textfiledsize = coordinates.size.toSize()
                         },
-                    label = { Text(text = "Selected Item")},
-                    trailingIcon = {
-                        Icon(icon,"",Modifier.clickable { expanded = !expanded })
+                ) {
+                    Box(
+                        modifier = Modifier.fillMaxSize().padding(10.dp),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(text = selectedItem, textAlign = TextAlign.Left)
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = "dropdown",
+                            Modifier.align(Alignment.CenterEnd)
+                        )
                     }
-                )
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded= false },
-                    modifier = Modifier
-                        .width(with(LocalDensity.current){textfiledsize.width.toDp()})) {
-                    list.forEach {label->
-                        DropdownMenuItem(text = { Text(text = label) }, onClick = {
-                            selectedItem = label
-                            expanded = false } ,Modifier.background(Color.White))
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false },
+                        modifier = Modifier
+                            .width(with(LocalDensity.current) { textfiledsize.width.toDp() })
+                    ) {
+                        list.forEach { label ->
+                            DropdownMenuItem(text = { Text(text = label) }, onClick = {
+                                selectedItem = label
+                                expanded = false
+                            }, Modifier.background(Color.White))
 
+                        }
                     }
                 }
             }
