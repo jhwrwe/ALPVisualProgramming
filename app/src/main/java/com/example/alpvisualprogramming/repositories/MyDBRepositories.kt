@@ -100,7 +100,6 @@ class MyDBRepositories(private val myDBService: MyDBService) {
             val allBadgeResponse = myDBService.getAllBadge()
             val data = mutableListOf<Badge>()
 
-
             if (allBadgeResponse != null) {
                 val allBadge = allBadgeResponse.data as? List<Map<String, Any>>
                 if (allBadge != null) {
@@ -139,7 +138,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
                             (userbadge["id"] as? Double)?.toInt() ?: 0,
                             (userbadge["image"] as? String)?.toString() ?: "",
-                            (userbadge["price"] as? String)?.toString() ?: "",
+                            (userbadge["name"] as? String)?.toString() ?: "",
                             (userbadge["price"] as? Double)?.toInt() ?: 0,
                         )
                         data.add(userbadges)

@@ -56,6 +56,7 @@ fun Profile(
     missionViewModel: MissionVM,
     badgeViewModel: BadgeVM,
 ) {
+    badgeViewModel.GetAllUserBadge()
     userViewModel.getUser()
     Log.d("Profile", "")
     val user by GlobalVariable.usera.collectAsState()
