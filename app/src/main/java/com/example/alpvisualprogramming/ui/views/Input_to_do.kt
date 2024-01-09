@@ -241,11 +241,10 @@ fun InputToDo(
                     )
                     OutlinedIconButton(
                         onClick = {
-                            spaceicon = !spaceicon
                             calenderstate.show()
                         }, modifier = Modifier.fillMaxWidth()
                     ) {
-                        if (!spaceicon) {
+                        if (dates=="") {
                             Icon(
                                 imageVector = Icons.Outlined.DateRange,
                                 contentDescription = "Date Picker Icon"
@@ -270,10 +269,10 @@ fun InputToDo(
                         modifier = Modifier.padding(top = 10.dp)
                     )
                     OutlinedIconButton(onClick = {
-                        timesicon = !timesicon
+
                         clockstate.show()
                     }, modifier = Modifier.fillMaxWidth()) {
-                        if (!timesicon) {
+                        if (time=="") {
                             Icon(
                                 imageVector = Icons.Outlined.Schedule,
                                 contentDescription = "Date Picker Icon"
@@ -530,11 +529,11 @@ fun UpdateToDo(
                     )
                     OutlinedIconButton(
                         onClick = {
-                            spaceicon = !spaceicon
+
                             calenderstate.show()
                         }, modifier = Modifier.fillMaxWidth()
                     ) {
-                        if (!spaceicon) {
+                        if (dates=="") {
                             Icon(
                                 imageVector = Icons.Outlined.DateRange,
                                 contentDescription = "Date Picker Icon"
@@ -559,10 +558,10 @@ fun UpdateToDo(
                         modifier = Modifier.padding(top = 10.dp)
                     )
                     OutlinedIconButton(onClick = {
-                        timesicon = !timesicon
+
                         clockstate.show()
                     }, modifier = Modifier.fillMaxWidth()) {
-                        if (!timesicon) {
+                        if (time=="") {
                             Icon(
                                 imageVector = Icons.Outlined.Schedule,
                                 contentDescription = "Date Picker Icon"
