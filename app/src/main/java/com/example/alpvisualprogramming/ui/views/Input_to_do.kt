@@ -322,30 +322,6 @@ fun InputToDo(
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
-            Row(
-                modifier = Modifier
-                    .padding(top = 20.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column(Modifier.weight(0.95F)) {
-                    Button(
-                        onClick = { },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text(
-                            text = "Invite people + ",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 15.sp
-                        )
-                    }
-                }
-                Column(Modifier.weight(0.95F)) {
-
-                }
-            }
             Button(
                 onClick = {
                     todolistViewModel.ButtonSubmitTodolist(
@@ -360,7 +336,7 @@ fun InputToDo(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 50.dp),
+                    .padding(top = 150.dp),
                 colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
                 shape = RoundedCornerShape(8.dp)
             ) {
