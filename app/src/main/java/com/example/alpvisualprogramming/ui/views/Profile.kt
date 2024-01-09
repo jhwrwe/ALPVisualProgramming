@@ -279,7 +279,6 @@ fun Profile(
                                         RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
                                     )
                                     .background(color = Color(0xFFF2F7FE)),
-                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 LazyRow(
                                     modifier = Modifier
@@ -572,7 +571,7 @@ fun badgess(picture: String) {
         modifier = Modifier
             .padding(bottom = 3.dp)
             .padding(end = 10.dp)
-            .size(60.dp),
+            .size(90.dp),
     )
 }
 
