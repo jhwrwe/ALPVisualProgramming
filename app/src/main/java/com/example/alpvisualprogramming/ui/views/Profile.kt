@@ -279,11 +279,12 @@ fun Profile(
                                         RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
                                     )
                                     .background(color = Color(0xFFF2F7FE)),
+                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 LazyRow(
                                     modifier = Modifier
-                                        .padding(top = 30.dp)
-                                        .padding(bottom = 30.dp)
+                                        .padding(top = 20.dp)
+                                        .padding(bottom = 20.dp)
                                 ) {
                                     items(uBadges.size) { item ->
                                         badgess(
@@ -300,12 +301,7 @@ fun Profile(
                 }
 
             }
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .zIndex(2F)
-//                    .fillMaxHeight(1.5F)
-//            ) {
+
                 Text(
                     text = "General", fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
@@ -335,7 +331,7 @@ fun Profile(
                         verticalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.icons8_settings_96_1),
+                            painter = painterResource(id =R.drawable.icons8_settings_96_1),
                             contentDescription = "badge",
                             modifier = Modifier
 
@@ -494,10 +490,12 @@ fun Profile(
             }
         Footer(navController = navController, "Profile")
         }
-    }
 
 
 
+
+
+}
 
 @Composable
 fun General(texta: String, textb: String, picture: String) {
