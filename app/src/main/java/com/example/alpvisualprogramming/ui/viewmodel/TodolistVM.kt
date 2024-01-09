@@ -32,6 +32,7 @@ class TodolistVM : ViewModel() {
     fun getTodolistDetail(id:Int, navController: NavController){
         viewModelScope.launch {
             val todolistDetail = MyDBContainer().myDBRepositories.getTodolistDetail(id)
+            navController.navigate(NavGraph.UpdateTodoListRoute)
             _todolistDetail.value = todolistDetail
         }
     }
