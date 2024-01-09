@@ -195,6 +195,143 @@ fun TodoListView(
 
 }
 
+@SuppressLint("StateFlowValueCalledInComposition")
+@Composable
+fun TodoListDeadlineView(
+    navController: NavController,
+    todolistViewModel: TodolistVM,
+) {
+    val todolists by GlobalVariable.todolists.collectAsState()
+    val title: String = GlobalVariable.deadlineTitle
+//        Log.d("TodolistView", todolists.get(0).toString())
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+
+        Row(
+            modifier = Modifier
+                .background(Color(0xFF3960E6))
+                .fillMaxWidth()
+                .padding(vertical = 10.dp, horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                contentDescription = null,
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .size(30.dp)
+                    .clickable {
+                        navController.navigate(NavGraph.HomePageRoute)
+                    }
+            )
+            Spacer(modifier = Modifier.width(115.dp))
+            Text(
+                text = "Task To Do",
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp, bottom = 12.dp)
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Image(
+                painter =
+                if (title == "Today") {
+                    painterResource(id = R.drawable.icons8_deadline_96)
+                } else if (title == "Tomorrow") {
+                    painterResource(id = R.drawable.icons8_do_not_disturb_ios_96)
+                } else if (title == "Someday") {
+                    painterResource(id = R.drawable.icons8_question_96)
+                } else {
+                    painterResource(id = R.drawable.icons8_time_96)
+                },
+                contentDescription = null,
+                modifier = Modifier
+                    .size(35.dp)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(
+                text = title,
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp,
+                color = Color(0xFF3F3F3F),
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(
+                text = "${GlobalVariable.todolists.value.size} Tasks",
+                fontWeight = FontWeight.Normal,
+                fontSize = 14.sp,
+                color = Color(0xFF8B8E91),
+                modifier = Modifier.padding(top = 10.dp)
+            )
+        }
+        Text(
+            text =
+            if (title == "Today") {
+                "Do The Tasks TODAY!!"
+            } else if (title == "Tomorrow") {
+                "One Day Remaining! DON'T RUSH IT!!"
+            } else if (title == "Someday") {
+                "Do This Now? Or Maybe SOMEDAY??"
+            } else {
+                "Godspeed My Friend... T_T"
+            },
+            fontWeight = FontWeight.Normal,
+            fontSize = 14.sp,
+            color = Color(0xFF3F3F3F),
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
+
+        LazyColumn(
+        ) {
+            items(todolists.size) { item ->
+                if (todolists[item].progress_status == false) {
+                    CardWithCheckbox(
+                        id = todolists[item].id,
+                        title = todolists[item].title,
+                        location = todolists[item].location,
+                        date = todolists[item].date,
+                        time = todolists[item].time,
+                        progress_status = todolists[item].progress_status,
+                        navController = navController,
+                        VM = todolistViewModel,
+                        modifier = Modifier.clickable {
+                            todolistViewModel.getTodolistDetail(
+                                todolists[item].id,
+                                navController
+                            )
+                        }
+                    )
+                }
+            }
+        }
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 16.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.baseline_add_circle_24),
+            contentDescription = null,
+            modifier = Modifier
+                .size(90.dp)
+                .align(Alignment.BottomEnd)
+                .padding(4.dp) // Adjust padding as needed
+                .clickable {
+                    navController.navigate(NavGraph.InputToDoRoute)
+                }
+        )
+    }
+}
+
 
 @Composable
 fun CardWithCheckbox(
@@ -298,5 +435,7 @@ fun CardWithCheckbox(
 @Composable
 fun TodoListPreview() {
     val navController = rememberNavController()
-    TodoListView(navController, TodolistVM())
+//    TodoListView(navController, TodolistVM())
+    TodoListDeadlineView(navController = navController, todolistViewModel = TodolistVM())
 }
+
