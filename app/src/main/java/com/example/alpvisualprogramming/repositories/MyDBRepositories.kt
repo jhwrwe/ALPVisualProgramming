@@ -23,30 +23,6 @@ class MyDBRepositories(private val myDBService: MyDBService) {
 
     @SuppressLint("SuspiciousIndentation")
     suspend fun getdatauser(): List<User> {
-
-//        try {
-//            val user = myDBService.getdatauser().data as? List<User>
-//            val data = mutableListOf<User>()
-//            if(user != null){
-//                for (users in user){
-//                    val userr = User(
-//                        users.fullname,
-//                        users.phone_number,
-//                        users.username,
-//                        users.coins,
-//                        users.role_id,
-//                        users.profile_photo_path,
-//                        users.password,
-//                    )
-//                    data.add(userr)
-//                }
-//            }
-//            return data
-//        }catch (e: Exception){
-//            Log.d("Error11", e.message.toString())
-//            return mutableListOf()
-//        }
-
         try {
             val userResponse = myDBService.getdatauser()
             val data = mutableListOf<User>()
@@ -278,19 +254,51 @@ class MyDBRepositories(private val myDBService: MyDBService) {
         }
     }
 
-    suspend fun getTodolistDetail(id: Int): Todolist {
-        val todolist = myDBService.getTodolistDetail(id).data as Todolist
-        val data = Todolist(
-            todolist.id,
-            todolist.title,
-            todolist.date,
-            todolist.time,
-            todolist.urgency_status,
-            todolist.description,
-            todolist.progress_status,
-            todolist.location,
-        )
-        return data
+//    suspend fun getTodolistDetail(id: Int): Todolist {
+//        val todolist = myDBService.getTodolistDetail(id).data as Todolist
+//        val data = Todolist(
+//            todolist.id,
+//            todolist.title,
+//            todolist.date,
+//            todolist.time,
+//            todolist.urgency_status,
+//            todolist.description,
+//            todolist.progress_status,
+//            todolist.location,
+//        )
+//        return data
+//    }
+    @SuppressLint("SuspiciousIndentation")
+    suspend fun getTodolistDetail(id:Int): List<Todolist> {
+
+        try {
+            val userResponse = myDBService.getTodolistDetail(id)
+            val data = mutableListOf<Todolist>()
+            if (userResponse != null) {
+                val Todolist = userResponse.data as? List<Map<String, Any>>
+                if (Todolist != null) {
+                    for (items in Todolist) {
+                        val todolistinput = Todolist(
+//                                items["id"] as Double, // Uncomment if 'id' is present
+                            (items["id"] as? Double)?.toInt() ?: 0,
+                            (items["title"] as? String)?.toString() ?: "",
+                            (items["date"] as? String)?.toString() ?: "",
+                            (items["time"] as? String)?.toString() ?: "",
+                            (items["urgency_status"] as? Double)?.toInt() ?: 0,
+                            (items["description"] as? String)?.toString() ?: "",
+                            (items["progress_status"] as? Double)?.toInt() != 0,
+                            (items["location"] as? String)?.toString() ?: "",
+                        )
+                        data.add(todolistinput)
+                        Log.d("DATA", data.toString())
+                    }
+                }
+            }
+            return data
+        } catch (e: Exception) {
+            Log.d("Error GetDataUser", e.message.toString())
+            return mutableListOf()
+        }
     }
 
     suspend fun getLateTodolist(): List<Todolist> {
@@ -448,6 +456,11 @@ class MyDBRepositories(private val myDBService: MyDBService) {
 //        if(result.status.toInt()==HttpURLConnection.HTTP_OK){
 //            return result.data as String
 //        }
+        return result.message
+    }
+
+    suspend fun updateTodolist(id: Int, updatedTodoList: Todolist): String {
+        val result = myDBService.updateTodolist(id, updatedTodoList)
         return result.message
     }
 

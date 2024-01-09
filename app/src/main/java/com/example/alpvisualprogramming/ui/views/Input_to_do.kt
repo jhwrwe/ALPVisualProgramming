@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,23 +22,19 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MenuDefaults
-import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -62,6 +57,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
+import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
@@ -72,6 +69,7 @@ import com.maxkeppeler.sheets.clock.ClockDialog
 import com.maxkeppeler.sheets.clock.models.ClockSelection
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -200,7 +198,9 @@ fun InputToDo(
                         },
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxSize().padding(10.dp),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp),
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Text(text = selectedItem, textAlign = TextAlign.Left)
@@ -368,6 +368,321 @@ fun InputToDo(
             }
         }
     }
+}
+
+
+@RequiresApi(Build.VERSION_CODES.O)
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun UpdateToDo(
+    navController: NavController,
+    todolistViewModel: TodolistVM, id: Int
+) {
+
+    val todolistsDetail by GlobalVariable.todolistDetail.collectAsState()
+
+    var id by rememberSaveable { mutableStateOf(todolistsDetail.id) }
+    var title by rememberSaveable { mutableStateOf(todolistsDetail.title) }
+    var dates by rememberSaveable { mutableStateOf(todolistsDetail.date) }
+    var time by rememberSaveable { mutableStateOf(todolistsDetail.time) }
+    var location by rememberSaveable { mutableStateOf(todolistsDetail.location) }
+    var description by rememberSaveable { mutableStateOf(todolistsDetail.description) }
+    var category by rememberSaveable { mutableStateOf("") }
+    var timesicon by remember { mutableStateOf(false) }
+    var spaceicon by remember { mutableStateOf(false) }
+
+//    title = todolistsDetail.title
+//    dates = todolistsDetail.date
+//    time = todolistsDetail.time
+//    location = todolistsDetail.location
+//    description = todolistsDetail.description
+    var a:String="";
+    if(todolistsDetail.urgency_status==1){
+        a = "Do First"
+    }else if(todolistsDetail.urgency_status==2){
+        a= "Schedule"
+    }else if(todolistsDetail.urgency_status==3){
+        a= "Delegate"
+    }else if(todolistsDetail.urgency_status==4){
+        a= "Eliminate"
+    }else{
+        navController.navigate(NavGraph.ToDoListRoute)
+    }
+    var expanded by remember { mutableStateOf(false) }
+    var list = listOf("Do First", "Schedule", "Delegate", "Eliminate")
+    var selectedItem by remember { mutableStateOf(a) }
+    var textfiledsize by remember { mutableStateOf(Size.Zero) }
+    val icon = if (expanded) {
+        Icons.Filled.KeyboardArrowUp
+    } else {
+        Icons.Filled.KeyboardArrowDown
+    }
+
+
+
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        val calenderstate = rememberSheetState()
+        CalendarDialog(
+            state = calenderstate,
+            config = CalendarConfig(
+                monthSelection = true,
+                yearSelection = true,
+                style = CalendarStyle.MONTH,
+                disabledDates = listOf(LocalDate.now().plusDays(7))
+            ),
+            selection = CalendarSelection.Date { date ->
+                Log.d("selectedDate", "$date")
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                dates = formatter.format(date)
+            }
+        )
+        val clockstate = rememberSheetState()
+        ClockDialog(state = clockstate, selection = ClockSelection.HoursMinutes { hours, minutes ->
+            Log.d("selectedDate", "$hours:$minutes")
+            time = "$hours:$minutes"
+        })
+
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0xFF3960E5))
+                .padding(20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.ArrowBack,
+                contentDescription = "Arrow Icon",
+                tint = Color.White
+            )
+            Text(
+                text = "Add new task",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(1F)
+            )
+        }
+        Column(modifier = Modifier.padding(20.dp)) {
+            Text(
+                text = "Title",
+                fontSize = 15.sp,
+                color = Color.Gray,
+                fontWeight = FontWeight.SemiBold
+            )
+            customTextFielda(
+                value = title,
+                onValueChanged = { title = it },
+                text = "Add Task Title",
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Column() {
+                Text(
+                    text = "Category",
+                    fontSize = 15.sp,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+//            CustomTextField(
+//                value = category,
+//                onValueChanged = { category = it },
+//                text = "Do first",
+//                keyboardOptions = KeyboardOptions.Default.copy(
+//                    keyboardType = KeyboardType.Text,
+//                    imeAction = ImeAction.Next
+//                ),
+//                modifier = Modifier.fillMaxWidth()
+//            )
+                IconButton(
+                    onClick = { expanded = true },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(15.dp))
+                        .border(1.dp, Color.Gray, RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))
+                        .onGloballyPositioned { coordinates ->
+                            textfiledsize = coordinates.size.toSize()
+                        },
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(text = selectedItem, textAlign = TextAlign.Left)
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = "dropdown",
+                            Modifier.align(Alignment.CenterEnd)
+                        )
+                    }
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false },
+                        modifier = Modifier
+                            .width(with(LocalDensity.current) { textfiledsize.width.toDp() })
+                    ) {
+                        list.forEach { label ->
+                            DropdownMenuItem(text = { Text(text = label) }, onClick = {
+                                selectedItem = label
+                                expanded = false
+                            }, Modifier.background(Color.White))
+
+                        }
+                    }
+                }
+
+            }
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(Modifier.weight(0.95F)) {
+                    Text(
+                        text = "Date",
+                        fontSize = 15.sp,
+                        color = Color.Gray,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(top = 10.dp)
+                    )
+                    OutlinedIconButton(
+                        onClick = {
+                            spaceicon = !spaceicon
+                            calenderstate.show()
+                        }, modifier = Modifier.fillMaxWidth()
+                    ) {
+                        if (!spaceicon) {
+                            Icon(
+                                imageVector = Icons.Outlined.DateRange,
+                                contentDescription = "Date Picker Icon"
+                            )
+                        }
+                        Text(text = dates)
+                    }
+
+//                    DatePicker(
+//                        date = dates,
+//                        onDateSelected = { selectedDate -> dates = selectedDate },
+//                        modifier = Modifier.fillMaxWidth()
+//                    )
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(Modifier.weight(0.95F)) {
+                    Text(
+                        text = "Time",
+                        fontSize = 15.sp,
+                        color = Color.Gray,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(top = 10.dp)
+                    )
+                    OutlinedIconButton(onClick = {
+                        timesicon = !timesicon
+                        clockstate.show()
+                    }, modifier = Modifier.fillMaxWidth()) {
+                        if (!timesicon) {
+                            Icon(
+                                imageVector = Icons.Outlined.Schedule,
+                                contentDescription = "Date Picker Icon"
+                            )
+                        }
+                        Text(text = time)
+                    }
+//                    TimePicker(
+//                        time = time,
+//                        onTimeSelected = { selectedTime -> time = selectedTime },
+//                        modifier = Modifier.fillMaxWidth()
+//                    )
+                }
+            }
+            Text(
+                text = "Location",
+                fontSize = 15.sp,
+                color = Color.Gray,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(top = 10.dp)
+            )
+            customTextFielda(
+                value = location,
+                onValueChanged = { location = it },
+                text = "Juanda airport",
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Text(
+                text = "Description",
+                fontSize = 15.sp,
+                color = Color.Gray,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(top = 10.dp)
+            )
+            customTextFielda(
+                value = description,
+                onValueChanged = { description = it },
+                text = "badadad",
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Row(
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(Modifier.weight(0.95F)) {
+                    Button(
+                        onClick = { },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(
+                            text = "Invite people + ",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp
+                        )
+                    }
+                }
+                Column(Modifier.weight(0.95F)) {
+
+                }
+            }
+            Button(
+                onClick = {
+                    todolistViewModel.updateTodolist(
+                        id,
+                        title,
+                        dates,
+                        time,
+                        selectedItem,
+                        description,
+                        location,
+                        navController
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
+                colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Text(text = "Create", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+            }
+        }
+    }
+//    Text(text = "halo")
 }
 
 @Composable

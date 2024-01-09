@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.Data.DataStoreManager
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
@@ -22,6 +23,7 @@ import com.example.alpvisualprogramming.ui.views.Profile
 import com.example.alpvisualprogramming.ui.views.SignInPageView
 import com.example.alpvisualprogramming.ui.views.SignUpPageView
 import com.example.alpvisualprogramming.ui.views.TodoListView
+import com.example.alpvisualprogramming.ui.views.UpdateToDo
 
 object NavGraph {
     const val HomePageRoute = "HomePage"
@@ -33,6 +35,7 @@ object NavGraph {
     const val SignInPageRoute = "SignIn"
     const val SignUpPage = "SignUp"
     const val ToDoListRoute = "ToDoList"
+    const val UpdateTodoListRoute = "UpdateTodoList"
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -77,6 +80,9 @@ fun ApplicationNavigation() {
         }
         composable(NavGraph.ToDoListRoute) {
             TodoListView(navController, TodolistVM())
+        }
+        composable(NavGraph.UpdateTodoListRoute){
+            UpdateToDo(navController,TodolistVM(), GlobalVariable.UpdateID)
         }
     }
 }
