@@ -568,7 +568,7 @@ fun badgess(picture: String) {
         modifier = Modifier
             .padding(bottom = 3.dp)
             .padding(end = 10.dp)
-            .size(90.dp),
+            .size(60.dp),
     )
 }
 
