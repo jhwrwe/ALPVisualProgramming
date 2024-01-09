@@ -1,7 +1,10 @@
 package com.example.alpvisualprogramming.ui
 
 import android.os.Build
+import android.window.SplashScreen
 import androidx.annotation.RequiresApi
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
@@ -22,6 +25,7 @@ import com.example.alpvisualprogramming.ui.views.MissionView
 import com.example.alpvisualprogramming.ui.views.Profile
 import com.example.alpvisualprogramming.ui.views.SignInPageView
 import com.example.alpvisualprogramming.ui.views.SignUpPageView
+import com.example.alpvisualprogramming.ui.views.SplashScreenView
 import com.example.alpvisualprogramming.ui.views.TodoListView
 import com.example.alpvisualprogramming.ui.views.UpdateToDo
 
@@ -40,7 +44,7 @@ object NavGraph {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ApplicationNavigation() {
+fun <Modifier> ApplicationNavigation() {
     val navController = rememberNavController()
     val dataStore = DataStoreManager(LocalContext.current)
 
@@ -58,6 +62,11 @@ fun ApplicationNavigation() {
                 navController.navigate(NavGraph.HomePageRoute)
             }
         }
+
+        composable("splash_route") {
+            SplashScreenView(navController)
+        }
+
         composable(NavGraph.HomePageRoute) {
             MainPageView(navController, TodolistVM(), UserVM())
         }

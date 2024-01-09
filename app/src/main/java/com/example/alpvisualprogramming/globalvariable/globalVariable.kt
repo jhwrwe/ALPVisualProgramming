@@ -1,5 +1,7 @@
 package com.example.alpvisualprogramming.globalvariable
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.alpvisualprogramming.model.Badge
 import com.example.alpvisualprogramming.model.Mission
 import com.example.alpvisualprogramming.model.Todolist
@@ -31,6 +33,17 @@ class GlobalVariable() {
         val _todolistDetail = MutableStateFlow(Todolist())
         val todolistDetail: StateFlow<Todolist> = _todolistDetail.asStateFlow()
 
+        private val _navigateToNextScreen = MutableStateFlow(false)
+        val navigateToNextScreen: StateFlow<Boolean> = _navigateToNextScreen
+
+        fun triggerNavigation() {
+            _navigateToNextScreen.value = true
+        }
+
+        fun resetNavigation() {
+            _navigateToNextScreen.value = false
+        }
+        
         var UpdateID = 0;
     }
 }
