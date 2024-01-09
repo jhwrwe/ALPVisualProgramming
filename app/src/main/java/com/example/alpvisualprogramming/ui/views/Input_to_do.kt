@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +32,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.OutlinedIconButton
@@ -77,15 +79,17 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InputToDo(navController: NavController,
-              todolistViewModel: TodolistVM) {
-    var expanded by remember{ mutableStateOf(false) }
+fun InputToDo(
+    navController: NavController,
+    todolistViewModel: TodolistVM
+) {
+    var expanded by remember { mutableStateOf(false) }
     var list = listOf("Do First", "Schedule", "Delegate", "Eliminate")
     var selectedItem by remember { mutableStateOf("") }
     var textfiledsize by remember { mutableStateOf(Size.Zero) }
-    val icon = if (expanded){
+    val icon = if (expanded) {
         Icons.Filled.KeyboardArrowUp
-    }else{
+    } else {
         Icons.Filled.KeyboardArrowDown
     }
     var title by rememberSaveable { mutableStateOf("") }
@@ -94,8 +98,8 @@ fun InputToDo(navController: NavController,
     var location by rememberSaveable { mutableStateOf("") }
     var description by rememberSaveable { mutableStateOf("") }
     var category by rememberSaveable { mutableStateOf("") }
-    var timesicon by remember{ mutableStateOf(false) }
-    var spaceicon by remember{ mutableStateOf(false) }
+    var timesicon by remember { mutableStateOf(false) }
+    var spaceicon by remember { mutableStateOf(false) }
     Column(modifier = Modifier.fillMaxSize()) {
         val calenderstate = rememberSheetState()
         CalendarDialog(
@@ -106,15 +110,15 @@ fun InputToDo(navController: NavController,
                 style = CalendarStyle.MONTH,
                 disabledDates = listOf(LocalDate.now().plusDays(7))
             ),
-            selection = CalendarSelection.Date{date ->
-                Log.d("selectedDate","$date")
+            selection = CalendarSelection.Date { date ->
+                Log.d("selectedDate", "$date")
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 dates = formatter.format(date)
             }
         )
         val clockstate = rememberSheetState()
-        ClockDialog(state = clockstate, selection = ClockSelection.HoursMinutes{hours, minutes ->
-            Log.d("selectedDate","$hours:$minutes")
+        ClockDialog(state = clockstate, selection = ClockSelection.HoursMinutes { hours, minutes ->
+            Log.d("selectedDate", "$hours:$minutes")
             time = "$hours:$minutes"
         })
 
@@ -157,14 +161,14 @@ fun InputToDo(navController: NavController,
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
-            Column (){
-            Text(
-                text = "Category",
-                fontSize = 15.sp,
-                color = Color.Gray,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(top = 10.dp)
-            )
+            Column() {
+                Text(
+                    text = "Category",
+                    fontSize = 15.sp,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
 //            CustomTextField(
 //                value = category,
 //                onValueChanged = { category = it },
@@ -175,32 +179,57 @@ fun InputToDo(navController: NavController,
 //                ),
 //                modifier = Modifier.fillMaxWidth()
 //            )
-            OutlinedTextField(
-                value = selectedItem,
-                onValueChange = {selectedItem=it},
-                modifier= Modifier
-                    .fillMaxWidth()
-                    .onGloballyPositioned { coordinates ->
-                        textfiledsize = coordinates.size.toSize()
-                    },
-                label = { Text(text = "Selected Item")},
-                trailingIcon = {
-                    Icon(icon,"",Modifier.clickable { expanded = !expanded })
-                }
-            )
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded= false },
-                modifier = Modifier
-                    .width(with(LocalDensity.current){textfiledsize.width.toDp()})) {
-                list.forEach {label->
-                  DropdownMenuItem(text = { Text(text = label) }, onClick = {
-                      selectedItem = label
-                      expanded = false } ,Modifier.background(Color.White))
+//                OutlinedTextField(
+//                    value = selectedItem,
+//                    onValueChange = { selectedItem = it },
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .onGloballyPositioned { coordinates ->
+//                            textfiledsize = coordinates.size.toSize()
+//                        },
+//                    label = { Text(text = "Selected Item") },
+//                    trailingIcon = {
+//                        Icon(icon, "", Modifier.clickable { expanded = !expanded })
+//                    }
+//                )
+                IconButton(
+                    onClick = { expanded = true },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(15.dp))
+                        .border(1.dp, Color.Gray, RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))
+                        .onGloballyPositioned { coordinates ->
+                            textfiledsize = coordinates.size.toSize()
+                        },
+                ) {
+                    Box(
+                        modifier = Modifier.fillMaxSize().padding(10.dp),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(text = selectedItem, textAlign = TextAlign.Left)
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = "dropdown",
+                            Modifier.align(Alignment.CenterEnd)
+                        )
+                    }
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false },
+                        modifier = Modifier
+                            .width(with(LocalDensity.current) { textfiledsize.width.toDp() })
+                    ) {
+                        list.forEach { label ->
+                            DropdownMenuItem(text = { Text(text = label) }, onClick = {
+                                selectedItem = label
+                                expanded = false
+                            }, Modifier.background(Color.White))
 
+                        }
+                    }
                 }
+
             }
-        }
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -214,12 +243,16 @@ fun InputToDo(navController: NavController,
                         modifier = Modifier.padding(top = 10.dp)
                     )
                     OutlinedIconButton(
-                   onClick = {
-                       spaceicon = !spaceicon
-                        calenderstate.show()
-                    },modifier=Modifier.fillMaxWidth()) {
-                        if(!spaceicon){
-                            Icon(imageVector = Icons.Outlined.DateRange, contentDescription = "Date Picker Icon")
+                        onClick = {
+                            spaceicon = !spaceicon
+                            calenderstate.show()
+                        }, modifier = Modifier.fillMaxWidth()
+                    ) {
+                        if (!spaceicon) {
+                            Icon(
+                                imageVector = Icons.Outlined.DateRange,
+                                contentDescription = "Date Picker Icon"
+                            )
                         }
                         Text(text = dates)
                     }
@@ -240,11 +273,14 @@ fun InputToDo(navController: NavController,
                         modifier = Modifier.padding(top = 10.dp)
                     )
                     OutlinedIconButton(onClick = {
-                        timesicon =!timesicon
+                        timesicon = !timesicon
                         clockstate.show()
-                    },modifier=Modifier.fillMaxWidth()) {
-                        if(!timesicon){
-                            Icon(imageVector = Icons.Outlined.Schedule, contentDescription = "Date Picker Icon")
+                    }, modifier = Modifier.fillMaxWidth()) {
+                        if (!timesicon) {
+                            Icon(
+                                imageVector = Icons.Outlined.Schedule,
+                                contentDescription = "Date Picker Icon"
+                            )
                         }
                         Text(text = time)
                     }
@@ -297,12 +333,16 @@ fun InputToDo(navController: NavController,
             ) {
                 Column(Modifier.weight(0.95F)) {
                     Button(
-                        onClick = {  },
+                        onClick = { },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
                         shape = RoundedCornerShape(8.dp)
                     ) {
-                        Text(text = "Invite people + ", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                        Text(
+                            text = "Invite people + ",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp
+                        )
                     }
                 }
                 Column(Modifier.weight(0.95F)) {
@@ -311,7 +351,15 @@ fun InputToDo(navController: NavController,
             }
             Button(
                 onClick = {
-                    todolistViewModel.ButtonSubmitTodolist(title,dates,time,selectedItem,description,location, navController )
+                    todolistViewModel.ButtonSubmitTodolist(
+                        title,
+                        dates,
+                        time,
+                        selectedItem,
+                        description,
+                        location,
+                        navController
+                    )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -324,6 +372,7 @@ fun InputToDo(navController: NavController,
         }
     }
 }
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -587,6 +636,7 @@ fun UpdateToDo(navController: NavController,
         }
     }
 }
+
 @Composable
 fun DatePicker(date: String, onDateSelected: (String) -> Unit, modifier: Modifier = Modifier) {
     OutlinedIconButton(
@@ -638,9 +688,10 @@ fun customTextFielda(
         )
     )
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun customtextfieldforCategory(){
+fun customtextfieldforCategory() {
 
 }
 
