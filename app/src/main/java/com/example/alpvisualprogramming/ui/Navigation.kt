@@ -52,7 +52,7 @@ fun <Modifier> ApplicationNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = NavGraph.SignInPageRoute,
+        startDestination = "splash_route",
     ) {
         composable(NavGraph.LoginPageRoute) {
             if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {

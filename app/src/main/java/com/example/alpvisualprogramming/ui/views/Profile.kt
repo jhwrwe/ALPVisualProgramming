@@ -284,8 +284,8 @@ fun Profile(
                             ) {
                                 LazyRow(
                                     modifier = Modifier
-                                        .padding(top = 20.dp)
-                                        .padding(bottom = 20.dp)
+                                        .padding(top = 1.dp)
+                                        .padding(bottom = 1.dp)
                                 ) {
                                     items(uBadges.size) { item ->
                                         badgess(
@@ -553,6 +553,7 @@ fun General(texta: String, textb: String, picture: String) {
 
 @Composable
 fun badgess(picture: String) {
+    Log.d("salah badgess", picture)
     val context = LocalContext.current
     val drawable = stringToDrawableId(context, picture)
     Image(

@@ -95,21 +95,39 @@ fun TodoListView(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
-                painter = painterResource(id = R.drawable.frame_5),
+                painter =
+                if (GlobalVariable.urgency == 1) {
+                    painterResource(id = R.drawable.frame_5)
+                } else if (GlobalVariable.urgency == 2) {
+                    painterResource(id = R.drawable.frame_6)
+                } else if (GlobalVariable.urgency == 3) {
+                    painterResource(id = R.drawable.frame_7)
+                } else {
+                    painterResource(id = R.drawable.frame_8)
+                },
                 contentDescription = null,
                 modifier = Modifier
                     .size(35.dp)
             )
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = "Do First",
+                text =
+                if (GlobalVariable.urgency == 1) {
+                    "Do First"
+                } else if (GlobalVariable.urgency == 2) {
+                    "Schedule"
+                } else if (GlobalVariable.urgency == 3) {
+                    "Delegate"
+                } else {
+                    "Eliminate"
+                },
                 fontWeight = FontWeight.Bold,
                 fontSize = 30.sp,
                 color = Color(0xFF3F3F3F),
             )
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = "8 Task",
+                text = "${GlobalVariable.todolists.value.size} Tasks",
                 fontWeight = FontWeight.Normal,
                 fontSize = 14.sp,
                 color = Color(0xFF8B8E91),
@@ -117,7 +135,16 @@ fun TodoListView(
             )
         }
         Text(
-            text = "Urgent and important.  Give this task the highest priority.",
+            text =
+            if (GlobalVariable.urgency == 1) {
+                "Urgent and IMPORTANT! Do First"
+            } else if (GlobalVariable.urgency == 2) {
+                "Scheduleable, Second to Urgent Tasks"
+            } else if (GlobalVariable.urgency == 3) {
+                "Needed Right Now, but Not Very Important"
+            } else {
+                "!!DO THE OTHERS FIRST BEFORE THIS!!"
+            },
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
             color = Color(0xFF3F3F3F),
@@ -270,7 +297,6 @@ fun CardWithCheckbox(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TodoListPreview() {
-
     val navController = rememberNavController()
     TodoListView(navController, TodolistVM())
 }
