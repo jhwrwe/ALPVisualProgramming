@@ -36,6 +36,8 @@ class GlobalVariable() {
         private val _navigateToNextScreen = MutableStateFlow(false)
         val navigateToNextScreen: StateFlow<Boolean> = _navigateToNextScreen
 
+        var deadlineTitle = ""
+
         fun triggerNavigation() {
             _navigateToNextScreen.value = true
         }

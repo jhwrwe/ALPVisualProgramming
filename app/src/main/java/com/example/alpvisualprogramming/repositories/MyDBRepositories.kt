@@ -143,6 +143,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
                             (userbadge["price"] as? Double)?.toInt() ?: 0,
                         )
                         data.add(userbadges)
+
                     }
                 }
             }

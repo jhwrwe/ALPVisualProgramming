@@ -26,6 +26,7 @@ import com.example.alpvisualprogramming.ui.views.Profile
 import com.example.alpvisualprogramming.ui.views.SignInPageView
 import com.example.alpvisualprogramming.ui.views.SignUpPageView
 import com.example.alpvisualprogramming.ui.views.SplashScreenView
+import com.example.alpvisualprogramming.ui.views.TodoListDeadlineView
 import com.example.alpvisualprogramming.ui.views.TodoListView
 import com.example.alpvisualprogramming.ui.views.UpdateToDo
 
@@ -40,6 +41,7 @@ object NavGraph {
     const val SignUpPage = "SignUp"
     const val ToDoListRoute = "ToDoList"
     const val UpdateTodoListRoute = "UpdateTodoList"
+    const val DeadlineToDoListRoute = "DeadlineToDoList"
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -52,7 +54,7 @@ fun <Modifier> ApplicationNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = NavGraph.SignInPageRoute,
+        startDestination = "splash_route",
     ) {
         composable(NavGraph.LoginPageRoute) {
             if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
@@ -93,5 +95,9 @@ fun <Modifier> ApplicationNavigation() {
         composable(NavGraph.UpdateTodoListRoute){
             UpdateToDo(navController,TodolistVM(), GlobalVariable.UpdateID)
         }
+        composable(NavGraph.DeadlineToDoListRoute){
+            TodoListDeadlineView(navController,TodolistVM())
+        }
+
     }
 }

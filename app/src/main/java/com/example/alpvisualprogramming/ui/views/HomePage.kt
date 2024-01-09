@@ -162,28 +162,28 @@ Log.d("HomePage", "")
                     text = "Too Late",
                     number = 42
                 ){
-                    todolistViewModel.getLateTodolist(navController)
+                    todolistViewModel.ToDoListDeadline(navController, "Too Late")
                 }
                 IconTextNumberCard(
                     imageResId = R.drawable.icons8_deadline_96,
                     text = "Today",
                     number = 42
                 ){
-                    todolistViewModel.getTodayTodolist(navController)
+                    todolistViewModel.ToDoListDeadline(navController, "Today")
                 }
                 IconTextNumberCard(
                     imageResId = R.drawable.icons8_do_not_disturb_ios_96,
                     text = "Tomorrow",
                     number = 42
                 ){
-                    todolistViewModel.getTodayTodolist(navController)
+                    todolistViewModel.ToDoListDeadline(navController, "Tomorrow")
                 }
                 IconTextNumberCard(
                     imageResId = R.drawable.icons8_question_96,
                     text = "Someday",
                     number = 42
                 ){
-                    todolistViewModel.getSomedayTodolist(navController)
+                    todolistViewModel.ToDoListDeadline(navController, "Someday")
                 }
             }
         }

@@ -27,6 +27,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,6 +50,7 @@ import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.viewmodel.SplashScreenVM
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
+import kotlinx.coroutines.delay
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -57,9 +59,14 @@ fun SplashScreenView( navController: NavController
 ) {
     val navigateToNextScreen by GlobalVariable.navigateToNextScreen.collectAsState()
 
+    LaunchedEffect(true) {
+        delay(2000)
+        GlobalVariable.triggerNavigation()
+    }
+
     if (navigateToNextScreen) {
         GlobalVariable.resetNavigation()
-        navController.navigate("destination_route") // Gantikan dengan route Anda
+        navController.navigate(NavGraph.SignInPageRoute) // Gantikan dengan route Anda
     }
 
     Surface(
