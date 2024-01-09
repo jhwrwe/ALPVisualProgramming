@@ -30,6 +30,51 @@ class TodolistVM : ViewModel() {
         return todolistList
     }
 
+    fun getLateTodolist(navController: NavController): List<Todolist> {
+        var todolistList: List<Todolist> = emptyList()
+        viewModelScope.launch {
+            todolistList = MyDBContainer().myDBRepositories.getLateTodolist() ?: emptyList()
+            GlobalVariable._todolists.value = todolistList
+            Log.d(".value TESTING", GlobalVariable._todolists.value.toString())
+            navController.navigate(NavGraph.ToDoListRoute)
+        }
+        return todolistList
+    }
+
+    fun getTodayTodolist(navController: NavController): List<Todolist> {
+        var todolistList: List<Todolist> = emptyList()
+        viewModelScope.launch {
+            todolistList = MyDBContainer().myDBRepositories.getTodayTodolist() ?: emptyList()
+            GlobalVariable._todolists.value = todolistList
+            Log.d(".value TESTING", GlobalVariable._todolists.value.toString())
+            navController.navigate(NavGraph.ToDoListRoute)
+        }
+        return todolistList
+    }
+
+    fun getTomorrowTodolist(navController: NavController): List<Todolist> {
+        var todolistList: List<Todolist> = emptyList()
+        viewModelScope.launch {
+            todolistList = MyDBContainer().myDBRepositories.getTomorrowTodolist() ?: emptyList()
+            GlobalVariable._todolists.value = todolistList
+            Log.d(".value TESTING", GlobalVariable._todolists.value.toString())
+            navController.navigate(NavGraph.ToDoListRoute)
+        }
+        return todolistList
+    }
+
+    fun getSomedayTodolist(navController: NavController): List<Todolist> {
+        var todolistList: List<Todolist> = emptyList()
+        viewModelScope.launch {
+            todolistList = MyDBContainer().myDBRepositories.getSomedayTodolist() ?: emptyList()
+//            Log.d("Someday TDL", todolistList.toString())
+            GlobalVariable._todolists.value = todolistList
+            Log.d(".value TESTING", GlobalVariable._todolists.value.toString())
+            navController.navigate(NavGraph.ToDoListRoute)
+        }
+        return todolistList
+    }
+
     fun getTodolistDetail(id:Int, navController: NavController){
         var Todolisted: List<Todolist> = emptyList()
         viewModelScope.launch {

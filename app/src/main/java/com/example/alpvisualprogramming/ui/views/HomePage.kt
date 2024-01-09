@@ -161,32 +161,30 @@ Log.d("HomePage", "")
                     imageResId = R.drawable.icons8_time_96,
                     text = "Too Late",
                     number = 42
-                )
+                ){
+                    todolistViewModel.getLateTodolist(navController)
+                }
                 IconTextNumberCard(
                     imageResId = R.drawable.icons8_deadline_96,
                     text = "Today",
                     number = 42
-                )
+                ){
+                    todolistViewModel.getTodayTodolist(navController)
+                }
                 IconTextNumberCard(
                     imageResId = R.drawable.icons8_do_not_disturb_ios_96,
                     text = "Tomorrow",
                     number = 42
-                )
+                ){
+                    todolistViewModel.getTodayTodolist(navController)
+                }
                 IconTextNumberCard(
                     imageResId = R.drawable.icons8_question_96,
                     text = "Someday",
                     number = 42
-                )
-                IconTextNumberCard(
-                    imageResId = R.drawable.icons8_no_data_availible_96,
-                    text = "No Deadline",
-                    number = 42
-                )
-                IconTextNumberCard(
-                    imageResId = R.drawable.icons8_done_96,
-                    text = "Done",
-                    number = 42
-                )
+                ){
+                    todolistViewModel.getSomedayTodolist(navController)
+                }
             }
         }
 
@@ -244,12 +242,13 @@ fun ColoredCard(title: String, subtitle: String, color: Color, onClick: () -> Un
 }
 
 @Composable
-fun IconTextNumberCard(imageResId: Int, text: String, number: Int) {
+fun IconTextNumberCard(imageResId: Int, text: String, number: Int, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(55.dp)
-            .padding(bottom = 10.dp),
+            .padding(bottom = 10.dp)
+            .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFFF3F8FF)
         )

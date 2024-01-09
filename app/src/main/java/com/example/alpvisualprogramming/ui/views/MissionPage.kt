@@ -524,7 +524,7 @@ fun Missions(
 
 @Composable
 fun Badges(id: Int, title: String, price: Int, picture: String, badgeVM: BadgeVM, userCoins: Int) {
-
+    Log.d("BADGES NAME", title)
     val context = LocalContext.current
 //    val drawable = stringToDrawableId(context, picture)
     var badgeBoolean by remember { mutableStateOf(false) }

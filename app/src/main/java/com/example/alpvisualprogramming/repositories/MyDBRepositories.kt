@@ -103,14 +103,13 @@ class MyDBRepositories(private val myDBService: MyDBService) {
 
             if (allBadgeResponse != null) {
                 val allBadge = allBadgeResponse.data as? List<Map<String, Any>>
-
                 if (allBadge != null) {
                     for (badgess in allBadge) {
                         val badges = Badge(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
                             (badgess["id"] as? Double)?.toInt() ?: 0,
                             (badgess["image"] as? String)?.toString() ?: "",
-                            (badgess["price"] as? String)?.toString() ?: "",
+                            (badgess["name"] as? String)?.toString() ?: "",
                             (badgess["price"] as? Double)?.toInt() ?: 0,
 
                             )
@@ -305,6 +304,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
         try {
             val listTodolists = myDBService.getLateTodolists()
             val data = mutableListOf<Todolist>()
+
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
                 if (allTodolist != null) {
@@ -323,10 +323,12 @@ class MyDBRepositories(private val myDBService: MyDBService) {
                     }
                 }
             }
+//            Log.d("repo", data[0].title)
+//            Log.d("DATA urgency status", data.toString())
             return data
-            Log.d("Error GetLateToDoList", data.toString())
+//            Log.d("Error GetToDOListUrgency", data.toString())
         } catch (e: Exception) {
-            Log.d("Error GetLateToDoList", e.message.toString())
+            Log.d("Error GetToDOListUrgency", e.message.toString())
             return mutableListOf()
         }
     }
@@ -365,6 +367,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
         try {
             val listTodolists = myDBService.getTomorrowTodolists()
             val data = mutableListOf<Todolist>()
+
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
                 if (allTodolist != null) {
@@ -383,10 +386,12 @@ class MyDBRepositories(private val myDBService: MyDBService) {
                     }
                 }
             }
+//            Log.d("repo", data[0].title)
+//            Log.d("DATA urgency status", data.toString())
             return data
-            Log.d("Error GetTomorrowToDoList", data.toString())
+//            Log.d("Error GetToDOListUrgency", data.toString())
         } catch (e: Exception) {
-            Log.d("Error GetTomorrowToDoList", e.message.toString())
+            Log.d("Error GetToDOListUrgency", e.message.toString())
             return mutableListOf()
         }
     }
@@ -395,6 +400,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
         try {
             val listTodolists = myDBService.getSomedayTodolists()
             val data = mutableListOf<Todolist>()
+
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
                 if (allTodolist != null) {
@@ -413,10 +419,12 @@ class MyDBRepositories(private val myDBService: MyDBService) {
                     }
                 }
             }
+//            Log.d("Someday TDL REPO", data[0].toString())
+//            Log.d("DATA urgency status", data.toString())
             return data
-            Log.d("GetSomeDay", data.toString())
+//            Log.d("Error GetToDOListUrgency", data.toString())
         } catch (e: Exception) {
-            Log.d("GetSomeDay", e.message.toString())
+            Log.d("Error GetToDOListUrgency", e.message.toString())
             return mutableListOf()
         }
     }
