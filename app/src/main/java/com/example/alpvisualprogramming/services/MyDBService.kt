@@ -74,7 +74,7 @@ interface MyDBService{
     @GET("tomorrowTodolist")
     suspend fun getTomorrowTodolists(): APIResponse
 
-    @GET("somedayTodolists")
+    @GET("somedayTodolist")
     suspend fun getSomedayTodolists(): APIResponse
 
     @GET("doneTodolist")

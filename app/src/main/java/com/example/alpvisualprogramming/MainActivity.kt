@@ -10,7 +10,7 @@ import com.example.alpvisualprogramming.ui.ApplicationNavigation
 
 class MainActivity : ComponentActivity() {
 
-//    private lateinit var navController: NavController
+    private lateinit var navController: NavController
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
