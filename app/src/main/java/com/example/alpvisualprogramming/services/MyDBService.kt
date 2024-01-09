@@ -81,7 +81,7 @@ interface MyDBService{
     suspend fun getDoneTodolists(): APIResponse
 
     @PATCH("todolist/{id}")
-    suspend fun updateTodolist(@Path("id") id: Int, @Body todolist: Todolist): APIResponse
+    suspend fun updateTodolist(@Path("id") id: Int, @Body todolist: todolisttempo): APIResponse
 
     @DELETE("todolist/{id}")
     suspend fun deleteTodolist(@Path("id") id: Int):APIResponse
