@@ -305,6 +305,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
         try {
             val listTodolists = myDBService.getLateTodolists()
             val data = mutableListOf<Todolist>()
+
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
                 if (allTodolist != null) {
@@ -323,10 +324,12 @@ class MyDBRepositories(private val myDBService: MyDBService) {
                     }
                 }
             }
+//            Log.d("repo", data[0].title)
+//            Log.d("DATA urgency status", data.toString())
             return data
-            Log.d("Error GetLateToDoList", data.toString())
+//            Log.d("Error GetToDOListUrgency", data.toString())
         } catch (e: Exception) {
-            Log.d("Error GetLateToDoList", e.message.toString())
+            Log.d("Error GetToDOListUrgency", e.message.toString())
             return mutableListOf()
         }
     }
@@ -365,6 +368,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
         try {
             val listTodolists = myDBService.getTomorrowTodolists()
             val data = mutableListOf<Todolist>()
+
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
                 if (allTodolist != null) {
@@ -383,10 +387,12 @@ class MyDBRepositories(private val myDBService: MyDBService) {
                     }
                 }
             }
+//            Log.d("repo", data[0].title)
+//            Log.d("DATA urgency status", data.toString())
             return data
-            Log.d("Error GetTomorrowToDoList", data.toString())
+//            Log.d("Error GetToDOListUrgency", data.toString())
         } catch (e: Exception) {
-            Log.d("Error GetTomorrowToDoList", e.message.toString())
+            Log.d("Error GetToDOListUrgency", e.message.toString())
             return mutableListOf()
         }
     }
@@ -395,6 +401,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
         try {
             val listTodolists = myDBService.getSomedayTodolists()
             val data = mutableListOf<Todolist>()
+
             if (listTodolists != null) {
                 val allTodolist = listTodolists.data as? List<Map<String, Any>>
                 if (allTodolist != null) {
@@ -413,10 +420,12 @@ class MyDBRepositories(private val myDBService: MyDBService) {
                     }
                 }
             }
+//            Log.d("repo", data[0].title)
+//            Log.d("DATA urgency status", data.toString())
             return data
-            Log.d("GetSomeDay", data.toString())
+//            Log.d("Error GetToDOListUrgency", data.toString())
         } catch (e: Exception) {
-            Log.d("GetSomeDay", e.message.toString())
+            Log.d("Error GetToDOListUrgency", e.message.toString())
             return mutableListOf()
         }
     }
