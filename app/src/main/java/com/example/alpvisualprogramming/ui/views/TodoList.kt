@@ -254,6 +254,7 @@ fun CardWithCheckbox(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TodoListPreview() {
+
     val navController = rememberNavController()
     TodoListView(navController, TodolistVM())
 }
