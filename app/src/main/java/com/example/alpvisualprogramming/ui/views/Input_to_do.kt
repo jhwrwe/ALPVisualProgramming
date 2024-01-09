@@ -81,7 +81,7 @@ fun InputToDo(
     todolistViewModel: TodolistVM
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var list = listOf("Do First", "Schedule", "Delegate", "Eliminate")
+    var list = listOf("Do First", "Schedule", "Delegate", "Event")
     var selectedItem by remember { mutableStateOf("") }
     var textfiledsize by remember { mutableStateOf(Size.Zero) }
     val icon = if (expanded) {
