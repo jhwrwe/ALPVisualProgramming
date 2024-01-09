@@ -103,14 +103,13 @@ class MyDBRepositories(private val myDBService: MyDBService) {
 
             if (allBadgeResponse != null) {
                 val allBadge = allBadgeResponse.data as? List<Map<String, Any>>
-
                 if (allBadge != null) {
                     for (badgess in allBadge) {
                         val badges = Badge(
                             // missionMap["id"] as Int, // Uncomment if 'id' is present
                             (badgess["id"] as? Double)?.toInt() ?: 0,
                             (badgess["image"] as? String)?.toString() ?: "",
-                            (badgess["price"] as? String)?.toString() ?: "",
+                            (badgess["name"] as? String)?.toString() ?: "",
                             (badgess["price"] as? Double)?.toInt() ?: 0,
 
                             )
@@ -420,7 +419,7 @@ class MyDBRepositories(private val myDBService: MyDBService) {
                     }
                 }
             }
-//            Log.d("repo", data[0].title)
+//            Log.d("Someday TDL REPO", data[0].toString())
 //            Log.d("DATA urgency status", data.toString())
             return data
 //            Log.d("Error GetToDOListUrgency", data.toString())

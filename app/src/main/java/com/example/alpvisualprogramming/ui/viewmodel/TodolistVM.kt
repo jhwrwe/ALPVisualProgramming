@@ -67,6 +67,7 @@ class TodolistVM : ViewModel() {
         var todolistList: List<Todolist> = emptyList()
         viewModelScope.launch {
             todolistList = MyDBContainer().myDBRepositories.getSomedayTodolist() ?: emptyList()
+//            Log.d("Someday TDL", todolistList.toString())
             GlobalVariable._todolists.value = todolistList
             Log.d(".value TESTING", GlobalVariable._todolists.value.toString())
             navController.navigate(NavGraph.ToDoListRoute)
