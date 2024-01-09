@@ -43,7 +43,6 @@ object NavGraph {
 fun ApplicationNavigation() {
     val navController = rememberNavController()
     val dataStore = DataStoreManager(LocalContext.current)
-    val id: Int=0;
 
 
     NavHost(

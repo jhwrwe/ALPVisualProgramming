@@ -92,7 +92,7 @@ fun Profile(
                     modifier = Modifier
                         .zIndex(2f)
                         .fillMaxWidth()
-                        .fillMaxHeight(0.6F)
+                        .fillMaxHeight(0.63F)
                         .padding(top = 60.dp)
                         .shadow(
                             elevation = 17.dp,
@@ -245,7 +245,7 @@ fun Profile(
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
                                             Image(
-                                                painter = painterResource(id = R.drawable.coin_logo),
+                                                painter = painterResource(id = R.drawable.icons8_done_96__1__1),
                                                 contentDescription = "coin_logo",
                                                 modifier = Modifier
                                                     .size(20.dp)
@@ -283,8 +283,8 @@ fun Profile(
                             ) {
                                 LazyRow(
                                     modifier = Modifier
-                                        .padding(top = 10.dp)
-                                        .padding(bottom = 10.dp)
+                                        .padding(top = 20.dp)
+                                        .padding(bottom = 20.dp)
                                 ) {
                                     items(uBadges.size) { item ->
                                         badgess(
@@ -301,11 +301,12 @@ fun Profile(
                 }
 
             }
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(1.5F)
-            ) {
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .zIndex(2F)
+//                    .fillMaxHeight(1.5F)
+//            ) {
                 Text(
                     text = "General", fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
@@ -318,9 +319,9 @@ fun Profile(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(5.dp)
-                        .padding(start = 5.dp)
-                        .fillMaxHeight(0.22F)
-                        .padding(end = 20.dp)
+                        .padding(start = 15.dp)
+                        .fillMaxHeight(0.24F)
+                        .padding(end = 15.dp)
                         .padding(top = 5.dp)
                         .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
                         .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
@@ -335,7 +336,7 @@ fun Profile(
                         verticalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.bronze_medal),
+                            painter = painterResource(id = R.drawable.icons8_settings_96_1),
                             contentDescription = "badge",
                             modifier = Modifier
 
@@ -377,9 +378,9 @@ fun Profile(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(5.dp)
-                        .padding(start = 5.dp)
-                        .fillMaxHeight(0.28F)
-                        .padding(end = 20.dp)
+                        .padding(start = 15.dp)
+                        .fillMaxHeight(0.32F)
+                        .padding(end = 15.dp)
                         .padding(top = 5.dp)
                         .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
                         .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
@@ -394,7 +395,7 @@ fun Profile(
                         verticalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.bronze_medal),
+                            painter = painterResource(id = R.drawable.icons8_language_96_1),
                             contentDescription = "badge",
                             modifier = Modifier
 
@@ -435,9 +436,9 @@ fun Profile(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(5.dp)
-                        .fillMaxHeight(0.38F)
-                        .padding(start = 5.dp)
-                        .padding(end = 20.dp)
+                        .fillMaxHeight(0.48F)
+                        .padding(start = 15.dp)
+                        .padding(end = 15.dp)
                         .padding(top = 5.dp)
                         .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
                         .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
@@ -452,7 +453,7 @@ fun Profile(
                         verticalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.bronze_medal),
+                            painter = painterResource(id = R.drawable.icons8_logout_96_1),
                             contentDescription = "badge",
                             modifier = Modifier
 
@@ -500,7 +501,7 @@ fun Profile(
     }
 
 
-}
+
 
 @Composable
 fun General(texta: String, textb: String, picture: String) {
