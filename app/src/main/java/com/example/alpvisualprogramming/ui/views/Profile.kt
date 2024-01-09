@@ -92,7 +92,7 @@ fun Profile(
                     modifier = Modifier
                         .zIndex(2f)
                         .fillMaxWidth()
-                        .fillMaxHeight(0.57F)
+                        .fillMaxHeight(0.6F)
                         .padding(top = 60.dp)
                         .shadow(
                             elevation = 17.dp,
@@ -319,7 +319,7 @@ fun Profile(
                         .fillMaxWidth()
                         .padding(5.dp)
                         .padding(start = 15.dp)
-                        .fillMaxHeight(0.24F)
+                        .fillMaxHeight(0.26F)
                         .padding(end = 15.dp)
                         .padding(top = 5.dp)
                         .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
@@ -378,7 +378,7 @@ fun Profile(
                         .fillMaxWidth()
                         .padding(5.dp)
                         .padding(start = 15.dp)
-                        .fillMaxHeight(0.32F)
+                        .fillMaxHeight(0.38F)
                         .padding(end = 15.dp)
                         .padding(top = 5.dp)
                         .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
@@ -435,7 +435,7 @@ fun Profile(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(5.dp)
-                        .fillMaxHeight(0.48F)
+                        .fillMaxHeight(0.62F)
                         .padding(start = 15.dp)
                         .padding(end = 15.dp)
                         .padding(top = 5.dp)
@@ -492,11 +492,8 @@ fun Profile(
 
 
             }
-        }
-
-
         Footer(navController = navController, "Profile")
-
+        }
     }
 
 
