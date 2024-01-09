@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.Data.DataStoreManager
+import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.viewmodel.BadgeVM
 import com.example.alpvisualprogramming.ui.viewmodel.MissionVM
@@ -79,7 +80,7 @@ fun ApplicationNavigation() {
             TodoListView(navController, TodolistVM())
         }
         composable(NavGraph.UpdateTodoListRoute){
-            UpdateToDo(navController,TodolistVM())
+            UpdateToDo(navController,TodolistVM(), GlobalVariable.UpdateID)
         }
     }
 }

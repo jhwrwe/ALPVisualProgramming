@@ -9,6 +9,7 @@ import com.example.alpvisualprogramming.globalvariable.GlobalVariable
 import com.example.alpvisualprogramming.globalvariable.GlobalVariable.Companion._todolistDetail
 import com.example.alpvisualprogramming.globalvariable.GlobalVariable.Companion.todolistDetail
 import com.example.alpvisualprogramming.model.Todolist
+import com.example.alpvisualprogramming.model.User
 import com.example.alpvisualprogramming.model.todolisttempo
 import com.example.alpvisualprogramming.repositories.MyDBContainer
 import com.example.alpvisualprogramming.ui.NavGraph
@@ -30,10 +31,16 @@ class TodolistVM : ViewModel() {
     }
 
     fun getTodolistDetail(id:Int, navController: NavController){
+        var Todolisted: List<Todolist> = emptyList()
         viewModelScope.launch {
-            val todolistDetail = MyDBContainer().myDBRepositories.getTodolistDetail(id)
+            Todolisted = MyDBContainer().myDBRepositories.getTodolistDetail(id) as List<Todolist>
+            Log.d("TODOLISTDETAIL VM", Todolisted.toString())
+            if (Todolisted.isNotEmpty()) {
+                GlobalVariable._todolistDetail.value = Todolisted[0]
+                Log.d("_todolast.VALUE", GlobalVariable._todolistDetail.value.toString())
+            }
+            GlobalVariable.UpdateID = id
             navController.navigate(NavGraph.UpdateTodoListRoute)
-            _todolistDetail.value = todolistDetail
         }
     }
 
@@ -51,11 +58,12 @@ class TodolistVM : ViewModel() {
                 navController.navigate(NavGraph.InputToDoRoute)
             }
 
-            val UpdateTodolist = todolisttempo(title, date, time, US, location, description, false)
-            val finnish = MyDBContainer().myDBRepositories.updateTodolist(id, UpdateTodolist)
-            if (finnish.equals("Success",true)){
-                navController.navigate(NavGraph.LoginPageRoute)
-            }
+            val UpdateTodolist = Todolist(id,title, date, time, US, description, GlobalVariable.todolistDetail.value.progress_status,  location)
+            MyDBContainer().myDBRepositories.updateTodolist(id, UpdateTodolist)
+            val todolistList = MyDBContainer().myDBRepositories.getTodolistByUrgency(id) ?: emptyList()
+            getTodolistByUrgency(GlobalVariable.urgency, navController)
+            navController.navigate(NavGraph.ToDoListRoute)
+
         }
     }
 

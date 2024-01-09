@@ -136,7 +136,13 @@ fun TodoListView(
                         time = todolists[item].time,
                         progress_status = todolists[item].progress_status,
                         navController = navController,
-                        VM = todolistViewModel
+                        VM = todolistViewModel,
+                        modifier = Modifier.clickable {
+                            todolistViewModel.getTodolistDetail(
+                                todolists[item].id,
+                                navController
+                            )
+                        }
                     )
                 }
             }
@@ -172,83 +178,90 @@ fun CardWithCheckbox(
     id: Int,
     progress_status: Boolean,
     VM: TodolistVM,
+    modifier: Modifier,
     navController: NavController
 ) {
-
-    Log.d("TODOLIST ID", id.toString())
-    var isChecked by rememberSaveable { mutableStateOf(false) }
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .clickable {
-                VM.getTodolistDetail(id, navController)
-            },
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFE4EFFF)
-        )
+    Column(
+        modifier.clickable {
+            VM.getTodolistDetail(
+                id,
+                navController
+            )
+        }
     ) {
-        Row(
+        Log.d("TODOLIST ID", id.toString())
+        var isChecked by rememberSaveable { mutableStateOf(false) }
+        Card(
             modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Checkbox(
-                checked = isChecked,
-                onCheckedChange = {
-                    isChecked = it
-                    TodolistVM().ToDoListDone(id)
-                    Log.d("CLICKED HERE", "CHECKBOX CLICKED")
-                },
+            shape = RoundedCornerShape(8.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = Color(0xFFE4EFFF)
+            ),
+
+            ) {
+            Row(
                 modifier = Modifier
-                    .size(24.dp)
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Checkbox(
+                    checked = isChecked,
+                    onCheckedChange = {
+                        isChecked = it
+                        TodolistVM().ToDoListDone(id)
+                        Log.d("CLICKED HERE", "CHECKBOX CLICKED")
+                    },
+                    modifier = Modifier
+                        .size(24.dp)
 //                    .clickable {
 //                        TodolistVM().ToDoListDone(id)
 //                        Log.d("CLICKED HERE", "CHECKBOX CLICKED")
 //                    }
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(
-                modifier = Modifier
-                    .weight(1f),
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = "$title",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(
+                    modifier = Modifier
+                        .weight(1f),
+                    verticalArrangement = Arrangement.Center,
                 ) {
-                    Column {
-                        Text(
-                            text = "$location",
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 12.sp,
-                            color = Color(0xFF8B8E91)
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(
-                            text = "$date | $time WIB",
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 12.sp,
-                            color = Color(0xFF8B8E91)
-                        )
+                    Text(
+                        text = "$title",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column {
+                            Text(
+                                text = "$location",
+                                fontWeight = FontWeight.Normal,
+                                fontSize = 12.sp,
+                                color = Color(0xFF8B8E91)
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = "$date | $time WIB",
+                                fontWeight = FontWeight.Normal,
+                                fontSize = 12.sp,
+                                color = Color(0xFF8B8E91)
+                            )
+                        }
                     }
                 }
+                Image(
+                    painter = painterResource(id = R.drawable.icons8_delete_96),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(20.dp)
+                        .clickable {
+                            VM.deleteTodolist(id, navController)
+                        }
+                )
             }
-            Image(
-                painter = painterResource(id = R.drawable.icons8_delete_96),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(20.dp)
-                    .clickable {
-                        VM.deleteTodolist(id, navController)
-                    }
-            )
         }
     }
 }

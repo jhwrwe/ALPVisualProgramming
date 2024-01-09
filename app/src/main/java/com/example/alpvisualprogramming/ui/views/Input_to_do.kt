@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,18 +22,13 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MenuDefaults
-import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -64,6 +58,7 @@ import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.alpvisualprogramming.globalvariable.GlobalVariable
+import com.example.alpvisualprogramming.ui.NavGraph
 import com.example.alpvisualprogramming.ui.viewmodel.TodolistVM
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
@@ -203,7 +198,9 @@ fun InputToDo(
                         },
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxSize().padding(10.dp),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp),
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Text(text = selectedItem, textAlign = TextAlign.Left)
@@ -377,36 +374,52 @@ fun InputToDo(
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UpdateToDo(navController: NavController,
-              todolistViewModel: TodolistVM) {
-    var expanded by remember{ mutableStateOf(false) }
-    var list = listOf("Do First", "Schedule", "Delegate", "Eliminate")
-    var selectedItem by remember { mutableStateOf("") }
-    var textfiledsize by remember { mutableStateOf(Size.Zero) }
-    val icon = if (expanded){
-        Icons.Filled.KeyboardArrowUp
-    }else{
-        Icons.Filled.KeyboardArrowDown
-    }
+fun UpdateToDo(
+    navController: NavController,
+    todolistViewModel: TodolistVM, id: Int
+) {
 
     val todolistsDetail by GlobalVariable.todolistDetail.collectAsState()
 
-    var id by rememberSaveable { mutableStateOf(0) }
-    var title by rememberSaveable { mutableStateOf("") }
-    var dates by rememberSaveable { mutableStateOf("") }
-    var time by rememberSaveable { mutableStateOf("") }
-    var location by rememberSaveable { mutableStateOf("") }
-    var description by rememberSaveable { mutableStateOf("") }
+    var id by rememberSaveable { mutableStateOf(todolistsDetail.id) }
+    var title by rememberSaveable { mutableStateOf(todolistsDetail.title) }
+    var dates by rememberSaveable { mutableStateOf(todolistsDetail.date) }
+    var time by rememberSaveable { mutableStateOf(todolistsDetail.time) }
+    var location by rememberSaveable { mutableStateOf(todolistsDetail.location) }
+    var description by rememberSaveable { mutableStateOf(todolistsDetail.description) }
     var category by rememberSaveable { mutableStateOf("") }
-    var timesicon by remember{ mutableStateOf(false) }
-    var spaceicon by remember{ mutableStateOf(false) }
-    id = todolistsDetail?.id!!.toInt()
-    title = todolistsDetail?.title.toString()
-    dates = todolistsDetail?.date.toString()
-    time = todolistsDetail?.time.toString()
-    location = todolistsDetail?.location.toString()
-    description = todolistsDetail?.description.toString()
-    selectedItem = todolistsDetail?.urgency_status.toString()
+    var timesicon by remember { mutableStateOf(false) }
+    var spaceicon by remember { mutableStateOf(false) }
+
+//    title = todolistsDetail.title
+//    dates = todolistsDetail.date
+//    time = todolistsDetail.time
+//    location = todolistsDetail.location
+//    description = todolistsDetail.description
+    var a:String="";
+    if(todolistsDetail.urgency_status==1){
+        a = "Do First"
+    }else if(todolistsDetail.urgency_status==2){
+        a= "Schedule"
+    }else if(todolistsDetail.urgency_status==3){
+        a= "Delegate"
+    }else if(todolistsDetail.urgency_status==4){
+        a= "Eliminate"
+    }else{
+        navController.navigate(NavGraph.ToDoListRoute)
+    }
+    var expanded by remember { mutableStateOf(false) }
+    var list = listOf("Do First", "Schedule", "Delegate", "Eliminate")
+    var selectedItem by remember { mutableStateOf(a) }
+    var textfiledsize by remember { mutableStateOf(Size.Zero) }
+    val icon = if (expanded) {
+        Icons.Filled.KeyboardArrowUp
+    } else {
+        Icons.Filled.KeyboardArrowDown
+    }
+
+
+
 
     Column(modifier = Modifier.fillMaxSize()) {
         val calenderstate = rememberSheetState()
@@ -418,15 +431,15 @@ fun UpdateToDo(navController: NavController,
                 style = CalendarStyle.MONTH,
                 disabledDates = listOf(LocalDate.now().plusDays(7))
             ),
-            selection = CalendarSelection.Date{date ->
-                Log.d("selectedDate","$date")
+            selection = CalendarSelection.Date { date ->
+                Log.d("selectedDate", "$date")
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 dates = formatter.format(date)
             }
         )
         val clockstate = rememberSheetState()
-        ClockDialog(state = clockstate, selection = ClockSelection.HoursMinutes{hours, minutes ->
-            Log.d("selectedDate","$hours:$minutes")
+        ClockDialog(state = clockstate, selection = ClockSelection.HoursMinutes { hours, minutes ->
+            Log.d("selectedDate", "$hours:$minutes")
             time = "$hours:$minutes"
         })
 
@@ -469,7 +482,7 @@ fun UpdateToDo(navController: NavController,
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
-            Column (){
+            Column() {
                 Text(
                     text = "Category",
                     fontSize = 15.sp,
@@ -498,7 +511,9 @@ fun UpdateToDo(navController: NavController,
                         },
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxSize().padding(10.dp),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp),
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Text(text = selectedItem, textAlign = TextAlign.Left)
@@ -541,9 +556,13 @@ fun UpdateToDo(navController: NavController,
                         onClick = {
                             spaceicon = !spaceicon
                             calenderstate.show()
-                        },modifier=Modifier.fillMaxWidth()) {
-                        if(!spaceicon){
-                            Icon(imageVector = Icons.Outlined.DateRange, contentDescription = "Date Picker Icon")
+                        }, modifier = Modifier.fillMaxWidth()
+                    ) {
+                        if (!spaceicon) {
+                            Icon(
+                                imageVector = Icons.Outlined.DateRange,
+                                contentDescription = "Date Picker Icon"
+                            )
                         }
                         Text(text = dates)
                     }
@@ -564,11 +583,14 @@ fun UpdateToDo(navController: NavController,
                         modifier = Modifier.padding(top = 10.dp)
                     )
                     OutlinedIconButton(onClick = {
-                        timesicon =!timesicon
+                        timesicon = !timesicon
                         clockstate.show()
-                    },modifier=Modifier.fillMaxWidth()) {
-                        if(!timesicon){
-                            Icon(imageVector = Icons.Outlined.Schedule, contentDescription = "Date Picker Icon")
+                    }, modifier = Modifier.fillMaxWidth()) {
+                        if (!timesicon) {
+                            Icon(
+                                imageVector = Icons.Outlined.Schedule,
+                                contentDescription = "Date Picker Icon"
+                            )
                         }
                         Text(text = time)
                     }
@@ -621,12 +643,16 @@ fun UpdateToDo(navController: NavController,
             ) {
                 Column(Modifier.weight(0.95F)) {
                     Button(
-                        onClick = {  },
+                        onClick = { },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
                         shape = RoundedCornerShape(8.dp)
                     ) {
-                        Text(text = "Invite people + ", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                        Text(
+                            text = "Invite people + ",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp
+                        )
                     }
                 }
                 Column(Modifier.weight(0.95F)) {
@@ -635,7 +661,16 @@ fun UpdateToDo(navController: NavController,
             }
             Button(
                 onClick = {
-                    todolistViewModel.updateTodolist(id, title,dates,time,selectedItem,description,location, navController )
+                    todolistViewModel.updateTodolist(
+                        id,
+                        title,
+                        dates,
+                        time,
+                        selectedItem,
+                        description,
+                        location,
+                        navController
+                    )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -647,6 +682,7 @@ fun UpdateToDo(navController: NavController,
             }
         }
     }
+//    Text(text = "halo")
 }
 
 @Composable
