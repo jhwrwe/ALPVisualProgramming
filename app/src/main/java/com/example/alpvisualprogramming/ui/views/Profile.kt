@@ -92,7 +92,7 @@ fun Profile(
                     modifier = Modifier
                         .zIndex(2f)
                         .fillMaxWidth()
-                        .fillMaxHeight(0.63F)
+                        .fillMaxHeight(0.57F)
                         .padding(top = 60.dp)
                         .shadow(
                             elevation = 17.dp,
@@ -282,8 +282,8 @@ fun Profile(
                             ) {
                                 LazyRow(
                                     modifier = Modifier
-                                        .padding(top = 20.dp)
-                                        .padding(bottom = 20.dp)
+                                        .padding(top = 30.dp)
+                                        .padding(bottom = 30.dp)
                                 ) {
                                     items(uBadges.size) { item ->
                                         badgess(
