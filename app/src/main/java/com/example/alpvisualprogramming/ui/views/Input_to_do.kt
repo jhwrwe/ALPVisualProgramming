@@ -614,30 +614,6 @@ fun UpdateToDo(
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
-            Row(
-                modifier = Modifier
-                    .padding(top = 20.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column(Modifier.weight(0.95F)) {
-                    Button(
-                        onClick = { },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(Color(0xFF3960E5)),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text(
-                            text = "Invite people + ",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 15.sp
-                        )
-                    }
-                }
-                Column(Modifier.weight(0.95F)) {
-
-                }
-            }
             Button(
                 onClick = {
                     todolistViewModel.updateTodolist(
