@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -54,11 +55,20 @@ fun SignInPageView(navController: NavController) {
                 .padding(start = 20.dp)
         ) {
             Text(
-                text = "Welcome to,\nApplication name",
+                text = "Welcome to,",
                 color = Color.White,
-                fontSize = 35.sp,
-                fontWeight = FontWeight.SemiBold,
+                fontSize = 25.sp,
+                fontWeight = FontWeight.Medium,
                 fontFamily = poppinsFamily,
+//                lineHeight = 25.sp
+            )
+            Text(
+                text = "DoNow",
+                color = Color.White,
+                fontSize = 60.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = poppinsFamily,
+                modifier = Modifier.offset(y = (-16).dp)
 //                lineHeight = 25.sp
             )
 //            Text(
@@ -75,12 +85,11 @@ fun SignInPageView(navController: NavController) {
                 .zIndex(2f)
                 .fillMaxWidth()
                 .height(200.dp)
-                .clip(RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp))
-                .border(2.dp, Color.Gray, RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp)),
+                .clip(RoundedCornerShape(0.dp, 64.dp, 0.dp, 0.dp)),
             colors = CardDefaults.cardColors(Color.White)
         ) {
             Text(
-                text = "Be more productive with '...' and start \nwriting your to-do list",
+                text = "Be more productive with DoNow and start \nwriting your to-do list",
                 color = Color(0xFF3F3F3F),
                 fontWeight = FontWeight.Medium,
                 fontSize = 15.sp,

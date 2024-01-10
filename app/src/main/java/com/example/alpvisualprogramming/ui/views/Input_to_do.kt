@@ -162,7 +162,7 @@ fun InputToDo(
             )
             Column() {
                 Text(
-                    text = "Category",
+                    text = "Urgency Status",
                     fontSize = 15.sp,
                     color = Color.Gray,
                     fontWeight = FontWeight.SemiBold,
@@ -318,7 +318,7 @@ fun InputToDo(
             customTextFielda(
                 value = description,
                 onValueChanged = { description = it },
-                text = "badadad",
+                text = "Give some description",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next

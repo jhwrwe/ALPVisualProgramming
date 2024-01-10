@@ -137,13 +137,13 @@ fun TodoListView(
         Text(
             text =
             if (GlobalVariable.urgency == 1) {
-                "Urgent and IMPORTANT! Do First"
+                "Urgent and important! Do First"
             } else if (GlobalVariable.urgency == 2) {
-                "Scheduleable, Second to Urgent Tasks"
+                "Scheduleable, you can do it later"
             } else if (GlobalVariable.urgency == 3) {
-                "Needed Right Now, but Not Very Important"
+                "Needed right now, but not very important"
             } else {
-                "!!DO THE OTHERS FIRST BEFORE THIS!!"
+                "Do the others, before this"
             },
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
@@ -275,13 +275,13 @@ fun TodoListDeadlineView(
         Text(
             text =
             if (title == "Today") {
-                "Do The Tasks TODAY!!"
+                "Do forget do your task today"
             } else if (title == "Tomorrow") {
-                "One Day Remaining! DON'T RUSH IT!!"
+                "One day remaining, don't rush it"
             } else if (title == "Someday") {
-                "Do This Now? Or Maybe SOMEDAY??"
+                "You should do it someday"
             } else {
-                "Godspeed My Friend... T_T"
+                "Your task was expired"
             },
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,

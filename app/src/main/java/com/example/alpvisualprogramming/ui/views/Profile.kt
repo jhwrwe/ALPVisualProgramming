@@ -170,11 +170,6 @@ fun Profile(
                                     .fillMaxWidth()
                                     .padding(10.dp)
                                     .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
-                                    .border(
-                                        0.dp,
-                                        Color.Gray,
-                                        RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
-                                    )
                                     .background(color = Color(0xFFF2F7FE))
                                     .padding(bottom = 10.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -274,11 +269,6 @@ fun Profile(
                                     .fillMaxWidth()
                                     .padding(10.dp)
                                     .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
-                                    .border(
-                                        0.dp,
-                                        Color.Gray,
-                                        RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
-                                    )
                                     .background(color = Color(0xFFF2F7FE)),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
@@ -320,7 +310,6 @@ fun Profile(
                         .padding(end = 15.dp)
                         .padding(top = 5.dp)
                         .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
-                        .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
                         .background(color = Color(0xFFF2F7FE))
                 ) {
                     Column(
@@ -379,7 +368,6 @@ fun Profile(
                         .padding(end = 15.dp)
                         .padding(top = 5.dp)
                         .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
-                        .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
                         .background(color = Color(0xFFF2F7FE))
                 ) {
                     Column(
@@ -437,7 +425,6 @@ fun Profile(
                         .padding(end = 15.dp)
                         .padding(top = 5.dp)
                         .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
-                        .border(0.dp, Color.Gray, RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
                         .background(color = Color(0xFFF2F7FE))
                 ) {
                     Column(

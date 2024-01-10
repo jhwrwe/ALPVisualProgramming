@@ -127,24 +127,24 @@ Log.d("HomePage", "")
                 LazyRow(
                     content = {
                         item {
-                            ColoredCard("Schedule", "Points", Color(0xFF00CD00)) {
+                            ColoredCard("Do First", "Points", Color(0xFF00CD00)) {
                                 todolistViewModel.getTodolistByUrgency(1, navController)
                             }
                         }
                         item {
-                            ColoredCard("Meetings", "Agenda", Color(0xFF007AFF))
+                            ColoredCard("Schedule", "Points", Color(0xFF007AFF))
                             {
                                 todolistViewModel.getTodolistByUrgency(2, navController)
                             }
                         }
                         item {
-                            ColoredCard("Tasks", "Progress", Color(0xFFDB8901))
+                            ColoredCard("Delegate", "Points", Color(0xFFDB8901))
                             {
                                 todolistViewModel.getTodolistByUrgency(3, navController)
                             }
                         }
                         item {
-                            ColoredCard("Events", "Details", Color(0xFFDF013A)) {
+                            ColoredCard("Eliminate", "Points", Color(0xFFDF013A)) {
                                 todolistViewModel.getTodolistByUrgency(4, navController)
                             }
                         }
